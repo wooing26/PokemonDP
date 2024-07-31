@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\00. MainGame">
+      <UniqueIdentifier>{9042b31c-ccd5-4e41-a2ae-e91b66a9d503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01. Manager">
+      <UniqueIdentifier>{b24308f4-c5c2-4f96-a586-d77b3da9027e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Scene">
+      <UniqueIdentifier>{0d41ee69-e42e-4405-b460-4e476daa7b9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Objects">
+      <UniqueIdentifier>{3abd6e69-8807-4b5e-b8f0-a2e60c6c5e6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Headers">
+      <UniqueIdentifier>{cc8cf0f4-44b9-4b0c-ad9d-4fe594ca0437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Headers\Default">
+      <UniqueIdentifier>{cdb906bf-e70f-4e75-8458-bf183c6c8d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\06. UI">
+      <UniqueIdentifier>{6f1c82fe-3175-4de1-9ce9-cc050334cf0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Resources">
+      <UniqueIdentifier>{42415aed-1bc0-4207-87dd-171ea005a80c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\05. Component">
+      <UniqueIdentifier>{25502921-0f08-4e85-97cf-4f2404c3117d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02. Scene\Game">
+      <UniqueIdentifier>{1e6c5047-b8cb-4558-afb2-a9eb07d0ba34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Objects\Game">
+      <UniqueIdentifier>{4f2e344a-7202-4b1e-b01e-be6af2f3812a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04. Resources\Paper2D">
+      <UniqueIdentifier>{3acfb4ca-e43e-434b-87df-20ef39b489e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03. Objects\Actor">
+      <UniqueIdentifier>{c288fab6-77d5-4c16-9889-cdc84a43ee2a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h">
+      <Filter>소스 파일\00. MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>소스 파일\99. Headers\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>소스 파일\99. Headers\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>소스 파일\99. Headers\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>소스 파일\00. MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>소스 파일\01. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>소스 파일\01. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>소스 파일\01. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>소스 파일\02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Values.h">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>소스 파일\06. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleScene.h">
+      <Filter>소스 파일\02. Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>소스 파일\01. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceBase.h">
+      <Filter>소스 파일\04. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>소스 파일\04. Resources\Paper2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>소스 파일\04. Resources\Paper2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>소스 파일\03. Objects\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteActor.h">
+      <Filter>소스 파일\03. Objects\Actor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Client.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="poketmon_icon.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client.cpp">
+      <Filter>소스 파일\00. MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>소스 파일\00. MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>소스 파일\01. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>소스 파일\01. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\01. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>소스 파일\02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>소스 파일\06. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleScene.cpp">
+      <Filter>소스 파일\02. Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>소스 파일\01. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceBase.cpp">
+      <Filter>소스 파일\04. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>소스 파일\04. Resources\Paper2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>소스 파일\04. Resources\Paper2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>소스 파일\03. Objects\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteActor.cpp">
+      <Filter>소스 파일\03. Objects\Actor</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
