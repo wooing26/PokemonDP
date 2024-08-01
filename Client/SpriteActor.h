@@ -17,6 +17,6 @@ public:
 	void			SetSprite(Sprite* sprite) { _sprite = sprite; }
 
 private:
-	Sprite*	_sprite = nullptr;
+	Sprite*			_sprite = nullptr;
 };
 
