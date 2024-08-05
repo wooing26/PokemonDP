@@ -62,5 +62,5 @@ void Game::Render()
 
 	// Double Buffering
 	::BitBlt(hdc, 0, 0, _rect.right, _rect.bottom, hdcBack, 0, 0, SRCCOPY);		// 비트 블릿 : 고속 복사
-	::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS);				// hdcBack을 흰식으로 만들어 줌
+	::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, BLACKNESS);				// hdcBack을 흰식으로 만들어 줌
 }
