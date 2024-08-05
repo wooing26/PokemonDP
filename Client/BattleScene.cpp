@@ -29,32 +29,39 @@ void BattleScene::Init()
 
 	{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Battle_DryWater");
+		Vec2Int size = GetMainScreenSize();
 
 		SpriteActor* background = new SpriteActor();
 		background->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
-		background->SetPos(Vec2{ GWinSizeX / 4, GWinSizeY / 2 });
+		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2});
+		background->SetRenderSize(size);
 		AddActor(background);
 	}
 
 	{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"TS_Battle");
+		Vec2Int size = GetTouchScreenSize();
+		Vec2Int pos = GetMainScreenSize();
 
 		SpriteActor* background = new SpriteActor();
 		background->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
-		background->SetPos(Vec2{ GWinSizeX * 3 / 4, GWinSizeY / 2 });
+		background->SetPos(Vec2{ (float)pos.x + size.x / 2, (float)size.y / 2});
+		background->SetRenderSize(size);
 		AddActor(background);
 	}
 
 	{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"001_Bulbasaur");
 		Vec2Int size = sprite->GetSize();
+		size *= 3;
 
 		SpriteActor* pokemon = new SpriteActor();
 		pokemon->SetSprite(sprite);
 		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos(Vec2{ 500, GWinSizeY / 2 });
+		pokemon->SetPos(Vec2{ (float)size.x / 2, (float)GetMainScreenSize().y - size.y / 2});
+		pokemon->SetRenderSize(size);
 		AddActor(pokemon);
 	}
 }

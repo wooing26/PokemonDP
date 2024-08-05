@@ -37,10 +37,10 @@ void SpriteActor::Render(HDC hdc)
 		SRCCOPY);*/
 
 	::StretchBlt(hdc,
-		_pos.x - GWinSizeX / 4,
-		_pos.y - GWinSizeY / 2,
-		size.x * 4,
-		size.y * 4,
+		_pos.x - _renderSize.x / 2,
+		_pos.y - _renderSize.y / 2,
+		_renderSize.x,
+		_renderSize.y,
 		_sprite->GetDC(),
 		_sprite->GetPos().x,
 		_sprite->GetPos().y,

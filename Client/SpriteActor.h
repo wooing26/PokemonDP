@@ -16,7 +16,11 @@ public:
 
 	void			SetSprite(Sprite* sprite) { _sprite = sprite; }
 
+	void			SetRenderSize(Vec2Int renderSize) { _renderSize = renderSize; }
+	const Vec2Int&	GetRenderSize() { return _renderSize; }
+
 private:
 	Sprite*			_sprite = nullptr;
+	Vec2Int			_renderSize = {};
 };
 
