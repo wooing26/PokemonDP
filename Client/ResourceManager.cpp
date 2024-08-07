@@ -29,7 +29,7 @@ Texture* ResourceManager::LoadTexture(const std::wstring& key, const std::wstrin
 
 	fs::path fullpath = _resourcePath / path;
 	Texture* texture = new Texture();
-	texture->LoadBmp(_hwnd, fullpath.c_str());
+	texture->LoadPng(_hwnd, fullpath.c_str());
 	texture->SetTransparent(transparent);
 	_textures[key] = texture;
 
