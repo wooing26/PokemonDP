@@ -22,7 +22,7 @@ void ResourceManager::Clear()
 	_textures.clear();
 }
 
-Texture* ResourceManager::LoadTexture(const wstring& key, const wstring& path, uint32 transparent)
+Texture* ResourceManager::LoadTexture(const std::wstring& key, const std::wstring& path, uint32 transparent)
 {
 	if (_textures.find(key) != _textures.end())
 		return _textures[key];
@@ -36,7 +36,7 @@ Texture* ResourceManager::LoadTexture(const wstring& key, const wstring& path, u
 	return texture;
 }
 
-Sprite* ResourceManager::CreateSprite(const wstring& key, Texture* texture, int32 x, int32 y, int32 cx, int32 cy)
+Sprite* ResourceManager::CreateSprite(const std::wstring& key, Texture* texture, int32 x, int32 y, int32 cx, int32 cy)
 {
 	if (_sprites.find(key) != _sprites.end())
 		return _sprites[key];

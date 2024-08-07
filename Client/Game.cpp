@@ -52,11 +52,11 @@ void Game::Render()
 
 	{
 		POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();		
-		wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
+		std::wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
 		Utils::DrawText(hdcBack, Vec2Int(10, 10), str);
 	}
 	{
-		wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
+		std::wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
 		Utils::DrawText(hdcBack, Vec2Int(550, 10), str);
 	}
 

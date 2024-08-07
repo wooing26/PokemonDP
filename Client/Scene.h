@@ -24,10 +24,10 @@ public:
 
 
 private:
-	vector<Actor*>	_actors[LAYER_MAXCOUNT];
-	vector<UI*>		_uis;
+	std::vector<Actor*>		_actors[LAYER_MAXCOUNT];
+	std::vector<UI*>		_uis;
 
-	Vec2Int			_mainScreenSize = {MainSizeX * 3, MainSizeY * 3};
-	Vec2Int			_touchScreenSize = {TouchSizeX * 2, TouchSizeY * 2};
+	Vec2Int					_mainScreenSize = {MainSizeX * 3, MainSizeY * 3};
+	Vec2Int					_touchScreenSize = {TouchSizeX * 2, TouchSizeY * 2};
 };
 

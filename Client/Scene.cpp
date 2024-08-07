@@ -10,7 +10,7 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	for (const vector<Actor*>& actors : _actors)
+	for (const std::vector<Actor*>& actors : _actors)
 		for (Actor* actor : actors)
 			SAFE_DELETE(actor);
 	
@@ -24,7 +24,7 @@ Scene::~Scene()
 
 void Scene::Init()
 {
-	for (const vector<Actor*>& actors : _actors)
+	for (const std::vector<Actor*>& actors : _actors)
 		for (Actor* actor : actors)
 			actor->BeginPlay();
 
@@ -34,7 +34,7 @@ void Scene::Init()
 
 void Scene::Update()
 {
-	for (const vector<Actor*>& actors : _actors)
+	for (const std::vector<Actor*>& actors : _actors)
 		for (Actor* actor : actors)
 			actor->Tick();
 
@@ -44,7 +44,7 @@ void Scene::Update()
 
 void Scene::Render(HDC hdc)
 {
-	for (const vector<Actor*>& actors : _actors)
+	for (const std::vector<Actor*>& actors : _actors)
 		for (Actor* actor : actors)
 			actor->Render(hdc);
 
@@ -65,6 +65,6 @@ void Scene::RemoveActor(Actor* actor)
 	if (actor == nullptr)
 		return;
 
-	vector<Actor*>& v = _actors[actor->GetLayer()];
+	std::vector<Actor*>& v = _actors[actor->GetLayer()];
 	v.erase(std::remove(v.begin(), v.end(), actor), v.end());
 }

@@ -8,7 +8,7 @@ public:
 	virtual ~Texture();
 
 public:
-	Texture*	LoadBmp(HWND hwnd, const wstring& path);
+	Texture*	LoadBmp(HWND hwnd, const std::wstring& path);
 	HDC			GetDC() { return _hdc; }
 
 	void		SetSize(Vec2Int size) { _size = size; }

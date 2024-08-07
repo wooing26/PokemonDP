@@ -18,7 +18,7 @@
 #include <algorithm>
 #include <functional>
 #include <queue>
-using namespace std;
+// using namespace std;
 
 // C++20
 #include <format>
@@ -31,3 +31,6 @@ namespace fs = std::filesystem;
 
 // TransparentBlt
 #pragma comment(lib, "msimg32.lib")
+
+#include <gdiplus.h>
+#pragma comment (lib,"Gdiplus.lib")

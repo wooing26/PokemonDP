@@ -63,8 +63,8 @@ private:
 	KeyState	GetState(KeyType key) { return _states[static_cast<uint8>(key)]; }
 
 private:
-	HWND				_hwnd = 0;
-	vector<KeyState>	_states;
-	POINT				_mousePos;
+	HWND					_hwnd = 0;
+	std::vector<KeyState>	_states;
+	POINT					_mousePos;
 };
 

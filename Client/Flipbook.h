@@ -5,14 +5,14 @@ class Texture;
 
 struct FlipbookInfo
 {
-	Texture*	texture = nullptr;
-	wstring		name;
-	Vec2Int		size = {};
-	int32		start = 0;
-	int32		end = 0;
-	int32		line = 0;
-	float		duration = 1.f;
-	bool		loop = true;
+	Texture*			texture = nullptr;
+	std::wstring		name;
+	Vec2Int				size = {};
+	int32				start = 0;
+	int32				end = 0;
+	int32				line = 0;
+	float				duration = 1.f;
+	bool				loop = true;
 };
 
 class Flipbook : public ResourceBase

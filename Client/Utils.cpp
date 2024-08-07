@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Utils.h"
 
-void Utils::DrawText(HDC hdc, Vec2Int pos, const wstring& str)
+void Utils::DrawText(HDC hdc, Vec2Int pos, const std::wstring& str)
 {
 	::TextOut(hdc, pos.x, pos.y, str.c_str(), static_cast<int32>(str.size()));
 }

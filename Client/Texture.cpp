@@ -9,7 +9,7 @@ Texture::~Texture()
 {
 }
 
-Texture* Texture::LoadBmp(HWND hwnd, const wstring& path)
+Texture* Texture::LoadBmp(HWND hwnd, const std::wstring& path)
 {
 	HDC hdc = ::GetDC(hwnd);
 

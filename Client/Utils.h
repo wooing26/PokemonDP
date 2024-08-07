@@ -1,12 +1,11 @@
 #pragma once
 #include <windows.h>
 #include <string>
-using namespace std;
 
 class Utils
 {
 public:
-	static void DrawText(HDC hdc, Vec2Int pos, const wstring& str);
+	static void DrawText(HDC hdc, Vec2Int pos, const std::wstring& str);
 
 	static void DrawRect(HDC hdc, Vec2Int pos, int32 w, int32 h);
 

@@ -9,10 +9,10 @@ ResourceBase::~ResourceBase()
 {
 }
 
-void ResourceBase::LoadFile(const wstring& path)
+void ResourceBase::LoadFile(const std::wstring& path)
 {
 }
 
-void ResourceBase::SaveFile(const wstring& path)
+void ResourceBase::SaveFile(const std::wstring& path)
 {
 }
