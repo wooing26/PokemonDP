@@ -18,7 +18,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
-{
+{   
     // 윈도우 정보 등록
     MyRegisterClass(hInstance);
 
@@ -27,6 +27,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
+
+    ULONG_PTR gdiToken;
+    Gdiplus::GdiplusStartupInput gdiStartupInput;
+
+    if (Gdiplus::GdiplusStartup(&gdiToken, &gdiStartupInput, NULL) != Gdiplus::Ok)
+        return FALSE;
 
     Game game;
     game.Init(g_hWnd);
@@ -50,6 +56,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+    Gdiplus::GdiplusShutdown(gdiToken);
     return (int) msg.wParam;
 }
 
