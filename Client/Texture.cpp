@@ -39,17 +39,17 @@ Texture* Texture::LoadPng(HWND hwnd, const std::wstring& path)
 
 	_hdc = ::CreateCompatibleDC(hdc);
 
-	Gdiplus::Image* image = Gdiplus::Image::FromFile(path.c_str());
+	_image = Gdiplus::Image::FromFile(path.c_str());
 
-	if (image == NULL)
+	if (_image == NULL)
 	{
 		::MessageBox(hwnd, path.c_str(), L"Image Load Failed", NULL);
 	}
 
-	_size.x = image->GetWidth();
-	_size.y = image->GetHeight();
+	_size.x = _image->GetWidth();
+	_size.y = _image->GetHeight();
 
-	Gdiplus::Bitmap* bitmap = static_cast<Gdiplus::Bitmap*>(image);
+	Gdiplus::Bitmap* bitmap = static_cast<Gdiplus::Bitmap*>(_image);
 	bitmap->GetHBITMAP(Gdiplus::Color(0, 0, 0), &_bitmap);
 	HBITMAP prev = (HBITMAP)::SelectObject(_hdc, _bitmap);
 	::DeleteObject(prev);

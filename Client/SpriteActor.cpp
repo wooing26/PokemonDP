@@ -36,7 +36,7 @@ void SpriteActor::Render(HDC hdc)
 		_sprite->GetPos().y,
 		SRCCOPY);*/
 
-	::StretchBlt(hdc,
+	/*::StretchBlt(hdc,
 		_pos.x - _renderSize.x / 2,
 		_pos.y - _renderSize.y / 2,
 		_renderSize.x,
@@ -46,5 +46,16 @@ void SpriteActor::Render(HDC hdc)
 		_sprite->GetPos().y,
 		size.x,
 		size.y,
-		SRCCOPY);
+		SRCCOPY);*/
+
+	Gdiplus::Graphics graphics(hdc);
+	Gdiplus::Rect destinationRect(_pos.x - _renderSize.x / 2, _pos.y - _renderSize.y / 2, _renderSize.x, _renderSize.y);
+	graphics.DrawImage(
+		_sprite->GetImage(),
+		destinationRect,
+		_sprite->GetPos().x,
+		_sprite->GetPos().y,
+		size.x,
+		size.y,
+		Gdiplus::UnitPixel);
 }
