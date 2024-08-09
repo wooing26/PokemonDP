@@ -3,8 +3,10 @@
 #include "ResourceManager.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "Flipbook.h"
 #include "Actor.h"
 #include "SpriteActor.h"
+#include "FlipbookActor.h"
 
 BattleScene::BattleScene()
 {
@@ -26,6 +28,7 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_Battle", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 307, 410, 256, 192);
 	
 	GET_SINGLE(ResourceManager)->CreateSprite(L"001_Bulbasaur", GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st"), 1 * 3 + 80 * 2, 33 + 1, 80, 80);
+	
 
 	{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Battle_DryWater");
@@ -53,16 +56,9 @@ void BattleScene::Init()
 	}
 
 	{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"001_Bulbasaur");
-		Vec2Int size = sprite->GetSize();
-		size *= 3;
-
-		SpriteActor* pokemon = new SpriteActor();
-		pokemon->SetSprite(sprite);
-		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos(Vec2{ (float)size.x / 2, (float)GetMainScreenSize().y - size.y / 2});
-		pokemon->SetRenderSize(size);
-		AddActor(pokemon);
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"001_Bulbasaur");
+		fb->SetInfo({ texture, L"001_Bulbasaur", {80, 80}, 0, 0, 0, 0, false });
 	}
 }
 
