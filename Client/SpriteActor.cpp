@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
+#include "InputManager.h"
 
 SpriteActor::SpriteActor()
 {
@@ -18,6 +19,15 @@ void SpriteActor::BeginPlay()
 void SpriteActor::Tick()
 {
 	Super::Tick();
+
+	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::W))
+		_pos.y--;
+	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::S))
+		_pos.y++;
+	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::A))
+		_pos.x--;
+	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::D))
+		_pos.x++;
 }
 
 void SpriteActor::Render(HDC hdc)

@@ -7,6 +7,7 @@ Texture::Texture()
 
 Texture::~Texture()
 {
+	
 }
 
 Texture* Texture::LoadBmp(HWND hwnd, const std::wstring& path)
@@ -35,9 +36,9 @@ Texture* Texture::LoadBmp(HWND hwnd, const std::wstring& path)
 
 Texture* Texture::LoadPng(HWND hwnd, const std::wstring& path)
 {
-	HDC hdc = ::GetDC(hwnd);
+	/*HDC hdc = ::GetDC(hwnd);
 
-	_hdc = ::CreateCompatibleDC(hdc);
+	_hdc = ::CreateCompatibleDC(hdc);*/
 
 	_image = Gdiplus::Image::FromFile(path.c_str());
 
@@ -49,10 +50,10 @@ Texture* Texture::LoadPng(HWND hwnd, const std::wstring& path)
 	_size.x = _image->GetWidth();
 	_size.y = _image->GetHeight();
 
-	Gdiplus::Bitmap* bitmap = static_cast<Gdiplus::Bitmap*>(_image);
+	/*Gdiplus::Bitmap* bitmap = static_cast<Gdiplus::Bitmap*>(_image);
 	bitmap->GetHBITMAP(Gdiplus::Color(0, 0, 0), &_bitmap);
 	HBITMAP prev = (HBITMAP)::SelectObject(_hdc, _bitmap);
-	::DeleteObject(prev);
+	::DeleteObject(prev);*/
 
 	return this;
 }

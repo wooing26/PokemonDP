@@ -20,6 +20,11 @@ void ResourceManager::Clear()
 		SAFE_DELETE(item.second);
 
 	_textures.clear();
+
+	for (auto& item : _sprites)
+		SAFE_DELETE(item.second);
+
+	_sprites.clear();
 }
 
 Texture* ResourceManager::LoadTexture(const std::wstring& key, const std::wstring& path, uint32 transparent)

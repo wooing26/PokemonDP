@@ -41,6 +41,8 @@ void SceneManager::ChangeScene(SceneType sceneType)
 		break;
 	}
 
+	SAFE_DELETE(_scene);
+
 	_scene = newScene;
 	_sceneType = sceneType;
 
