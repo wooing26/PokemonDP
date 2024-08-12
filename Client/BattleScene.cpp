@@ -22,6 +22,7 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"BattleBG", L"Sprite\\Background\\Battle Backgrounds.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"TouchScreen", L"Sprite\\Background\\Touch Screen Backgrounds.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Pokemon_1st", L"Sprite\\Pokemon\\Pokemon 1st Generation.png", RGB(147, 187, 236));
+	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasDown", L"Sprite\\Player\\LucasDown.bmp");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Battle_DryWater", GET_SINGLE(ResourceManager)->GetTexture(L"BattleBG"), 0, 0, 256, 144);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_DiamondOpening", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 46, 16, 256, 192);
@@ -54,7 +55,17 @@ void BattleScene::Init()
 		background->SetRenderSize(size);
 		AddActor(background);
 	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasDown");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LIdleDown");
+		fb->SetInfo({ texture, L"FB_LIdleDown", {32, 32}, 0, 4, 0, 0.5f });
 
+		FlipbookActor* player = new FlipbookActor();
+		player->SetFlipbook(fb);
+		player->SetLayer(LAYER_OBJECT);
+		player->SetPos(Vec2{ 100, 100 });
+		AddActor(player);
+	}
 	
 }
 

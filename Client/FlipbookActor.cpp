@@ -51,7 +51,7 @@ void FlipbookActor::Render(HDC hdc)
 
 	const FlipbookInfo& info = _flipbook->GetInfo();
 
-	/*BLENDFUNCTION bf;
+	BLENDFUNCTION bf;
 	bf.BlendOp = AC_SRC_OVER;
 	bf.BlendFlags = 0;
 	bf.SourceConstantAlpha = 255;
@@ -67,8 +67,8 @@ void FlipbookActor::Render(HDC hdc)
 		info.line * info.size.y,
 		info.size.x,
 		info.size.y,
-		bf);*/
-	::TransparentBlt(hdc,
+		bf);
+	/*::TransparentBlt(hdc,
 		_pos.x - info.size.x / 2,
 		_pos.y - info.size.y / 2,
 		info.size.x,
@@ -78,7 +78,7 @@ void FlipbookActor::Render(HDC hdc)
 		info.line * info.size.y,
 		info.size.x,
 		info.size.y,
-		info.texture->GetTransparent());
+		info.texture->GetTransparent());*/
 }
 
 void FlipbookActor::Reset()
