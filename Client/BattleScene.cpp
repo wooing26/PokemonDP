@@ -25,6 +25,7 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasDown", L"Sprite\\Player\\LucasDown.bmp");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Battle_DryWater", GET_SINGLE(ResourceManager)->GetTexture(L"BattleBG"), 0, 0, 256, 144);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Battle_Land", GET_SINGLE(ResourceManager)->GetTexture(L"BattleBG"), 800, 0, 256, 144);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_DiamondOpening", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 46, 16, 256, 192);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_Battle", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 307, 410, 256, 192);
 	
@@ -39,6 +40,17 @@ void BattleScene::Init()
 		background->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
 		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2});
+		background->SetRenderSize(size);
+		AddActor(background);
+	}
+	{
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Battle_Land");
+		Vec2Int size = GetMainScreenSize();
+
+		SpriteActor* background = new SpriteActor();
+		background->SetSprite(sprite);
+		background->SetLayer(LAYER_BACKGROUND);
+		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
 		background->SetRenderSize(size);
 		AddActor(background);
 	}
@@ -58,13 +70,26 @@ void BattleScene::Init()
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasDown");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LIdleDown");
-		fb->SetInfo({ texture, L"FB_LIdleDown", {32, 32}, 0, 4, 0, 0.5f });
+		fb->SetInfo({ texture, L"FB_LIdleDown", {32, 32}, 0, 3, 0, 0.5f });
 
 		FlipbookActor* player = new FlipbookActor();
 		player->SetFlipbook(fb);
 		player->SetLayer(LAYER_OBJECT);
 		player->SetPos(Vec2{ 100, 100 });
 		AddActor(player);
+	}
+	{
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"001_Bulbasaur");
+		Vec2Int size = sprite->GetSize();
+		Vec2Int pos = GetMainScreenSize();
+
+		size *= 3;
+		SpriteActor* pokemon = new SpriteActor();
+		pokemon->SetSprite(sprite);
+		pokemon->SetLayer(LAYER_OBJECT);
+		pokemon->SetPos(Vec2{ (float)size.x / 2, pos.y - (float)size.y / 2 });
+		pokemon->SetRenderSize(size);
+		AddActor(pokemon);
 	}
 	
 }

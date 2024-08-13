@@ -122,6 +122,9 @@
     <ClInclude Include="Flipbook.h">
       <Filter>소스 파일\04. Resources\Paper2D</Filter>
     </ClInclude>
+    <ClInclude Include="FlipbookActor.h">
+      <Filter>소스 파일\03. Objects\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="Flipbook.cpp">
       <Filter>소스 파일\04. Resources\Paper2D</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipbookActor.cpp">
+      <Filter>소스 파일\03. Objects\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
