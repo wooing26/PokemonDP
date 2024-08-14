@@ -21,15 +21,18 @@ void BattleScene::Init()
 	Super::Init();
 	GET_SINGLE(ResourceManager)->LoadTexture(L"BattleBG", L"Sprite\\Background\\Battle Backgrounds.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"TouchScreen", L"Sprite\\Background\\Touch Screen Backgrounds.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Celadon_City", L"Sprite\\Background\\Celadon City.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Pokemon_1st", L"Sprite\\Pokemon\\Pokemon 1st Generation.png", Gdiplus::Color(147, 187, 236));
 	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasDown", L"Sprite\\Player\\LucasDown.bmp");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Battle_DryWater", GET_SINGLE(ResourceManager)->GetTexture(L"BattleBG"), 0, 0, 256, 144);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Celadon_City", GET_SINGLE(ResourceManager)->GetTexture(L"Celadon_City"), 200, 20, 256, 144);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Battle_Land", GET_SINGLE(ResourceManager)->GetTexture(L"BattleBG"), 800, 0, 256, 144);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_DiamondOpening", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 46, 16, 256, 192);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_Battle", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 307, 410, 256, 192);
 	
-	GET_SINGLE(ResourceManager)->CreateSprite(L"001_Bulbasaur", GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st"), 1 * 3 + 80 * 2, 33 + 1, 80, 80);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"001_Bulbasaur", GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st"), 1 * 3 + 80 * 2, 33 + 1, 80, 80 - 1);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"006_Charizard", GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st"), 1 * 19 + 80 * 18, 33 + 1, 80, 80 - 1);
 	
 
 	{
@@ -87,7 +90,20 @@ void BattleScene::Init()
 		SpriteActor* pokemon = new SpriteActor();
 		pokemon->SetSprite(sprite);
 		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos(Vec2{ (float)size.x / 2, pos.y - (float)size.y / 2 });
+		pokemon->SetPos(Vec2{ (float)size.x / 2, pos.y - (float)size.y / 2});
+		pokemon->SetRenderSize(size);
+		AddActor(pokemon);
+	}
+	{
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"006_Charizard");
+		Vec2Int size = sprite->GetSize();
+		Vec2Int pos = GetMainScreenSize();
+
+		size *= 3;
+		SpriteActor* pokemon = new SpriteActor();
+		pokemon->SetSprite(sprite);
+		pokemon->SetLayer(LAYER_OBJECT);
+		pokemon->SetPos(Vec2{ (float) pos.x - size.x / 2 - 60,(float)size.y / 2  + 30});
 		pokemon->SetRenderSize(size);
 		AddActor(pokemon);
 	}
