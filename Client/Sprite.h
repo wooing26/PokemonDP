@@ -11,7 +11,7 @@ public:
 
 	HDC				GetDC();
 	Gdiplus::Image* GetImage();
-	int32			GetTransparent();
+	Gdiplus::Color	GetTransparent();
 	Vec2Int			GetPos() { return Vec2Int{ _x, _y }; }
 	Vec2Int			GetSize() { return Vec2Int{ _cx, _cy }; }
 

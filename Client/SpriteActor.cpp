@@ -61,8 +61,8 @@ void SpriteActor::Render(HDC hdc)
 	Gdiplus::ImageAttributes imgAtt = {};
 
 	// 투명화 색 범위
-	uint32 transparent = _sprite->GetTransparent();
-	imgAtt.SetColorKey(Gdiplus::Color(147, 187, 236), Gdiplus::Color(147, 187, 236));
+	Gdiplus::Color transparent = _sprite->GetTransparent();
+	imgAtt.SetColorKey(transparent, transparent);
 
 	Gdiplus::Graphics graphics(hdc);
 	Gdiplus::Rect destinationRect(_pos.x - _renderSize.x / 2, _pos.y - _renderSize.y / 2, _renderSize.x, _renderSize.y);

@@ -16,14 +16,14 @@ public:
 	void			SetSize(Vec2Int size) { _size = size; }
 	Vec2Int			GetSize() { return _size; }
 
-	void			SetTransparent(uint32 transparent) { _transparent = transparent; }
-	uint32			GetTransparent() { return _transparent; }
+	void			SetTransparent(Gdiplus::Color transparent) { _transparent = transparent; }
+	Gdiplus::Color	GetTransparent() { return _transparent; }
 
 private:
 	HDC					_hdc = {};
 	HBITMAP				_bitmap = {};
 	Gdiplus::Image*		_image = nullptr;
 	Vec2Int				_size = {};
-	uint32				_transparent = RGB(255, 0, 255);
+	Gdiplus::Color		_transparent = Gdiplus::Color(147, 187, 236);
 };
 

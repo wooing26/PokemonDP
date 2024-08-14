@@ -17,7 +17,7 @@ public:
 	const fs::path&		GetResourcePath() { return _resourcePath; }
 
 	Texture*			GetTexture(const std::wstring& key) { return _textures[key]; }
-	Texture*			LoadTexture(const std::wstring& key, const std::wstring& path, uint32 transparent = RGB(255, 0, 255));
+	Texture*			LoadTexture(const std::wstring& key, const std::wstring& path, Gdiplus::Color transparent = Gdiplus::Color(255, 0, 255));
 
 	Sprite*				GetSprite(const std::wstring& key) { return _sprites[key]; }
 	Sprite*				CreateSprite(const std::wstring& key, Texture* texture, int32 x = 0, int32 y = 0, int32 cx = 0, int32 cy = 0);
