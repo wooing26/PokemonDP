@@ -22,7 +22,7 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"BattleBG", L"Sprite\\Background\\Battle Backgrounds.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"TouchScreen", L"Sprite\\Background\\Touch Screen Backgrounds.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Celadon_City", L"Sprite\\Background\\Celadon City.png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"Pokemon_1st", L"Sprite\\Pokemon\\Pokemon 1st Generation.png", Gdiplus::Color(147, 187, 236));
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Pokemon_1st", L"Sprite\\Pokemon\\Pokemon_Gen1.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasDown", L"Sprite\\Player\\LucasDown.bmp");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Battle_DryWater", GET_SINGLE(ResourceManager)->GetTexture(L"BattleBG"), 0, 0, 256, 144);
@@ -31,8 +31,7 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_DiamondOpening", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 46, 16, 256, 192);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_Battle", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 307, 410, 256, 192);
 	
-	GET_SINGLE(ResourceManager)->CreateSprite(L"001_Bulbasaur", GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st"), 1 * 3 + 80 * 2, 33 + 1, 80, 80 - 1);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"006_Charizard", GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st"), 1 * 19 + 80 * 18, 33 + 1, 80, 80 - 1);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"006_Charizard", GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st"), 80 * 3 * 6, 0, 80, 80);
 	
 
 	{
@@ -78,33 +77,29 @@ void BattleScene::Init()
 		FlipbookActor* player = new FlipbookActor();
 		player->SetFlipbook(fb);
 		player->SetLayer(LAYER_OBJECT);
-		player->SetPos(Vec2{ 100, 100 });
+		player->SetPos(Vec2{ 1025, 150 });
 		AddActor(player);
 	}
 	{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"001_Bulbasaur");
-		Vec2Int size = sprite->GetSize();
-		Vec2Int pos = GetMainScreenSize();
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"001_Bulbasaur");
+		fb->SetInfo({ texture, L"001_Bulbasaur", {80, 80}, 2, 2, 0, 0.f, false });
 
-		size *= 3;
-		SpriteActor* pokemon = new SpriteActor();
-		pokemon->SetSprite(sprite);
+		FlipbookActor* pokemon = new FlipbookActor();
+		pokemon->SetFlipbook(fb);
 		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos(Vec2{ (float)size.x / 2, pos.y - (float)size.y / 2});
-		pokemon->SetRenderSize(size);
+		pokemon->SetPos(_myPos + Vec2{40, -40} * 3);
 		AddActor(pokemon);
 	}
 	{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"006_Charizard");
-		Vec2Int size = sprite->GetSize();
-		Vec2Int pos = GetMainScreenSize();
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"006_Charizard");
+		fb->SetInfo({ texture, L"006_Charizard", {80, 80}, (7 - 1) * 3, (7 - 1) * 3, 0, 0.f, false});
 
-		size *= 3;
-		SpriteActor* pokemon = new SpriteActor();
-		pokemon->SetSprite(sprite);
+		FlipbookActor* pokemon = new FlipbookActor();
+		pokemon->SetFlipbook(fb);
 		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos(Vec2{ (float) pos.x - size.x / 2 - 60,(float)size.y / 2  + 30});
-		pokemon->SetRenderSize(size);
+		pokemon->SetPos(_enemyPos + Vec2{ -40, 40 } * 3);
 		AddActor(pokemon);
 	}
 	

@@ -54,14 +54,14 @@ void FlipbookActor::Render(HDC hdc)
 	BLENDFUNCTION bf;
 	bf.BlendOp = AC_SRC_OVER;
 	bf.BlendFlags = 0;
-	bf.SourceConstantAlpha = 255;
+	bf.SourceConstantAlpha = 255;	// 0(투명) ~ 255(불투명)
 	bf.AlphaFormat = AC_SRC_ALPHA;
 
 	::AlphaBlend(hdc,
-		_pos.x - info.size.x / 2,
-		_pos.y - info.size.y / 2,
-		info.size.x,
-		info.size.y,
+		_pos.x - (info.size.x * 3) / 2,
+		_pos.y - (info.size.y * 3) / 2,
+		info.size.x * 3,
+		info.size.y * 3,
 		info.texture->GetDC(),
 		(info.start + _idx) * info.size.x,
 		info.line * info.size.y,
