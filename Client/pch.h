@@ -33,4 +33,11 @@ namespace fs = std::filesystem;
 #pragma comment(lib, "msimg32.lib")
 
 #include <gdiplus.h>
-#pragma comment (lib,"Gdiplus.lib")
+#pragma comment(lib,"Gdiplus.lib")
+
+// Direct2D
+#include <d2d1.h>
+#include <d2d1helper.h>
+#include <dwrite.h>
+#include <wincodec.h>
+#pragma comment(lib, "D2D1.lib")

@@ -2,6 +2,7 @@
 #include "framework.h"
 #include "Client.h"
 #include "Game.h"
+#include "Graphic.h"
 
 #define MAX_LOADSTRING 100
 
@@ -37,6 +38,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Game game;
     game.Init(g_hWnd);
 
+    Graphic graphic;
+    graphic.Init(g_hWnd);
+
     MSG msg = {};
 
     // 메인 루프
@@ -49,10 +53,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            {
+            /*{
                 game.Update();
                 game.Render();
-            }
+            }*/
+            graphic.Render();
         }
     }
 
@@ -160,6 +165,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+    
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

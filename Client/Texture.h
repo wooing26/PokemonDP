@@ -25,5 +25,8 @@ private:
 	Gdiplus::Image*		_image = nullptr;
 	Vec2Int				_size = {};
 	Gdiplus::Color		_transparent = Gdiplus::Color(147, 187, 236);
+
+private:
+	
 };
 

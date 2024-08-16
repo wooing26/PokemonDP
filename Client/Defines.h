@@ -19,3 +19,5 @@ public:									\
 		delete ptr;			\
 		ptr = nullptr;		\
 	}
+
+#define SAFE_RELEASE(p) { if(p) { (p)->Release(); (p)=NULL; } }

@@ -125,6 +125,9 @@
     <ClInclude Include="FlipbookActor.h">
       <Filter>소스 파일\03. Objects\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic.h">
+      <Filter>소스 파일\00. MainGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="FlipbookActor.cpp">
       <Filter>소스 파일\03. Objects\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic.cpp">
+      <Filter>소스 파일\00. MainGame</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
