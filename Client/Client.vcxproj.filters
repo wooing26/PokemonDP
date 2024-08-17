@@ -48,6 +48,9 @@
     <Filter Include="소스 파일\03. Objects\Actor">
       <UniqueIdentifier>{c288fab6-77d5-4c16-9889-cdc84a43ee2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03. Objects\Game\Creature">
+      <UniqueIdentifier>{4d81c740-83d0-44e7-8f40-6390915f8a30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -128,6 +131,12 @@
     <ClInclude Include="Graphic.h">
       <Filter>소스 파일\00. MainGame</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>소스 파일\03. Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\03. Objects\Game\Creature</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -202,6 +211,12 @@
     </ClCompile>
     <ClCompile Include="Graphic.cpp">
       <Filter>소스 파일\00. MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>소스 파일\03. Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\03. Objects\Game\Creature</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

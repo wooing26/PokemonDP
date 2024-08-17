@@ -29,7 +29,9 @@ enum Dir
 enum class ObjectState
 {
 	Idle,
-	Move
+	Move,
+	Skill,
+	Bag
 };
 
 enum class PokeType

@@ -38,8 +38,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Game game;
     game.Init(g_hWnd);
 
-    Graphic graphic;
-    graphic.Init(g_hWnd);
+    /*Graphic graphic;
+    graphic.Init(g_hWnd);*/
 
     MSG msg = {};
 
@@ -53,11 +53,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            /*{
+            {
                 game.Update();
                 game.Render();
-            }*/
-            graphic.Render();
+            }
+            /*graphic.Render();*/
         }
     }
 
