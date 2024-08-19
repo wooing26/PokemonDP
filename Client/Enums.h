@@ -5,7 +5,8 @@ enum class SceneType
 	None,
 	DevScene,
 	EditScene,
-	BattleScene
+	BattleScene,
+	TileMapScene
 };
 
 enum LAYER_TYPE

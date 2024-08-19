@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "BattleScene.h"
+#include "TileMapScene.h"
 
 void SceneManager::Init()
 {
@@ -38,6 +39,9 @@ void SceneManager::ChangeScene(SceneType sceneType)
 		break;
 	case SceneType::BattleScene:
 		newScene = new BattleScene();
+		break;
+	case SceneType::TileMapScene:
+		newScene = new TileMapScene();
 		break;
 	}
 
