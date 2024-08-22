@@ -64,6 +64,15 @@ void TileMapScene::Update()
 	}
 
 	GET_SINGLE(SceneManager)->SetCameraPos(_cameraPos);
+
+	
+	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
+
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::LeftMouse))
+	{
+		_cellPos.x = (mousePos.x - (_cameraPos.x - GWinSizeX / 2))/ _tileSize;
+		_cellPos.y = (mousePos.y - (_cameraPos.y - GWinSizeY / 2))/ _tileSize;
+	}
 }
 
 void TileMapScene::Render(HDC hdc)
