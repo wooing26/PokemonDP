@@ -2,6 +2,7 @@
 #include "SpriteActor.h"
 #include "Sprite.h"
 #include "InputManager.h"
+#include "SceneManager.h"
 
 SpriteActor::SpriteActor()
 {
@@ -20,59 +21,30 @@ void SpriteActor::Tick()
 {
 	Super::Tick();
 
-	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::W))
-		_pos.y--;
-	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::S))
-		_pos.y++;
-	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::A))
-		_pos.x--;
-	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::D))
-		_pos.x++;
+	if (_sprite == nullptr)
+		return;
 }
 
 void SpriteActor::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
+	if (_sprite == nullptr)
+		return;
+
 	Vec2Int size = _sprite->GetSize();
+	Vec2 cameraPos = GET_SINGLE(SceneManager)->GetCameraPos();
 
-	/*::BitBlt(hdc,
-		50,
-		50,
+	::TransparentBlt(
+		hdc,
+		(int32)_pos.x - size.x / 2 - ((int32)cameraPos.x - GWinSizeX / 2),
+		(int32)_pos.y - size.y / 2 - ((int32)cameraPos.y - GWinSizeY / 2),
 		size.x,
 		size.y,
 		_sprite->GetDC(),
 		_sprite->GetPos().x,
 		_sprite->GetPos().y,
-		SRCCOPY);*/
-
-	/*::StretchBlt(hdc,
-		_pos.x - _renderSize.x / 2,
-		_pos.y - _renderSize.y / 2,
-		_renderSize.x,
-		_renderSize.y,
-		_sprite->GetDC(),
-		_sprite->GetPos().x,
-		_sprite->GetPos().y,
 		size.x,
 		size.y,
-		SRCCOPY);*/
-
-	Gdiplus::ImageAttributes imgAtt = {};
-
-	// 투명화 색 범위
-	Gdiplus::Color transparent = _sprite->GetTransparent();
-	imgAtt.SetColorKey(transparent, transparent);
-
-	Gdiplus::Graphics graphics(hdc);
-	Gdiplus::Rect destinationRect(_pos.x - _renderSize.x / 2, _pos.y - _renderSize.y / 2, _renderSize.x, _renderSize.y);
-	graphics.DrawImage(
-		_sprite->GetImage(),
-		destinationRect,
-		_sprite->GetPos().x,
-		_sprite->GetPos().y,
-		size.x,
-		size.y,
-		Gdiplus::UnitPixel,
-		&imgAtt);
+		_sprite->GetTransparent());
 }

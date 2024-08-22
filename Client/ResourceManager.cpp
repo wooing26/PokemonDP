@@ -28,7 +28,7 @@ void ResourceManager::Clear()
 	_sprites.clear();
 }
 
-Texture* ResourceManager::LoadTexture(const std::wstring& key, const std::wstring& path, Gdiplus::Color transparent)
+Texture* ResourceManager::LoadTexture(const std::wstring& key, const std::wstring& path, uint32 transparent)
 {
 	if (_textures.find(key) != _textures.end())
 		return _textures[key];

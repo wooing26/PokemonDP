@@ -22,7 +22,7 @@ Gdiplus::Image* Sprite::GetImage()
 	return _texture->GetImage();
 }
 
-Gdiplus::Color Sprite::GetTransparent()
+uint32 Sprite::GetTransparent()
 {
 	return _texture->GetTransparent();
 }

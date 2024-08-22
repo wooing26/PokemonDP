@@ -149,7 +149,9 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="BattleScene.h" />
+    <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Flipbook.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="SpriteActor.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TilemapActor.h" />
     <ClInclude Include="TileMapScene.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
@@ -180,7 +183,9 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="BattleScene.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Flipbook.cpp" />
     <ClCompile Include="FlipbookActor.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -201,6 +206,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteActor.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TilemapActor.cpp" />
     <ClCompile Include="TileMapScene.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="UI.cpp" />

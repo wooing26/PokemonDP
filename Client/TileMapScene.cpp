@@ -3,9 +3,13 @@
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "ResourceManager.h"
+#include "SceneManager.h"
 #include "Texture.h"
 #include "Flipbook.h"
+#include "Sprite.h"
 #include "FlipbookActor.h"
+#include "SpriteActor.h"
+#include "TilemapActor.h"
 
 TileMapScene::TileMapScene()
 {
@@ -19,7 +23,21 @@ void TileMapScene::Init()
 {
 	Super::Init();
 	
-	//GET_SINGLE(ResourceManager)->LoadTexture();
+	GET_SINGLE(ResourceManager)->LoadTexture(L"buildings", L"Sprite\\Tile\\TileSet\\buildings (HGSS).png");
+
+	GET_SINGLE(ResourceManager)->CreateSprite(L"buildings", GET_SINGLE(ResourceManager)->GetTexture(L"buildings"), 0, 0);
+
+	{
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"buildings");
+		Vec2Int size = sprite->GetSize();
+
+		SetMapSize(Vec2(size.x, size.y));
+		SpriteActor* background = new SpriteActor();
+		background->SetSprite(sprite);
+		background->SetLayer(LAYER_BACKGROUND);
+		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
+		AddActor(background);
+	}
 }
 
 void TileMapScene::Update()
@@ -30,46 +48,54 @@ void TileMapScene::Update()
 
 	if(GET_SINGLE(InputManager)->GetButtonPress(KeyType::W))
 	{
-		_pos.y -= _speed * deltaTime;
+		_cameraPos.y -= _speed * deltaTime;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::S))
 	{
-		_pos.y += _speed * deltaTime;
+		_cameraPos.y += _speed * deltaTime;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::A))
 	{
-		_pos.x -= _speed * deltaTime;
+		_cameraPos.x -= _speed * deltaTime;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::D))
 	{
-		_pos.x += _speed * deltaTime;
+		_cameraPos.x += _speed * deltaTime;
 	}
+
+	GET_SINGLE(SceneManager)->SetCameraPos(_cameraPos);
 }
 
 void TileMapScene::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
-	Vec2Int from = Vec2Int{ (int)_pos.x - _tileSize, (int)_pos.y };
-	Vec2Int to = Vec2Int{ (int)_pos.x - _tileSize, (int)_pos.y };
-	to.y += _tileSize * 40;
+	int32 MaxX = min(_mapSize.x - (_cameraPos.x - GWinSizeX / 2) + 1, GWinSizeX);
+	int32 MaxY = min(_mapSize.y - (_cameraPos.y - GWinSizeY / 2) + 1, GWinSizeY);
 
-	for (int i = 0; i <= 40; i++)
-	{
+	Vec2Int from = Vec2Int{ - ((int32)_cameraPos.x - GWinSizeX / 2), - ((int32)_cameraPos.y - GWinSizeY / 2) };
+	Vec2Int to = from;
+	to.y += _mapSize.y;
+
+	while (from.x <= MaxX)
+	{	
+		if (from.x >= 0)
+			Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
+		
 		from.x += _tileSize;
 		to.x += _tileSize;
-
-		Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
 	}
-	from = Vec2Int{ (int)_pos.x, (int)_pos.y - _tileSize };
-	to = Vec2Int{ (int)_pos.x, (int)_pos.y - _tileSize };
-	to.x += _tileSize * 40;
-	for (int i = 0; i <= 40; i++)
+
+	from = Vec2Int{ - ((int32)_cameraPos.x - GWinSizeX / 2), - ((int32)_cameraPos.y - GWinSizeY / 2) };
+	to = from;
+	to.x += _mapSize.x;
+	while (from.y <= MaxY)
 	{
+		if (from.y >= 0)
+			Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
+		
 		from.y += _tileSize;
 		to.y += _tileSize;
-
-		Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
 	}
 }
 
