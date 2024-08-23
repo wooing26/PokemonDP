@@ -1,6 +1,16 @@
 #pragma once
 #include "Actor.h"
 
+class Tilemap;
+
+enum TILE_SIZE
+{
+	TILE_WIDTH = 63,
+	TILE_HEIGHT = 43,
+	TILE_SIZEX = 48,
+	TILE_SIZEY = 48,
+};
+
 class TilemapActor : public Actor
 {
 	using Super = Actor;
@@ -12,11 +22,15 @@ public:
 	virtual void	Tick();
 	virtual void	Render(HDC hdc);
 
-	void			SetMapSize(Vec2 mapSize) { _mapSize = mapSize; }
-	Vec2			GetMapSize() { return _mapSize; }
+	void			TickPicking();
 
-private:
-	Vec2			_mapSize = {};
-	int32			_tileSize = 32;
+	void			SetTilemap(Tilemap* tilemap) { _tilemap = tilemap; }
+	Tilemap*		GetTilemap() { return _tilemap; }
+
+	void			SetShowDebug(bool showDebug) { _showDebug = showDebug; }
+
+protected:
+	Tilemap*	_tilemap = nullptr;
+	bool		_showDebug = false;
 };
 

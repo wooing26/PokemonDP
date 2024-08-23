@@ -152,6 +152,9 @@
     <ClInclude Include="TilemapActor.h">
       <Filter>소스 파일\03. Objects\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\OneDrive\문서\인프런_자료\게임_프로그래밍_입문_올인원\GameCodingZelda\GameCoding\Tilemap.h">
+      <Filter>소스 파일\04. Resources\Paper2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -244,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="TilemapActor.cpp">
       <Filter>소스 파일\03. Objects\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\OneDrive\문서\인프런_자료\게임_프로그래밍_입문_올인원\GameCodingZelda\GameCoding\Tilemap.cpp">
+      <Filter>소스 파일\04. Resources\Paper2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

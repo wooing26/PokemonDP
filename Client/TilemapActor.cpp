@@ -1,10 +1,15 @@
 #include "pch.h"
 #include "TilemapActor.h"
+#include "Tilemap.h"
+#include "ResourceManager.h"
+#include "Sprite.h"
 #include "SceneManager.h"
-#include "Scene.h"
+#include "InputManager.h"
+
 
 TilemapActor::TilemapActor()
 {
+
 }
 
 TilemapActor::~TilemapActor()
@@ -19,39 +24,111 @@ void TilemapActor::BeginPlay()
 void TilemapActor::Tick()
 {
 	Super::Tick();
+
+	//TickPicking();
 }
 
 void TilemapActor::Render(HDC hdc)
-{
+{	
 	Super::Render(hdc);
 
+	if (_tilemap == nullptr)
+		return;
+
+	if (_showDebug == false)
+		return;
+
+	const Vec2Int mapSize = _tilemap->GetMapSize();
+	const int32 tileSize = _tilemap->GetTileSize();
+
+	std::vector<std::vector<Tile>>& tiles = _tilemap->GetTiles();
+
+	Sprite* spriteO = GET_SINGLE(ResourceManager)->GetSprite(L"TileO");
+	Sprite* spriteX = GET_SINGLE(ResourceManager)->GetSprite(L"TileX");
+	Vec2Int size = spriteO->GetSize();
 	Vec2 cameraPos = GET_SINGLE(SceneManager)->GetCameraPos();
-	
-	int32 MaxX = min(_mapSize.x - (cameraPos.x - GWinSizeX / 2), GWinSizeX);
-	int32 MaxY = min(_mapSize.y - (cameraPos.y - GWinSizeY / 2), GWinSizeY);
 
-	Vec2Int from = Vec2Int{ (int32) _pos.x - ((int32)cameraPos.x - GWinSizeX / 2), (int32)_pos.y - ((int32)cameraPos.y - GWinSizeY / 2) };
-	Vec2Int to = from;
-	to.y += _mapSize.y;
+	// 컬링 : 보여야 할 애들만 보여주기
+	int32 leftX = ((int32)cameraPos.x - GWinSizeX / 2);
+	int32 leftY = ((int32)cameraPos.y - GWinSizeY / 2);
+	int32 rightX = ((int32)cameraPos.x + GWinSizeX / 2);
+	int32 rightY = ((int32)cameraPos.y + GWinSizeY / 2);
 
-	while(from.x <= MaxX)
+	int32 startX = (leftX - _pos.x) / TILE_SIZEX;
+	int32 startY = (leftY - _pos.y) / TILE_SIZEY;
+	int32 endX = (rightX - _pos.x) / TILE_SIZEX;
+	int32 endY = (rightY - _pos.y) / TILE_SIZEY;
+
+	//for (int32 y = 0; y < mapSize.y; y++)
+	//	for (int32 x = 0; x < mapSize.x; x++)
+
+	for (int32 y = startY; y <= endY; y++)
 	{
-		from.x += _tileSize;
-		to.x += _tileSize;
-		
-		if (from.x >= 0)
-			Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
+		for (int32 x = startX; x <= endX; x++)
+		{
+			if (x < 0 || x >= mapSize.x)
+				continue;
+			if (y < 0 || y >= mapSize.y)
+				continue;
+			// 왼쪽 상단 모서리를 기준으로 맞추자
+			switch (tiles[y][x].value)
+			{
+				case 0:
+				{
+					::TransparentBlt(hdc,
+						_pos.x + x * TILE_SIZEX - ((int32)cameraPos.x - GWinSizeX / 2),
+						_pos.y + y * TILE_SIZEY  - ((int32)cameraPos.y - GWinSizeY / 2),
+						TILE_SIZEX,
+						TILE_SIZEY,
+						spriteO->GetDC(),
+						spriteO->GetPos().x,
+						spriteO->GetPos().y,
+						TILE_SIZEX,
+						TILE_SIZEY,
+						spriteO->GetTransparent());
+				}
+				break;
+				case 1:
+					::TransparentBlt(hdc,
+						_pos.x + x * TILE_SIZEX - ((int32)cameraPos.x - GWinSizeX / 2),
+						_pos.y + y * TILE_SIZEY - ((int32)cameraPos.y - GWinSizeY / 2),
+						TILE_SIZEX,
+						TILE_SIZEY,
+						spriteX->GetDC(),
+						spriteX->GetPos().x,
+						spriteX->GetPos().y,
+						TILE_SIZEX,
+						TILE_SIZEY,
+						spriteX->GetTransparent());
+				break;
+			}
+		}
 	}
 
-	from = Vec2Int{ (int32)_pos.x - ((int32)cameraPos.x - GWinSizeX / 2), (int32)_pos.y - ((int32)cameraPos.y - GWinSizeY / 2) };
-	to = from;
-	to.x += _mapSize.x;
-	while (from.y <= MaxY)
-	{
-		from.y += _tileSize;
-		to.y += _tileSize;
+}
 
-		if (from.y >= 0)
-			Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
+void TilemapActor::TickPicking()
+{
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::LeftMouse))
+	{
+		Vec2 cameraPos = GET_SINGLE(SceneManager)->GetCameraPos();
+		int32 screenX = cameraPos.x - GWinSizeX / 2;
+		int32 screenY = cameraPos.y - GWinSizeY / 2;
+
+		POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
+		int32 posX = mousePos.x + screenX;
+		int32 posY = mousePos.y + screenY;
+
+		int32 x = posX / TILE_SIZEX;
+		int32 y = posY / TILE_SIZEY;
+
+		Tile* tile = _tilemap->GetTileAt({x, y});
+		if (tile)
+		{
+			tile->value = 1;
+		}
+
+
 	}
+
 }

@@ -24,11 +24,22 @@ void TileMapScene::Init()
 	Super::Init();
 	
 	GET_SINGLE(ResourceManager)->LoadTexture(L"buildings", L"Sprite\\Tile\\TileSet\\buildings (HGSS).png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"caves", L"Sprite\\Tile\\TileSet\\caves (HGSS).png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"mounts", L"Sprite\\Tile\\TileSet\\mounts (HGSS).png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
 
-	GET_SINGLE(ResourceManager)->CreateSprite(L"buildings", GET_SINGLE(ResourceManager)->GetTexture(L"buildings"), 0, 0);
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PlatBuildings", L"Sprite\\Tile\\TileSet\\PLAT Buildings.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PlatNature", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Nature", L"Sprite\\Tile\\TileSet\\PLAT Nature.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PlatNature", L"Sprite\\Tile\\TileSet\\PLAT Props.png");
+	
+	GET_SINGLE(ResourceManager)->LoadTexture(L"borders", L"Sprite\\Tile\\TileSet\\borders.png");
+
+	GET_SINGLE(ResourceManager)->CreateSprite(L"borders", GET_SINGLE(ResourceManager)->GetTexture(L"borders"), 0, 0);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"PlatNature", GET_SINGLE(ResourceManager)->GetTexture(L"PlatNature"), 0, 0);
 
 	{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"buildings");
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"borders");
 		Vec2Int size = sprite->GetSize();
 
 		SetMapSize(Vec2(size.x, size.y));
@@ -36,6 +47,18 @@ void TileMapScene::Init()
 		background->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
 		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
+		AddActor(background);
+	}
+
+	{
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"PlatNature");
+		Vec2Int size = sprite->GetSize();
+
+		SetMapSize(Vec2(size.x, size.y));
+		SpriteActor* background = new SpriteActor();
+		background->SetSprite(sprite);
+		background->SetLayer(LAYER_OBJECT);
+		background->SetPos(Vec2{ (float)size.x / 2 + GWinSizeX / 2, (float)size.y / 2});
 		AddActor(background);
 	}
 }
@@ -72,6 +95,13 @@ void TileMapScene::Update()
 	{
 		_cellPos.x = (mousePos.x - (_cameraPos.x - GWinSizeX / 2))/ _tileSize;
 		_cellPos.y = (mousePos.y - (_cameraPos.y - GWinSizeY / 2))/ _tileSize;
+		_startCellPos.push_back(_cellPos);
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonUp(KeyType::LeftMouse))
+	{
+		_cellPos.x = (mousePos.x - (_cameraPos.x - GWinSizeX / 2)) / _tileSize;
+		_cellPos.y = (mousePos.y - (_cameraPos.y - GWinSizeY / 2)) / _tileSize;
+		_endCellPos.push_back(_cellPos);
 	}
 }
 

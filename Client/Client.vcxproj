@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\OneDrive\문서\인프런_자료\게임_프로그래밍_입문_올인원\GameCodingZelda\GameCoding\Tilemap.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="CameraComponent.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Values.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\OneDrive\문서\인프런_자료\게임_프로그래밍_입문_올인원\GameCodingZelda\GameCoding\Tilemap.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
