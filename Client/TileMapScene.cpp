@@ -28,15 +28,16 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"mounts", L"Sprite\\Tile\\TileSet\\mounts (HGSS).png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
 
-	GET_SINGLE(ResourceManager)->LoadTexture(L"PlatBuildings", L"Sprite\\Tile\\TileSet\\PLAT Buildings.png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"PlatNature", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Buildings", L"Sprite\\Tile\\TileSet\\PLAT Buildings.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Nature", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Nature", L"Sprite\\Tile\\TileSet\\PLAT Nature.png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"PlatNature", L"Sprite\\Tile\\TileSet\\PLAT Props.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Nature", L"Sprite\\Tile\\TileSet\\PLAT Props.png");
 	
 	GET_SINGLE(ResourceManager)->LoadTexture(L"borders", L"Sprite\\Tile\\TileSet\\borders.png");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"borders", GET_SINGLE(ResourceManager)->GetTexture(L"borders"), 0, 0);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"PlatNature", GET_SINGLE(ResourceManager)->GetTexture(L"PlatNature"), 0, 0);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT Nature", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT Nature"), 0, 0);
+
 
 	{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"borders");
@@ -51,7 +52,7 @@ void TileMapScene::Init()
 	}
 
 	{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"PlatNature");
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"PLAT Nature");
 		Vec2Int size = sprite->GetSize();
 
 		SetMapSize(Vec2(size.x, size.y));
