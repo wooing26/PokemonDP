@@ -13,36 +13,11 @@ Tilemap::~Tilemap()
 
 }
 
-void Tilemap::LoadFile(const wstring& path)
+void Tilemap::LoadFile(const std::wstring& path)
 {
-	// C 스타일
-	if (false)
-	{
-		FILE* file = nullptr;
-
-		::_wfopen_s(&file, path.c_str(), L"rb");
-		assert(file);
-
-		::fread(&_mapSize.x, sizeof(_mapSize.x), 1, file);
-		::fread(&_mapSize.y, sizeof(_mapSize.y), 1, file);
-
-		for (int32 y = 0; y < _mapSize.y; y++)
-		{
-			for (int32 x = 0; x < _mapSize.x; x++)
-			{
-				int32 value = -1;
-				::fread(&value, sizeof(value), 1, file);
-				_tiles[y][x].value = value;
-			}
-		}
-
-		::fclose(file);
-		return;
-	}
-
 	// C++ 스타일
 	{
-		wifstream ifs;
+		std::wifstream ifs;
 
 		ifs.open(path);
 
@@ -52,7 +27,7 @@ void Tilemap::LoadFile(const wstring& path)
 
 		for (int32 y = 0; y < _mapSize.y; y++)
 		{
-			wstring line;
+			std::wstring line;
 			ifs >> line;
 
 			for (int32 x = 0; x < _mapSize.x; x++)
@@ -66,39 +41,17 @@ void Tilemap::LoadFile(const wstring& path)
 	
 }
 
-void Tilemap::SaveFile(const wstring& path)
+void Tilemap::SaveFile(const std::wstring& path)
 {
-	// C 스타일
-	if (false)
-	{
-		FILE* file = nullptr;
-		_wfopen_s(&file, path.c_str(), L"wb");
-		assert(file != nullptr);
-
-		::fwrite(&_mapSize.x, sizeof(_mapSize.x), 1, file);
-		::fwrite(&_mapSize.y, sizeof(_mapSize.y), 1, file);
-
-		for (int32 y = 0; y < _mapSize.y; y++)
-		{
-			for (int32 x = 0; x < _mapSize.x; x++)
-			{
-				int32 value = _tiles[y][x].value;
-				::fwrite(&value, sizeof(value), 1, file);
-			}
-		}
-		
-		::fclose(file);
-		return;
-	}
 	
 	// C++ 스타일
 	{
-		wofstream ofs;
+		std::wofstream ofs;
 
 		ofs.open(path);
 
-		ofs << _mapSize.x << endl;
-		ofs << _mapSize.y << endl;
+		ofs << _mapSize.x << std::endl;
+		ofs << _mapSize.y << std::endl;
 
 		for (int32 y = 0; y < _mapSize.y; y++)
 		{
@@ -107,7 +60,7 @@ void Tilemap::SaveFile(const wstring& path)
 				ofs << _tiles[y][x].value;
 			}
 
-			ofs << endl;
+			ofs << std::endl;
 		}
 
 		ofs.close();
@@ -126,7 +79,7 @@ void Tilemap::SetMapSize(Vec2Int size)
 {
 	_mapSize = size;
 
-	_tiles = vector<vector<Tile>>(size.y, vector<Tile>(size.x));
+	_tiles = std::vector<std::vector<Tile>>(size.y, std::vector<Tile>(size.x));
 
 	for (int32 y = 0; y < size.y; y++)
 	{
