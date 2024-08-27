@@ -19,6 +19,16 @@ enum LAYER_TYPE
 	LAYER_MAXCOUNT
 };
 
+enum TileMap_LAYER
+{
+	PLAT_Buildings,
+	PLAT_Mount,
+	PLAT_Nature,
+	PLAT_Props,
+
+	MAXCOUNT
+};
+
 enum Dir
 {
 	DIR_Up,

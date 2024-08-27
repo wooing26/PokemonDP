@@ -32,7 +32,10 @@ void Tilemap::LoadFile(const std::wstring& path)
 
 			for (int32 x = 0; x < _mapSize.x; x++)
 			{
-				_tiles[y][x].value = line[x] - L'0';
+				std::wstring data = line.substr(x * 6, 6);
+				
+				_tiles[y][x].y = std::stoi(data.substr(2, 2));
+				_tiles[y][x].x = std::stoi(data.substr(4, 2));
 			}
 		}
 
@@ -57,7 +60,12 @@ void Tilemap::SaveFile(const std::wstring& path)
 		{
 			for (int32 x = 0; x < _mapSize.x; x++)
 			{
-				ofs << _tiles[y][x].value;
+				ofs.width(2);
+				ofs << _tiles[y][x].layer;
+				ofs.width(2);
+				ofs << _tiles[y][x].y;
+				ofs.width(2);
+				ofs << _tiles[y][x].x;
 			}
 
 			ofs << std::endl;
@@ -85,7 +93,7 @@ void Tilemap::SetMapSize(Vec2Int size)
 	{
 		for (int32 x = 0; x < size.x; x++)
 		{
-			_tiles[y][x] = Tile{0};
+			_tiles[y][x] = Tile();
 		}
 	}
 }

@@ -4,7 +4,9 @@
 struct Tile
 {
 	// TODO
-	int32 value = 0;
+	TileMap_LAYER	layer = TileMap_LAYER::PLAT_Nature;
+	int32			x = 0;
+	int32			y = 0;
 };
 
 class Tilemap : public ResourceBase

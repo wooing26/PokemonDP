@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Flipbook.h"
 #include "Sprite.h"
+#include "Tilemap.h"
 #include "FlipbookActor.h"
 #include "SpriteActor.h"
 #include "TilemapActor.h"
@@ -21,17 +22,15 @@ TileMapScene::~TileMapScene()
 
 void TileMapScene::Init()
 {
-	Super::Init();
-	
 	GET_SINGLE(ResourceManager)->LoadTexture(L"buildings", L"Sprite\\Tile\\TileSet\\buildings (HGSS).png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"caves", L"Sprite\\Tile\\TileSet\\caves (HGSS).png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"mounts", L"Sprite\\Tile\\TileSet\\mounts (HGSS).png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
 
-	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Buildings", L"Sprite\\Tile\\TileSet\\PLAT Buildings.png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Mount", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Nature", L"Sprite\\Tile\\TileSet\\PLAT Nature.png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Props", L"Sprite\\Tile\\TileSet\\PLAT Props.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Buildings", L"Sprite\\Tile\\TileSet\\PLAT Buildings.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Mount", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Nature", L"Sprite\\Tile\\TileSet\\PLAT Nature.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Props", L"Sprite\\Tile\\TileSet\\PLAT Props.png");
 	
 
 	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasDown", L"Sprite\\Player\\LucasDown.bmp");
@@ -39,23 +38,22 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"borders", L"Sprite\\Tile\\TileSet\\borders.png");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"borders", GET_SINGLE(ResourceManager)->GetTexture(L"borders"), 0, 0);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT Nature", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT Nature"), 0, 0);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Nature", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Nature"), 0, 0);
 
 
 	{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"borders");
-		Vec2Int size = sprite->GetSize();
+		TilemapActor* actor = new TilemapActor();
+		AddActor(actor);
 
-		SetMapSize(Vec2(size.x, size.y));
-		SpriteActor* background = new SpriteActor();
-		background->SetSprite(sprite);
-		background->SetLayer(LAYER_BACKGROUND);
-		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
-		AddActor(background);
+		Tilemap* tm = GET_SINGLE(ResourceManager)->CreateTilemap(L"Tilemap_01");
+		tm->SetMapSize({ 40, 40 });
+		tm->SetTileSize(32);
+
+		actor->SetTilemap(tm);
 	}
 
 	{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"PLAT Nature");
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Nature");
 		Vec2Int size = sprite->GetSize();
 
 		SetMapSize(Vec2(size.x, size.y));
@@ -77,6 +75,8 @@ void TileMapScene::Init()
 		player->SetPos(Vec2{ 32 * 10, 150 });
 		AddActor(player);
 	}
+
+	Super::Init();
 }
 
 void TileMapScene::Update()

@@ -5,8 +5,6 @@ class Tilemap;
 
 enum TILE_SIZE
 {
-	TILE_WIDTH = 63,
-	TILE_HEIGHT = 43,
 	TILE_SIZEX = 32,
 	TILE_SIZEY = 32,
 };
@@ -30,7 +28,8 @@ public:
 	void			SetShowDebug(bool showDebug) { _showDebug = showDebug; }
 
 protected:
-	Tilemap*	_tilemap = nullptr;
-	bool		_showDebug = false;
+	Tilemap*									_tilemap = nullptr;
+	bool										_showDebug = false;
+	std::vector <std::vector<class Sprite*>>	_sprites[TileMap_LAYER::MAXCOUNT];
 };
 
