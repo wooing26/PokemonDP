@@ -29,10 +29,13 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
 
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Buildings", L"Sprite\\Tile\\TileSet\\PLAT Buildings.png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Nature", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Mount", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Nature", L"Sprite\\Tile\\TileSet\\PLAT Nature.png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Nature", L"Sprite\\Tile\\TileSet\\PLAT Props.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT Props", L"Sprite\\Tile\\TileSet\\PLAT Props.png");
 	
+
+	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasDown", L"Sprite\\Player\\LucasDown.bmp");
+
 	GET_SINGLE(ResourceManager)->LoadTexture(L"borders", L"Sprite\\Tile\\TileSet\\borders.png");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"borders", GET_SINGLE(ResourceManager)->GetTexture(L"borders"), 0, 0);
@@ -61,6 +64,18 @@ void TileMapScene::Init()
 		background->SetLayer(LAYER_OBJECT);
 		background->SetPos(Vec2{ (float)size.x / 2 + GWinSizeX / 2, (float)size.y / 2});
 		AddActor(background);
+	}
+
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasDown");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LIdleDown");
+		fb->SetInfo({ texture, L"FB_LIdleDown", {32, 32}, 0, 3, 0, 0.5f });
+
+		FlipbookActor* player = new FlipbookActor();
+		player->SetFlipbook(fb);
+		player->SetLayer(LAYER_OBJECT);
+		player->SetPos(Vec2{ 32 * 10, 150 });
+		AddActor(player);
 	}
 }
 

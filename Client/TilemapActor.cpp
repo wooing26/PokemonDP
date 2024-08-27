@@ -19,6 +19,8 @@ TilemapActor::~TilemapActor()
 void TilemapActor::BeginPlay()
 {
 	Super::BeginPlay();
+
+
 }
 
 void TilemapActor::Tick()
