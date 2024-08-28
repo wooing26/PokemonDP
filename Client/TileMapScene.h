@@ -17,6 +17,9 @@ public:
 
 	void			SetMapSize(Vec2 mapSize) { _mapSize = mapSize; }
 
+	bool			IsMouseInSelect(POINT mousePos);
+	bool			IsMouseInEdit(POINT mousePos);
+
 private:
 	Vec2					_pos = { 0, 0 };
 	Vec2					_cameraPos = { GWinSizeX / 2, GWinSizeY / 2 };
@@ -24,9 +27,7 @@ private:
 	int32					_speed = 500;
 	int32					_tileSize = 32;
 
-	Vec2Int					_cellPos = {};
-	std::vector<Vec2Int>	_startCellPos = {};
-	std::vector<Vec2Int>	_endCellPos = {};
-
+	class TilemapActor*		_tilemapActor = nullptr;
+	Vec2Int					_selectedTilePos = {0, 0};
 };
 

@@ -17,14 +17,17 @@ public:
 
 	virtual void					LoadFile(const std::wstring& path) override;
 	virtual void					SaveFile(const std::wstring& path) override;
-
-	Vec2Int							GetMapSize() { return _mapSize; }
-	int32							GetTileSize() { return _tileSize; }
+	
+	void							SetTileAt(Tile tile, Vec2Int pos);
 	Tile*							GetTileAt(Vec2Int pos);
+
 	std::vector<std::vector<Tile>>&	GetTiles() { return _tiles; };
 	
 	void							SetMapSize(Vec2Int size);
+	Vec2Int							GetMapSize() { return _mapSize; }
+
 	void							SetTileSize(int32 size);
+	int32							GetTileSize() { return _tileSize; }
 
 private:
 	Vec2Int							_mapSize = {};

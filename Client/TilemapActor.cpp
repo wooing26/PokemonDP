@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "SceneManager.h"
 #include "InputManager.h"
+#include "TimeManager.h"
 
 
 TilemapActor::TilemapActor()
@@ -47,7 +48,24 @@ void TilemapActor::Tick()
 {
 	Super::Tick();
 
-	//TickPicking();
+	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+
+	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Up))
+	{
+		_pos.y += _speed * deltaTime;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Down))
+	{
+		_pos.y -= _speed * deltaTime;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Left))
+	{
+		_pos.x -= _speed * deltaTime;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Right))
+	{
+		_pos.x += _speed * deltaTime;
+	}
 }
 
 void TilemapActor::Render(HDC hdc)
@@ -65,25 +83,39 @@ void TilemapActor::Render(HDC hdc)
 
 	std::vector<std::vector<Tile>>& tiles = _tilemap->GetTiles();
 
+	int32 left = max(GWinSizeX / 2, _pos.x);
+
+	for (int32 y = 0; y < mapSize.y; y++)
+	{
+		for (int32 x = 0; x < mapSize.x; x++)
+		{
+			::TransparentBlt(hdc,
+				_pos.x + x * TILE_SIZEX,
+				_pos.y + y * TILE_SIZEY,
+				TILE_SIZEX,
+				TILE_SIZEY,
+				_sprites[tiles[y][x].layer][tiles[y][x].y][tiles[y][x].x]->GetDC(),
+				_sprites[tiles[y][x].layer][tiles[y][x].y][tiles[y][x].x]->GetPos().x,
+				_sprites[tiles[y][x].layer][tiles[y][x].y][tiles[y][x].x]->GetPos().y,
+				TILE_SIZEX,
+				TILE_SIZEY,
+				_sprites[tiles[y][x].layer][tiles[y][x].y][tiles[y][x].x]->GetTransparent());
+		}
+	}
 }
 
-void TilemapActor::TickPicking()
+void TilemapActor::SetTileAt(Tile tile)
 {
-	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::LeftMouse))
+	
 	{
-		Vec2 cameraPos = GET_SINGLE(SceneManager)->GetCameraPos();
-		int32 screenX = cameraPos.x - GWinSizeX / 2;
-		int32 screenY = cameraPos.y - GWinSizeY / 2;
-
 		POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
-		int32 posX = mousePos.x + screenX;
-		int32 posY = mousePos.y + screenY;
+		int32 posX = mousePos.x - _pos.x;
+		int32 posY = mousePos.y - _pos.y;
 
 		int32 x = posX / TILE_SIZEX;
 		int32 y = posY / TILE_SIZEY;
-
-		Tile* tile = _tilemap->GetTileAt({x, y});
 		
+		_tilemap->SetTileAt(tile, { x, y });
 	}
 
 }

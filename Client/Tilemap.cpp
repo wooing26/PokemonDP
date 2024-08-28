@@ -75,6 +75,14 @@ void Tilemap::SaveFile(const std::wstring& path)
 	}
 }
 
+void Tilemap::SetTileAt(Tile tile, Vec2Int pos)
+{
+	if (pos.x < 0 || pos.x >= _mapSize.x || pos.y < 0 || pos.y >= _mapSize.y)
+		return;
+
+	_tiles[pos.y][pos.x] = tile;
+}
+
 Tile* Tilemap::GetTileAt(Vec2Int pos)
 {
 	if (pos.x < 0 || pos.x >= _mapSize.x || pos.y < 0 || pos.y >= _mapSize.y)

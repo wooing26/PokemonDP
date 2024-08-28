@@ -20,7 +20,7 @@ public:
 	virtual void	Tick();
 	virtual void	Render(HDC hdc);
 
-	void			TickPicking();
+	void			SetTileAt(class Tile tile);
 
 	void			SetTilemap(Tilemap* tilemap) { _tilemap = tilemap; }
 	Tilemap*		GetTilemap() { return _tilemap; }
@@ -29,7 +29,9 @@ public:
 
 protected:
 	Tilemap*									_tilemap = nullptr;
-	bool										_showDebug = false;
+	bool										_showDebug = true;
 	std::vector <std::vector<class Sprite*>>	_sprites[TileMap_LAYER::MAXCOUNT];
+
+	float										_speed = 500;
 };
 

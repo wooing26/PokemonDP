@@ -43,6 +43,8 @@ void TileMapScene::Init()
 
 	{
 		TilemapActor* actor = new TilemapActor();
+		actor->SetPos({ GWinSizeX / 2, 0 });
+		_tilemapActor = actor;
 		AddActor(actor);
 
 		Tilemap* tm = GET_SINGLE(ResourceManager)->CreateTilemap(L"Tilemap_01");
@@ -59,21 +61,9 @@ void TileMapScene::Init()
 		SetMapSize(Vec2(size.x, size.y));
 		SpriteActor* background = new SpriteActor();
 		background->SetSprite(sprite);
-		background->SetLayer(LAYER_OBJECT);
-		background->SetPos(Vec2{ (float)size.x / 2 + GWinSizeX / 2, (float)size.y / 2});
+		background->SetLayer(LAYER_BACKGROUND);
+		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2});
 		AddActor(background);
-	}
-
-	{
-		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasDown");
-		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LIdleDown");
-		fb->SetInfo({ texture, L"FB_LIdleDown", {32, 32}, 0, 3, 0, 0.5f });
-
-		FlipbookActor* player = new FlipbookActor();
-		player->SetFlipbook(fb);
-		player->SetLayer(LAYER_OBJECT);
-		player->SetPos(Vec2{ 32 * 10, 150 });
-		AddActor(player);
 	}
 
 	Super::Init();
@@ -106,19 +96,22 @@ void TileMapScene::Update()
 
 	
 	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
-
-	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::LeftMouse))
+	if (IsMouseInSelect(mousePos))
 	{
-		_cellPos.x = (mousePos.x - (_cameraPos.x - GWinSizeX / 2))/ _tileSize;
-		_cellPos.y = (mousePos.y - (_cameraPos.y - GWinSizeY / 2))/ _tileSize;
-		_startCellPos.push_back(_cellPos);
+		if (GET_SINGLE(InputManager)->GetButtonUp(KeyType::LeftMouse))
+		{
+			_selectedTilePos.x = (mousePos.x + (_cameraPos.x - GWinSizeX / 2)) / _tileSize;
+			_selectedTilePos.y = (mousePos.y + (_cameraPos.y - GWinSizeY / 2)) / _tileSize;
+		}
 	}
-	else if (GET_SINGLE(InputManager)->GetButtonUp(KeyType::LeftMouse))
+	else if (IsMouseInEdit(mousePos))
 	{
-		_cellPos.x = (mousePos.x - (_cameraPos.x - GWinSizeX / 2)) / _tileSize;
-		_cellPos.y = (mousePos.y - (_cameraPos.y - GWinSizeY / 2)) / _tileSize;
-		_endCellPos.push_back(_cellPos);
+		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LeftMouse))
+		{
+			_tilemapActor->SetTileAt({ TileMap_LAYER::PLAT_Nature, _selectedTilePos.x, _selectedTilePos.y });
+		}
 	}
+	
 }
 
 void TileMapScene::Render(HDC hdc)
@@ -162,4 +155,48 @@ void TileMapScene::AddActor(Actor* actor)
 void TileMapScene::RemoveActor(Actor* actor)
 {
 	Super::RemoveActor(actor);
+}
+
+bool TileMapScene::IsMouseInSelect(POINT mousePos)
+{
+	RECT rect =
+	{
+		0,
+		0,
+		GWinSizeX / 2,
+		GWinSizeY 
+	};
+
+	if (mousePos.x < rect.left)
+		return false;
+	if (mousePos.x > rect.right)
+		return false;
+	if (mousePos.y < rect.top)
+		return false;
+	if (mousePos.y > rect.bottom)
+		return false;
+
+	return true;
+}
+
+bool TileMapScene::IsMouseInEdit(POINT mousePos)
+{
+	RECT rect =
+	{ 
+		GWinSizeX / 2,
+		0,
+		GWinSizeX,
+		GWinSizeY 
+	};
+
+	if (mousePos.x < rect.left)
+		return false;
+	if (mousePos.x > rect.right)
+		return false;
+	if (mousePos.y < rect.top)
+		return false;
+	if (mousePos.y > rect.bottom)
+		return false;
+
+	return true;
 }
