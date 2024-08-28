@@ -79,15 +79,22 @@ void TilemapActor::Render(HDC hdc)
 		return;
 
 	const Vec2Int mapSize = _tilemap->GetMapSize();
-	const int32 tileSize = _tilemap->GetTileSize();
 
 	std::vector<std::vector<Tile>>& tiles = _tilemap->GetTiles();
 
-	int32 left = max(GWinSizeX / 2, _pos.x);
+	int32 left = max(GWinSizeX / 2, _pos.x) - _pos.x;
+	int32 top = max(0, _pos.y) - _pos.y;
+	int32 right = min(GWinSizeX, _pos.x + mapSize.x * TILE_SIZEX) - _pos.x;
+	int32 bottom = min(GWinSizeY, _pos.y + mapSize.y * TILE_SIZEY) - _pos.y;
 
-	for (int32 y = 0; y < mapSize.y; y++)
+	int32 startX = left / TILE_SIZEX;
+	int32 startY = top / TILE_SIZEY;
+	int32 endX = right / TILE_SIZEX;
+	int32 endY = bottom / TILE_SIZEY;
+
+	for (int32 y = startY; y < endY; y++)
 	{
-		for (int32 x = 0; x < mapSize.x; x++)
+		for (int32 x = startX; x < endX; x++)
 		{
 			::TransparentBlt(hdc,
 				_pos.x + x * TILE_SIZEX,
