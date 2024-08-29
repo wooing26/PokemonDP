@@ -99,16 +99,20 @@ void TileMapScene::Update()
 		_cameraPos.x += _speed * deltaTime;
 	}
 
-	GET_SINGLE(SceneManager)->SetCameraPos(_cameraPos);
-
 	// Edit Tilemap
 	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
 	if (IsMouseInSelect(mousePos))
 	{
 		if (GET_SINGLE(InputManager)->GetButtonUp(KeyType::LeftMouse))
 		{
-			_selectedTilePos.x = (mousePos.x + (_cameraPos.x - GWinSizeX / 2)) / _tileSize;
-			_selectedTilePos.y = (mousePos.y + (_cameraPos.y - GWinSizeY / 2)) / _tileSize;
+			Vec2 selectedPos = { (mousePos.x + (_cameraPos.x - GWinSizeX / 2)), (mousePos.y + (_cameraPos.y - GWinSizeY / 2)) };
+			
+			if (0 <= selectedPos.x && selectedPos.x <= _mapSize.x
+				&& 0 <= selectedPos.y && selectedPos.y <= _mapSize.y)
+			{
+				_selectedTilePos.x = selectedPos.x / _tileSize;
+				_selectedTilePos.y = selectedPos.y / _tileSize;
+			}
 		}
 	}
 	else if (IsMouseInEdit(mousePos))
@@ -150,6 +154,8 @@ void TileMapScene::Update()
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Props"));
 		_tilemapLayer = TileMap_LAYER::PLAT_Props;
 	}
+
+	GET_SINGLE(SceneManager)->SetCameraPos(_cameraPos);
 }
 
 void TileMapScene::Render(HDC hdc)
@@ -246,4 +252,8 @@ void TileMapScene::ChangeSelectedSprite(Sprite* sprite)
 	SetMapSize(Vec2(size.x, size.y));
 	_spriteActor->SetSprite(sprite);
 	_spriteActor->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
+
+	_selectedTilePos = { 0, 0 };
+
+	_cameraPos = { GWinSizeX / 2, GWinSizeY / 2 };
 }
