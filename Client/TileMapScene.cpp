@@ -75,6 +75,7 @@ void TileMapScene::Update()
 
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
+	// Move Camera Pos
 	if(GET_SINGLE(InputManager)->GetButtonPress(KeyType::W))
 	{
 		_cameraPos.y -= _speed * deltaTime;
@@ -94,7 +95,7 @@ void TileMapScene::Update()
 
 	GET_SINGLE(SceneManager)->SetCameraPos(_cameraPos);
 
-	
+	// Edit Tilemap
 	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
 	if (IsMouseInSelect(mousePos))
 	{
@@ -112,6 +113,16 @@ void TileMapScene::Update()
 		}
 	}
 	
+	// Save or Load Tilemap
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Q))
+	{
+		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_01", L"Sprite\\Tile\\Tilemap01.txt");
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::E))
+	{
+		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Sprite\\Tile\\Tilemap01.txt");
+	}
+
 }
 
 void TileMapScene::Render(HDC hdc)
