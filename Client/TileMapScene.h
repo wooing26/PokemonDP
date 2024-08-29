@@ -20,6 +20,8 @@ public:
 	bool			IsMouseInSelect(POINT mousePos);
 	bool			IsMouseInEdit(POINT mousePos);
 
+	void			ChangeSelectedSprite(class Sprite* sprite);
+
 private:
 	Vec2					_pos = { 0, 0 };
 	Vec2					_cameraPos = { GWinSizeX / 2, GWinSizeY / 2 };
@@ -28,6 +30,8 @@ private:
 	int32					_tileSize = 32;
 
 	class TilemapActor*		_tilemapActor = nullptr;
+	class SpriteActor*		_spriteActor = nullptr;
 	Vec2Int					_selectedTilePos = {0, 0};
+	TileMap_LAYER			_tilemapLayer = TileMap_LAYER::PLAT_Nature;
 };
 

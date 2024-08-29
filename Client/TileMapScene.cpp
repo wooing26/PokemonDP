@@ -26,6 +26,7 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"caves", L"Sprite\\Tile\\TileSet\\caves (HGSS).png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"mounts", L"Sprite\\Tile\\TileSet\\mounts (HGSS).png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"props", L"Sprite\\Tile\\TileSet\\props (HGSS).png");
 
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Buildings", L"Sprite\\Tile\\TileSet\\PLAT Buildings.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Mount", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
@@ -38,7 +39,11 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"borders", L"Sprite\\Tile\\TileSet\\borders.png");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"borders", GET_SINGLE(ResourceManager)->GetTexture(L"borders"), 0, 0);
+
+	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Buildings", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Buildings"), 0, 0);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Mount", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Mount"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Nature", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Nature"), 0, 0);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Props", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Props"), 0, 0);
 
 
 	{
@@ -64,6 +69,7 @@ void TileMapScene::Init()
 		background->SetLayer(LAYER_BACKGROUND);
 		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2});
 		AddActor(background);
+		_spriteActor = background;
 	}
 
 	Super::Init();
@@ -109,7 +115,7 @@ void TileMapScene::Update()
 	{
 		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LeftMouse))
 		{
-			_tilemapActor->SetTileAt({ TileMap_LAYER::PLAT_Nature, _selectedTilePos.x, _selectedTilePos.y });
+			_tilemapActor->SetTileAt({ _tilemapLayer,_selectedTilePos.x, _selectedTilePos.y });
 		}
 	}
 	
@@ -123,6 +129,27 @@ void TileMapScene::Update()
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Sprite\\Tile\\Tilemap01.txt");
 	}
 
+	// Change Sprite
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_1))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Buildings"));
+		_tilemapLayer = TileMap_LAYER::PLAT_Buildings;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_2))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Mount"));
+		_tilemapLayer = TileMap_LAYER::PLAT_Mount;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_3))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Nature"));
+		_tilemapLayer = TileMap_LAYER::PLAT_Nature;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_4))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Props"));
+		_tilemapLayer = TileMap_LAYER::PLAT_Props;
+	}
 }
 
 void TileMapScene::Render(HDC hdc)
@@ -210,4 +237,13 @@ bool TileMapScene::IsMouseInEdit(POINT mousePos)
 		return false;
 
 	return true;
+}
+
+void TileMapScene::ChangeSelectedSprite(Sprite* sprite)
+{
+	Vec2Int size = sprite->GetSize();
+
+	SetMapSize(Vec2(size.x, size.y));
+	_spriteActor->SetSprite(sprite);
+	_spriteActor->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
 }

@@ -34,6 +34,22 @@ void Tilemap::LoadFile(const std::wstring& path)
 			{
 				std::wstring data = line.substr(x * 6, 6);
 				
+				switch (std::stoi(data.substr(0, 2)))
+				{
+				case 0:
+					_tiles[y][x].layer = TileMap_LAYER::PLAT_Buildings;
+					break;
+				case 1:
+					_tiles[y][x].layer = TileMap_LAYER::PLAT_Mount;
+					break;
+				case 2:
+					_tiles[y][x].layer = TileMap_LAYER::PLAT_Nature;
+					break;
+				case 3:
+					_tiles[y][x].layer = TileMap_LAYER::PLAT_Props;
+					break;
+				}
+				
 				_tiles[y][x].y = std::stoi(data.substr(2, 2));
 				_tiles[y][x].x = std::stoi(data.substr(4, 2));
 			}
