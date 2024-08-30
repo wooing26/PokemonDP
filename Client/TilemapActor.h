@@ -30,7 +30,7 @@ public:
 protected:
 	Tilemap*									_tilemap = nullptr;
 	bool										_showDebug = true;
-	std::vector<std::vector<class Sprite*>>		_sprites[TileMap_LAYER::MAXCOUNT];
+	class Sprite*								_sprites[TileMap_LAYER::MAXCOUNT] = {};
 
 	float										_speed = 500;
 };
