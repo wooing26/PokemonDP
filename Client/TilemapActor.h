@@ -27,9 +27,12 @@ public:
 
 	void			SetShowDebug(bool showDebug) { _showDebug = showDebug; }
 
+	void			SetShowAll(bool showAll) { _showAll = showAll; }
+
 protected:
 	Tilemap*									_tilemap = nullptr;
 	bool										_showDebug = true;
+	bool										_showAll = false;
 	class Sprite*								_sprites[TileMap_LAYER::MAXCOUNT] = {};
 
 	float										_speed = 500;

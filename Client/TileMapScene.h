@@ -22,6 +22,8 @@ public:
 
 	void			ChangeSelectedSprite(class Sprite* sprite);
 
+	bool			SaveHDCToBMP(HDC hdc, int width, int height, const char* filePath);
+
 private:
 	Vec2					_pos = { 0, 0 };
 	Vec2					_cameraPos = { GWinSizeX / 2, GWinSizeY / 2 };
