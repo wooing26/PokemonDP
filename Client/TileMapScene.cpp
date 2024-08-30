@@ -162,7 +162,7 @@ void TileMapScene::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
-	int32 MaxX = min(_mapSize.x - (_cameraPos.x - GWinSizeX / 2) + 1, GWinSizeX);
+	int32 MaxX = min(_mapSize.x - (_cameraPos.x - GWinSizeX / 2) + 1, GWinSizeX / 2);
 	int32 MaxY = min(_mapSize.y - (_cameraPos.y - GWinSizeY / 2) + 1, GWinSizeY);
 
 	Vec2Int from = Vec2Int{ - ((int32)_cameraPos.x - GWinSizeX / 2), - ((int32)_cameraPos.y - GWinSizeY / 2) };
@@ -181,6 +181,8 @@ void TileMapScene::Render(HDC hdc)
 	from = Vec2Int{ - ((int32)_cameraPos.x - GWinSizeX / 2), - ((int32)_cameraPos.y - GWinSizeY / 2) };
 	to = from;
 	to.x += _mapSize.x;
+	if (to.x > GWinSizeX / 2)
+		to.x = GWinSizeX / 2;
 	while (from.y <= MaxY)
 	{
 		if (from.y >= 0)
