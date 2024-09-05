@@ -72,7 +72,7 @@ void BattleScene::LoadMap()
 		background->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
 		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
-		background->SetRenderSize(size);
+		background->SetRenderRatio(1.f);
 		AddActor(background);
 	}
 	{
@@ -83,7 +83,7 @@ void BattleScene::LoadMap()
 		background->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
 		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
-		background->SetRenderSize(size);
+		background->SetRenderRatio(1.f);
 		AddActor(background);
 	}
 }
@@ -99,7 +99,7 @@ void BattleScene::LoadTouchScreen()
 		background->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
 		background->SetPos(Vec2{ (float)pos.x + size.x / 2, (float)size.y / 2 });
-		background->SetRenderSize(size);
+		background->SetRenderRatio(1.f);
 		AddActor(background);
 	}
 }

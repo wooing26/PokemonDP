@@ -37,10 +37,10 @@ void SpriteActor::Render(HDC hdc)
 
 	::TransparentBlt(
 		hdc,
-		(int32)_pos.x - size.x / 2 - ((int32)cameraPos.x - GWinSizeX / 2),
-		(int32)_pos.y - size.y / 2 - ((int32)cameraPos.y - GWinSizeY / 2),
-		size.x,
-		size.y,
+		(int32)_pos.x - (size.x * _renderRatio) / 2 - ((int32)cameraPos.x - GWinSizeX / 2),
+		(int32)_pos.y - (size.y * _renderRatio) / 2 - ((int32)cameraPos.y - GWinSizeY / 2),
+		size.x * _renderRatio,
+		size.y * _renderRatio,
 		_sprite->GetDC(),
 		_sprite->GetPos().x,
 		_sprite->GetPos().y,
