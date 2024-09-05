@@ -153,6 +153,7 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="EditScene.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Flipbook.h" />
     <ClInclude Include="FlipbookActor.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="EditScene.cpp" />
     <ClCompile Include="Flipbook.cpp" />
     <ClCompile Include="FlipbookActor.cpp" />
     <ClCompile Include="Game.cpp" />

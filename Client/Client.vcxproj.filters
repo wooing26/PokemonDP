@@ -155,6 +155,9 @@
     <ClInclude Include="Tilemap.h">
       <Filter>소스 파일\04. Resources\Paper2D</Filter>
     </ClInclude>
+    <ClInclude Include="EditScene.h">
+      <Filter>소스 파일\02. Scene\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -250,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="Tilemap.cpp">
       <Filter>소스 파일\04. Resources\Paper2D</Filter>
+    </ClCompile>
+    <ClCompile Include="EditScene.cpp">
+      <Filter>소스 파일\02. Scene\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
