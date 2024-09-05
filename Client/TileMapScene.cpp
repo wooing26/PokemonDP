@@ -24,29 +24,33 @@ TileMapScene::~TileMapScene()
 
 void TileMapScene::Init()
 {
-	GET_SINGLE(ResourceManager)->LoadTexture(L"buildings", L"Sprite\\Tile\\TileSet\\buildings (HGSS).png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"caves", L"Sprite\\Tile\\TileSet\\caves (HGSS).png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"mounts", L"Sprite\\Tile\\TileSet\\mounts (HGSS).png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"props", L"Sprite\\Tile\\TileSet\\props (HGSS).png");
-
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Buildings", L"Sprite\\Tile\\TileSet\\PLAT Buildings.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Mount", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Nature", L"Sprite\\Tile\\TileSet\\PLAT Nature.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Props", L"Sprite\\Tile\\TileSet\\PLAT Props.png");
-	
+
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Buildings", L"Sprite\\Tile\\TileSet\\buildings (HGSS).png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Caves", L"Sprite\\Tile\\TileSet\\caves (HGSS).png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Mounts", L"Sprite\\Tile\\TileSet\\mounts (HGSS).png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Props", L"Sprite\\Tile\\TileSet\\props (HGSS).png");
 
 	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasDown", L"Sprite\\Player\\LucasDown.bmp");
 
 	GET_SINGLE(ResourceManager)->LoadTexture(L"borders", L"Sprite\\Tile\\TileSet\\borders.png");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"borders", GET_SINGLE(ResourceManager)->GetTexture(L"borders"), 0, 0);
-
+	
 	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Buildings", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Buildings"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Mount", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Mount"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Nature", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Nature"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Props", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Props"), 0, 0);
-
+	
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Buildings", GET_SINGLE(ResourceManager)->GetTexture(L"Buildings"), 0, 0);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Caves", GET_SINGLE(ResourceManager)->GetTexture(L"Caves"), 0, 0);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Mounts", GET_SINGLE(ResourceManager)->GetTexture(L"Mounts"), 0, 0);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Nature", GET_SINGLE(ResourceManager)->GetTexture(L"Nature"), 0, 0);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Props", GET_SINGLE(ResourceManager)->GetTexture(L"Props"), 0, 0);
 
 	{
 		TilemapActor* actor = new TilemapActor();
@@ -155,6 +159,11 @@ void TileMapScene::Update()
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Props"));
 		_tilemapLayer = TileMap_LAYER::PLAT_Props;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_5))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Nature"));
+		_tilemapLayer = TileMap_LAYER::Nature;
 	}
 
 	GET_SINGLE(SceneManager)->SetCameraPos(_cameraPos);

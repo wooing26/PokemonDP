@@ -22,7 +22,7 @@ void TilemapActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	std::wstring texture[TileMap_LAYER::MAXCOUNT] = { L"PLAT_Buildings", L"PLAT_Mount", L"PLAT_Nature", L"PLAT_Props" };
+	std::wstring texture[TileMap_LAYER::MAXCOUNT] = { L"PLAT_Buildings", L"PLAT_Mount", L"PLAT_Nature", L"PLAT_Props", L"Nature" };
 	
 	for (int32 i = 0; i < TileMap_LAYER::MAXCOUNT; i++)
 	{

@@ -26,6 +26,12 @@ enum TileMap_LAYER
 	PLAT_Nature,
 	PLAT_Props,
 
+	Buildings,
+	Caves,
+	Mounts,
+	Nature,
+	Props,
+
 	MAXCOUNT
 };
 
