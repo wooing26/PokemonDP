@@ -68,3 +68,19 @@ void Scene::RemoveActor(Actor* actor)
 	std::vector<Actor*>& v = _actors[actor->GetLayer()];
 	v.erase(std::remove(v.begin(), v.end(), actor), v.end());
 }
+
+void Scene::AddUI(UI* ui)
+{
+	if (ui == nullptr)
+		return;
+
+	_uis.push_back(ui);
+}
+
+void Scene::RemoveUI(UI* ui)
+{
+	if (ui == nullptr)
+		return;
+
+	_uis.erase(std::remove(_uis.begin(), _uis.end(), ui), _uis.end());
+}

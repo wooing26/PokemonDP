@@ -33,7 +33,7 @@ void Game::Init(HWND hwnd)
 	GET_SINGLE(SceneManager)->Init();
 	GET_SINGLE(ResourceManager)->Init(hwnd, L"..\\Resources");
 
-	GET_SINGLE(SceneManager)->ChangeScene(SceneType::TileMapScene);
+	GET_SINGLE(SceneManager)->ChangeScene(SceneType::EditScene);
 }
 
 void Game::Update()

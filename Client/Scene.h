@@ -16,6 +16,9 @@ public:
 	virtual void	AddActor(Actor* actor);
 	virtual void	RemoveActor(Actor* actor);
 
+	void			AddUI(UI* ui);
+	void			RemoveUI(UI* ui);
+
 	void			SetMainScreenSize(Vec2Int screenSize) { _mainScreenSize = screenSize; }
 	const Vec2Int&	GetMainScreenSize() { return _mainScreenSize; }
 

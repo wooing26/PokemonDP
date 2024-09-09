@@ -54,6 +54,9 @@
     <Filter Include="소스 파일\05. Component\Camera">
       <UniqueIdentifier>{4316bd5e-4da5-40eb-80de-c69b885ac75a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\06. UI\Game">
+      <UniqueIdentifier>{8ef3e779-1917-4680-a457-c51462ecabc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -158,6 +161,15 @@
     <ClInclude Include="EditScene.h">
       <Filter>소스 파일\02. Scene\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>소스 파일\06. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>소스 파일\06. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EditPanel.h">
+      <Filter>소스 파일\06. UI\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -256,6 +268,15 @@
     </ClCompile>
     <ClCompile Include="EditScene.cpp">
       <Filter>소스 파일\02. Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>소스 파일\06. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>소스 파일\06. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EditPanel.cpp">
+      <Filter>소스 파일\06. UI\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
