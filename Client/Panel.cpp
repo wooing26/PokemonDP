@@ -7,7 +7,7 @@ Panel::Panel()
 
 Panel::~Panel()
 {
-	for (std::shared_ptr<UI> child : _children)
+	for (std::shared_ptr<UI>& child : _children)
 		child = nullptr;
 
 	_children.clear();
@@ -17,7 +17,7 @@ void Panel::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (std::shared_ptr<UI> child : _children)
+	for (const std::shared_ptr<UI>& child : _children)
 		child->BeginPlay();
 }
 
@@ -27,8 +27,7 @@ void Panel::Tick()
 
 	for (std::shared_ptr<UI> child : _children)
 	{
-		if (child)
-			child->Tick();
+		child->Tick();
 	}
 		
 }
@@ -37,24 +36,26 @@ void Panel::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
-	for (std::shared_ptr<UI> child : _children)
+	for (const std::shared_ptr<UI>& child : _children)
 		child->Render(hdc);
 }
 
-void Panel::AddChild(UI* ui)
+void Panel::AddChild(std::shared_ptr<UI> ui)
 {
 	if (ui == nullptr)
 		return;
 
-	_children.push_back(std::make_shared<UI>(ui));
+	_children.push_back(ui);
 }
 
-bool Panel::RemoveChild(UI* ui)
+bool Panel::RemoveChild(std::shared_ptr<UI> ui)
 {
 	auto findIt = std::find(_children.begin(), _children.end(), ui);
 	if (findIt == _children.end())
 		return false;
 
+	findIt->reset();
 	_children.erase(findIt);
 	return true;
 }
+

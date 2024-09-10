@@ -16,8 +16,8 @@ Scene::~Scene()
 	
 	_actors->clear();
 
-	for (UI* ui : _uis)
-		SAFE_DELETE(ui);
+	for (std::shared_ptr<UI>& ui : _uis)
+		ui = nullptr;
 
 	_uis.clear();
 }
@@ -28,18 +28,19 @@ void Scene::Init()
 		for (Actor* actor : actors)
 			actor->BeginPlay();
 
-	for (UI* ui : _uis)
+	for (std::shared_ptr<UI>& ui : _uis)
 		ui->BeginPlay();
 }
 
 void Scene::Update()
 {
-	for (const std::vector<Actor*>& actors : _actors)
+	for (const std::vector<Actor*> actors : _actors)
 		for (Actor* actor : actors)
 			actor->Tick();
 
-	for (UI* ui : _uis)
-		ui->Tick();
+	for (std::shared_ptr<UI>& ui : _uis)
+		if (ui != NULL)
+			ui->Tick();
 }
 
 void Scene::Render(HDC hdc)
@@ -48,7 +49,7 @@ void Scene::Render(HDC hdc)
 		for (Actor* actor : actors)
 			actor->Render(hdc);
 
-	for (UI* ui : _uis)
+	for (std::shared_ptr<UI>& ui : _uis)
 		ui->Render(hdc);
 }
 
@@ -69,7 +70,7 @@ void Scene::RemoveActor(Actor* actor)
 	v.erase(std::remove(v.begin(), v.end(), actor), v.end());
 }
 
-void Scene::AddUI(UI* ui)
+void Scene::AddUI(std::shared_ptr<UI> ui)
 {
 	if (ui == nullptr)
 		return;
@@ -77,7 +78,7 @@ void Scene::AddUI(UI* ui)
 	_uis.push_back(ui);
 }
 
-void Scene::RemoveUI(UI* ui)
+void Scene::RemoveUI(std::shared_ptr<UI> ui)
 {
 	if (ui == nullptr)
 		return;

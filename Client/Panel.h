@@ -12,8 +12,8 @@ public:
 	virtual void	Tick() override;
 	virtual void	Render(HDC hdc) override;
 
-	void			AddChild(UI* ui);
-	bool			RemoveChild(UI* ui);
+	void			AddChild(std::shared_ptr<UI> ui);
+	bool			RemoveChild(std::shared_ptr<UI> ui);
 
 private:
 	std::vector<std::shared_ptr<UI>>	_children;

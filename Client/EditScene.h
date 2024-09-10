@@ -15,7 +15,10 @@ public:
 	virtual void	AddActor(Actor* actor) override;
 	virtual void	RemoveActor(Actor* actor) override;
 
+	void			ChangeBattle();
+	void			ChangeTilemap();
 
-
+private:
+	SceneType		_sceneType = SceneType::EditScene;
 };
 

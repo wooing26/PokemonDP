@@ -18,7 +18,7 @@ void EditPanel::BeginPlay()
 {
 	Super::BeginPlay();
 	{
-		Button* ui = new Button();
+		std::shared_ptr<Button> ui = std::make_shared<Button>();
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_Off"), BS_Default);
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_On"), BS_Pressed);
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_Off"), BS_Clicked);
@@ -28,7 +28,7 @@ void EditPanel::BeginPlay()
 		AddChild(ui);
 	}
 	{
-		Button* ui = new Button();
+		std::shared_ptr<Button> ui = std::make_shared<Button>();
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"TilemapEditorButton_Off"), BS_Default);
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"TilemapEditorButton_On"), BS_Pressed);
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"TilemapEditorButton_Off"), BS_Clicked);
