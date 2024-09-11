@@ -16,6 +16,8 @@ EditScene::~EditScene()
 
 void EditScene::Init()
 {
+	SetSceneType(SceneType::EditScene);
+
 	GET_SINGLE(ResourceManager)->LoadTexture(L"TilemapEditorButton", L"Sprite\\Miscellaneous\\TilemapEditorButton.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"BattleButton", L"Sprite\\Miscellaneous\\BattleButton.bmp");
 
@@ -56,9 +58,11 @@ void EditScene::Update()
 {
 	Super::Update();
 
-	if (_sceneType != SceneType::EditScene)
+	SceneType sceneType = GetSceneType();
+
+	if (sceneType != SceneType::EditScene)
 	{
-		GET_SINGLE(SceneManager)->ChangeScene(_sceneType);
+		GET_SINGLE(SceneManager)->ChangeScene(sceneType);
 	}
 }
 
@@ -77,10 +81,10 @@ void EditScene::RemoveActor(Actor* actor)
 
 void EditScene::ChangeBattle()
 {
-	_sceneType = SceneType::BattleScene;
+	SetSceneType(SceneType::BattleScene);
 }
 
 void EditScene::ChangeTilemap()
 {
-	_sceneType = SceneType::TileMapScene;
+	SetSceneType(SceneType::TileMapScene);
 }

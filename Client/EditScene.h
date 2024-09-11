@@ -17,8 +17,5 @@ public:
 
 	void			ChangeBattle();
 	void			ChangeTilemap();
-
-private:
-	SceneType		_sceneType = SceneType::EditScene;
 };
 
