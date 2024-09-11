@@ -38,6 +38,7 @@ void BattleScene::Init()
 	LoadTouchScreen();
 	LoadPlayer();
 	LoadPokemon();
+	LoadUI();
 
 
 	Super::Init();
@@ -76,17 +77,19 @@ void BattleScene::LoadMap()
 		background->SetSize(size);
 		AddActor(background);
 	}
-	/*{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Battle_Land");
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"BattleBG");
+		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"Battle_Land");
 		Vec2Int size = GetMainScreenSize();
+		fb->SetInfo({ texture, L"Battle_Land", { 256, 144 }, 3, 3, 0, 0.5f, false});
 
-		SpriteActor* background = new SpriteActor();
-		background->SetSprite(sprite);
+		FlipbookActor* background = new FlipbookActor();
+		background->SetFlipbook(fb);
 		background->SetLayer(LAYER_BACKGROUND);
 		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
-		background->SetRenderRatio(1.f);
+		background->SetSize(size);
 		AddActor(background);
-	}*/
+	}
 }
 
 void BattleScene::LoadTouchScreen()
@@ -100,7 +103,7 @@ void BattleScene::LoadTouchScreen()
 		background->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
 		background->SetPos(Vec2{ (float)pos.x + size.x / 2, (float)size.y / 2 });
-		background->SetRenderRatio(1.f);
+		background->SetSize(size);
 		AddActor(background);
 	}
 }
@@ -149,23 +152,30 @@ void BattleScene::LoadPokemon()
 		Vec2Int size = { 80, 80 };
 		fb->SetInfo({ texture, L"001_Bulbasaur", size, 2, 2, 0, 0.f, false });
 
+		size *= 3;
 		FlipbookActor* pokemon = new FlipbookActor();
 		pokemon->SetFlipbook(fb);
 		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos({_myPos.x + size.x * 3 / 2, _myPos.y - size.y * 3 / 2});
-		pokemon->SetSize(size * 3);
+		pokemon->SetPos({_myPos.x + size.x / 2, _myPos.y - size.y / 2});
+		pokemon->SetSize(size);
 		AddActor(pokemon);
 	}
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"006_Charizard");
-		fb->SetInfo({ texture, L"006_Charizard", {80, 80}, (7 - 1) * 3, (7 - 1) * 3, 0, 0.f, false });
+		Vec2Int size = { 80, 80 };
+		fb->SetInfo({ texture, L"006_Charizard", size, (7 - 1) * 3, (7 - 1) * 3, 0, 0.f, false });
 
+		size *= 3;
 		FlipbookActor* pokemon = new FlipbookActor();
 		pokemon->SetFlipbook(fb);
 		pokemon->SetLayer(LAYER_OBJECT);
 		pokemon->SetPos(_enemyPos);
-		pokemon->SetSize(pokemon->GetSize() * 3);
+		pokemon->SetSize(size);
 		AddActor(pokemon);
 	}
+}
+
+void BattleScene::LoadUI()
+{
 }

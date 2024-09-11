@@ -19,10 +19,11 @@ public:
 	void			LoadTouchScreen();
 	void			LoadPlayer();
 	void			LoadPokemon();
+	void			LoadUI();
 
 
 private:
-	Vec2	_myPos = {0, (float)MainSizeY};
-	Vec2	_enemyPos = {(float)(MainSizeX - 20), 10 * 3};
+	Vec2	_myPos = {0.f, (float)MainSizeY};
+	Vec2	_enemyPos = { (float)MainSizeX * 2 / 3, (float)MainSizeY / 2 };
 };
 
