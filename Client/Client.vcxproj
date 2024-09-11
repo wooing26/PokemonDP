@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="BattlePanel.h" />
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CameraComponent.h" />
@@ -187,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="BattlePanel.cpp" />
     <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
