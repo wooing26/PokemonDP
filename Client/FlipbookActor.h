@@ -14,7 +14,7 @@ public:
 	virtual void	Tick();
 	virtual void	Render(HDC hdc);
 
-	void			SetFlipbook(Flipbook* flipbook) { _flipbook = flipbook; }
+	void			SetFlipbook(Flipbook* flipbook);
 	void			Reset();
 
 private:

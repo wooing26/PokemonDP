@@ -31,7 +31,7 @@ void EditScene::Init()
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_Off"), BS_Default);
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_On"), BS_Pressed);
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_Off"), BS_Clicked);
-		ui->SetPos({ 500, 1000 });
+		ui->SetPos({ 500, 600 });
 
 		ui->AddOnClickDelegate(this, &EditScene::ChangeBattle);
 
@@ -43,7 +43,7 @@ void EditScene::Init()
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"TilemapEditorButton_Off"), BS_Default);
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"TilemapEditorButton_On"), BS_Pressed);
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"TilemapEditorButton_Off"), BS_Clicked);
-		ui->SetPos({ 1000, 1000 });
+		ui->SetPos({ 1000, 600 });
 
 		ui->AddOnClickDelegate(this, &EditScene::ChangeTilemap);
 

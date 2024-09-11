@@ -39,6 +39,7 @@ void BattleScene::Init()
 	LoadPlayer();
 	LoadPokemon();
 
+
 	Super::Init();
 }
 
@@ -72,10 +73,10 @@ void BattleScene::LoadMap()
 		background->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
 		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
-		background->SetRenderRatio(1.f);
+		background->SetSize(size);
 		AddActor(background);
 	}
-	{
+	/*{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Battle_Land");
 		Vec2Int size = GetMainScreenSize();
 
@@ -85,7 +86,7 @@ void BattleScene::LoadMap()
 		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2 });
 		background->SetRenderRatio(1.f);
 		AddActor(background);
-	}
+	}*/
 }
 
 void BattleScene::LoadTouchScreen()
@@ -145,12 +146,14 @@ void BattleScene::LoadPokemon()
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"001_Bulbasaur");
-		fb->SetInfo({ texture, L"001_Bulbasaur", {80, 80}, 2, 2, 0, 0.f, false });
+		Vec2Int size = { 80, 80 };
+		fb->SetInfo({ texture, L"001_Bulbasaur", size, 2, 2, 0, 0.f, false });
 
 		FlipbookActor* pokemon = new FlipbookActor();
 		pokemon->SetFlipbook(fb);
 		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos(_myPos + Vec2{ 40, -40 } *3);
+		pokemon->SetPos({_myPos.x + size.x * 3 / 2, _myPos.y - size.y * 3 / 2});
+		pokemon->SetSize(size * 3);
 		AddActor(pokemon);
 	}
 	{
@@ -161,7 +164,8 @@ void BattleScene::LoadPokemon()
 		FlipbookActor* pokemon = new FlipbookActor();
 		pokemon->SetFlipbook(fb);
 		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos(_enemyPos + Vec2{ -40, 40 } *3);
+		pokemon->SetPos(_enemyPos);
+		pokemon->SetSize(pokemon->GetSize() * 3);
 		AddActor(pokemon);
 	}
 }

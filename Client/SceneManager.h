@@ -26,6 +26,6 @@ public:
 	Vec2		GetCameraPos() { return _cameraPos; }
 
 private:
-	Vec2		_cameraPos = {};
+	Vec2		_cameraPos = {GWinSizeX / 2, GWinSizeY / 2};
 };
 

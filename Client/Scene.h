@@ -29,11 +29,11 @@ public:
 	Vec2			GetMapSize() { return _mapSize; }
 
 private:
-	std::vector<Actor*>		_actors[LAYER_MAXCOUNT];
+	std::vector<Actor*>						_actors[LAYER_MAXCOUNT];
 	std::vector<std::shared_ptr<UI>>		_uis;
 
-	Vec2Int					_mainScreenSize = {MainSizeX * 3, MainSizeY * 3};
-	Vec2Int					_touchScreenSize = {TouchSizeX * 2, TouchSizeY * 2};
-	Vec2					_mapSize = {};
+	Vec2Int									_mainScreenSize = {MainSizeX, MainSizeY};
+	Vec2Int									_touchScreenSize = {TouchSizeX, TouchSizeY};
+	Vec2									_mapSize = {};
 };
 

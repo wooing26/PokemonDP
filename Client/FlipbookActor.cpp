@@ -60,8 +60,8 @@ void FlipbookActor::Render(HDC hdc)
 	::AlphaBlend(hdc,
 		_pos.x - (info.size.x * 3) / 2,
 		_pos.y - (info.size.y * 3) / 2,
-		info.size.x * 2,
-		info.size.y * 2,
+		_size.x,
+		_size.y,
 		info.texture->GetDC(),
 		(info.start + _idx) * info.size.x,
 		info.line * info.size.y,
@@ -79,6 +79,15 @@ void FlipbookActor::Render(HDC hdc)
 		info.size.x,
 		info.size.y,
 		info.texture->GetTransparent());*/
+}
+
+void FlipbookActor::SetFlipbook(Flipbook* flipbook)
+{
+	if (flipbook == nullptr)
+		return;
+
+	_flipbook = flipbook;
+	SetSize(flipbook->GetInfo().size);
 }
 
 void FlipbookActor::Reset()
