@@ -58,8 +58,8 @@ void FlipbookActor::Render(HDC hdc)
 	bf.AlphaFormat = AC_SRC_ALPHA;
 
 	::AlphaBlend(hdc,
-		_pos.x - (info.size.x * 3) / 2,
-		_pos.y - (info.size.y * 3) / 2,
+		_pos.x - _size.x / 2,
+		_pos.y - _size.y / 2,
 		_size.x,
 		_size.y,
 		info.texture->GetDC(),
