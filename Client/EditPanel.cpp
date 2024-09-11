@@ -3,6 +3,7 @@
 #include "Button.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
+#include "Scene.h"
 
 EditPanel::EditPanel()
 {
@@ -51,10 +52,12 @@ void EditPanel::Render(HDC hdc)
 
 void EditPanel::OnClickTilemapButton()
 {
-	GET_SINGLE(SceneManager)->ChangeScene(SceneType::TileMapScene);
+	Scene* scene = GET_SINGLE(SceneManager)->GetCurrentScene();
+	scene->SetSceneType(SceneType::TileMapScene);
 }
 
 void EditPanel::OnClickBattleButton()
 {
-	GET_SINGLE(SceneManager)->ChangeScene(SceneType::BattleScene);
+	Scene* scene = GET_SINGLE(SceneManager)->GetCurrentScene();
+	scene->SetSceneType(SceneType::BattleScene);
 }

@@ -28,27 +28,9 @@ void EditScene::Init()
 	GET_SINGLE(ResourceManager)->CreateSprite(L"BattleButton_On", GET_SINGLE(ResourceManager)->GetTexture(L"BattleButton"), 0, 143, 300, 143);
 
 	{
-		std::shared_ptr<Button> ui = std::make_shared<Button>();
-		
-		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_Off"), BS_Default);
-		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_On"), BS_Pressed);
-		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_Off"), BS_Clicked);
-		ui->SetPos({ 500, 600 });
+		std::shared_ptr<EditPanel> ui = std::make_shared<EditPanel>();
 
-		ui->AddOnClickDelegate(this, &EditScene::ChangeBattle);
-
-		AddUI(ui);
-	}
-	{
-		std::shared_ptr<Button> ui = std::make_shared<Button>();
-
-		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"TilemapEditorButton_Off"), BS_Default);
-		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"TilemapEditorButton_On"), BS_Pressed);
-		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"TilemapEditorButton_Off"), BS_Clicked);
-		ui->SetPos({ 1000, 600 });
-
-		ui->AddOnClickDelegate(this, &EditScene::ChangeTilemap);
-
+		ui->SetPos({ 800, 600 });
 		AddUI(ui);
 	}
 	Super::Init();
@@ -77,14 +59,4 @@ void EditScene::AddActor(Actor* actor)
 
 void EditScene::RemoveActor(Actor* actor)
 {
-}
-
-void EditScene::ChangeBattle()
-{
-	SetSceneType(SceneType::BattleScene);
-}
-
-void EditScene::ChangeTilemap()
-{
-	SetSceneType(SceneType::TileMapScene);
 }
