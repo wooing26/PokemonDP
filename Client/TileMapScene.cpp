@@ -162,8 +162,28 @@ void TileMapScene::Update()
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_5))
 	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Buildings"));
+		_tilemapLayer = TileMap_LAYER::Buildings;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_6))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Caves"));
+		_tilemapLayer = TileMap_LAYER::Caves;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_7))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Mounts"));
+		_tilemapLayer = TileMap_LAYER::Mounts;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_8))
+	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Nature"));
 		_tilemapLayer = TileMap_LAYER::Nature;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_9))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Props"));
+		_tilemapLayer = TileMap_LAYER::Props;
 	}
 
 	GET_SINGLE(SceneManager)->SetCameraPos(_cameraPos);

@@ -20,6 +20,7 @@ enum class KeyType
 	KEY_6 = '6',
 	KEY_7 = '7',
 	KEY_8 = '8',
+	KEY_9 = '9',
 
 	W = 'W',
 	A = 'A',

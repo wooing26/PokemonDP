@@ -14,7 +14,7 @@ public:
 	virtual void	Tick() override;
 	virtual void	Render(HDC hdc) override;
 
-	void			SetSprite(Sprite* sprite) { _sprite = sprite; }
+	void			SetSprite(Sprite* sprite);
 
 	void			SetRenderRatio(float renderRatio) { _renderRatio = renderRatio; }
 	const float&	GetRenderRatio() { return _renderRatio; }
