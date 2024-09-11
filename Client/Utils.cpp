@@ -6,6 +6,22 @@ void Utils::DrawText(HDC hdc, Vec2Int pos, const std::wstring& str)
 	::TextOut(hdc, pos.x, pos.y, str.c_str(), static_cast<int32>(str.size()));
 }
 
+void Utils::DrawTextSize(HDC hdc, Vec2Int pos, int32 size, const std::wstring& str)
+{
+	HFONT hFont = ::CreateFont(size, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, L"PokePT_Wansung"
+	);
+
+	HFONT hOldFont = (HFONT)::SelectObject(hdc, hFont);
+
+	::TextOut(hdc, pos.x, pos.y, str.c_str(), static_cast<int32>(str.size()));
+
+	::SelectObject(hdc, hOldFont);
+
+	::DeleteObject(hFont);
+}
+
 void Utils::DrawRect(HDC hdc, Vec2Int pos, int32 w, int32 h)
 {
 	::Rectangle(hdc, pos.x - w / 2, pos.y - h / 2, pos.x + w / 2, pos.y + h / 2);
