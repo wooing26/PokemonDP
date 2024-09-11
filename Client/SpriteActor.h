@@ -16,11 +16,10 @@ public:
 
 	void			SetSprite(Sprite* sprite);
 
-	void			SetRenderRatio(float renderRatio) { _renderRatio = renderRatio; }
-	const float&	GetRenderRatio() { return _renderRatio; }
+	void			SetRenderRatio(float renderRatio) { _size = _size * renderRatio; }
 
 private:
 	Sprite*			_sprite = nullptr;
-	float			_renderRatio = 1.f;
+
 };
 
