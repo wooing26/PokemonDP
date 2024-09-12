@@ -22,6 +22,11 @@ void Utils::DrawTextSize(HDC hdc, Vec2Int pos, int32 size, const std::wstring& s
 	::DeleteObject(hFont);
 }
 
+void Utils::DrawTextRect(HDC hdc, RECT rect, const std::wstring& str)
+{
+	::DrawText(hdc, str.c_str(), -1, &rect, DT_LEFT | DT_WORDBREAK);
+}
+
 void Utils::DrawRect(HDC hdc, Vec2Int pos, int32 w, int32 h)
 {
 	::Rectangle(hdc, pos.x - w / 2, pos.y - h / 2, pos.x + w / 2, pos.y + h / 2);

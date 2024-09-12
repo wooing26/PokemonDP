@@ -23,7 +23,7 @@ public:
 
 
 private:
-	Vec2	_myPos = {0.f, (float)MainSizeY};
-	Vec2	_enemyPos = { (float)MainSizeX * 2 / 3, (float)MainSizeY / 2 };
+	Vec2	_myPos = { (float)MainSizeX / 9, (float)MainSizeY};
+	Vec2	_enemyPos = { (float)MainSizeX * 3 / 4, (float)MainSizeY * 89 / 144 };
 };
 
