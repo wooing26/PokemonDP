@@ -18,6 +18,18 @@ void TextBox::BeginPlay()
 	Super::BeginPlay();
 	_textBox = GET_SINGLE(ResourceManager)->GetSprite(L"TextBox");
 
+	SetSize({ MainSizeX, 100 });
+
+	switch (_textStyle)
+	{
+	case TextStyle::OverworldText:
+		SetPos({ MainSizeX / 2, MainSizeY - _size.y / 2 - 10 });
+		break;
+	case TextStyle::BattleText:
+		SetPos({ MainSizeX / 2, MainSizeY + _size.y / 2 + 10 });
+		break;
+	}
+
 	_rect =
 	{
 		(int32)_pos.x - _size.x / 2 + 50,

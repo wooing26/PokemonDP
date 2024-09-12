@@ -191,12 +191,9 @@ void BattleScene::LoadUI()
 	{
 		std::shared_ptr<TextBox> ui = std::make_shared<TextBox>();
 
-		Vec2Int size = { MainSizeX, 100 };
-
-		ui->SetPos({ MainSizeX / 2, MainSizeY + size.y / 2 + 10});
-		ui->SetSize(size);
+		ui->SetTextStyle(TextStyle::BattleText);
 		std::wstring pokemonName = L"거북왕";
-		ui->SetTexts({
+		ui->SetTextZip({
 			L"우왓! 야생의 리자몽이 나왔다!",
 			std::format(L"가랏! {0}!", pokemonName),
 			std::format(L"{0}은 무엇을 할까?", pokemonName)

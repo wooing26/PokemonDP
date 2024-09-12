@@ -3,6 +3,12 @@
 
 class Sprite;
 
+enum class TextStyle
+{
+	OverworldText,
+	BattleText
+};
+
 class TextBox : public UI
 {
 	using Super = UI;
@@ -14,7 +20,10 @@ public:
 	virtual void	Tick() override;
 	virtual void	Render(HDC hdc) override;
 
-	void			SetTexts(const std::vector<std::wstring>& texts) { _texts = texts; }
+	void			SetTextStyle(TextStyle textStyle) { _textStyle = textStyle; }
+
+	void			SetText(std::wstring text) { _currentText = text; }
+	void			SetTextZip(const std::vector<std::wstring>& texts) { _texts = texts; }
 	void			SetNextText();
 
 private:
@@ -27,5 +36,7 @@ private:
 	float						_sumTime = 0.f;
 	int32						_idx = 0;
 	int32						_enterCount = 0;
+
+	TextStyle					_textStyle = TextStyle::OverworldText;
 };
 
