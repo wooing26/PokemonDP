@@ -11,6 +11,7 @@ enum class KeyType
 	Right = VK_RIGHT,
 
 	Space = VK_SPACE,
+	Enter = VK_RETURN,
 
 	KEY_1 = '1',
 	KEY_2 = '2',

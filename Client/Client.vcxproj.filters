@@ -173,6 +173,9 @@
     <ClInclude Include="BattlePanel.h">
       <Filter>소스 파일\06. UI\Game</Filter>
     </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>소스 파일\06. UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -283,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="BattlePanel.cpp">
       <Filter>소스 파일\06. UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>소스 파일\06. UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
 #include "SpriteActor.h"
 #include "FlipbookActor.h"
 #include "BattlePanel.h"
+#include "TextBox.h"
 
 BattleScene::BattleScene()
 {
@@ -37,6 +38,8 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_DiamondOpening", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 46, 16, 256, 192);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TS_Battle", GET_SINGLE(ResourceManager)->GetTexture(L"TouchScreen"), 307, 410, 256, 192);
 
+	// UI
+	GET_SINGLE(ResourceManager)->CreateSprite(L"TextBox", GET_SINGLE(ResourceManager)->GetTexture(L"Text_Boxes"), 0, 0, 250, 44);
 
 	
 	LoadMap();
@@ -186,9 +189,18 @@ void BattleScene::LoadPokemon()
 void BattleScene::LoadUI()
 {
 	{
-		std::shared_ptr<BattlePanel> ui = std::make_shared<BattlePanel>();
+		std::shared_ptr<TextBox> ui = std::make_shared<TextBox>();
 
-		ui->SetPos({ GWinSizeX / 2, GWinSizeY * 2 / 3 });
+		Vec2Int size = { MainSizeX, 100 };
+
+		ui->SetPos({ MainSizeX / 2, MainSizeY + size.y / 2 + 10});
+		ui->SetSize(size);
+		std::wstring pokemonName = L"거북왕";
+		ui->SetTexts({
+			L"우왓! 야생의 리자몽이 나왔다!",
+			std::format(L"가랏! {0}!", pokemonName),
+			std::format(L"{0}은 무엇을 할까?", pokemonName)
+			});
 		AddUI(ui);
 	}
 }
