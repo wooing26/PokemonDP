@@ -30,7 +30,7 @@ void EditScene::Init()
 	{
 		std::shared_ptr<EditPanel> ui = std::make_shared<EditPanel>();
 
-		ui->SetPos({ 800, 600 });
+		ui->SetPos({ GWinSizeX / 2, GWinSizeY * 2 / 3 });
 		AddUI(ui);
 	}
 	Super::Init();
