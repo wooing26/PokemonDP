@@ -24,7 +24,9 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"BattleBG", L"Sprite\\Background\\Battlegrounds.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"TouchScreen", L"Sprite\\Background\\Touch Screen Backgrounds.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Text_Boxes", L"Sprite\\UI\\Text Boxes.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"HP_Bars", L"Sprite\\UI\\HP.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Pokemon_1st", L"Sprite\\Pokemon\\Pokemon_Gen1.bmp");
+	
 	
 	// Player Overworld
 	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasUp", L"Sprite\\Player\\LucasUp.bmp");
@@ -40,7 +42,25 @@ void BattleScene::Init()
 
 	// UI
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TextBox", GET_SINGLE(ResourceManager)->GetTexture(L"Text_Boxes"), 0, 0, 250, 44);
+	
+	GET_SINGLE(ResourceManager)->CreateSprite(L"My_HP_Male", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 0, 120, 30);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"My_HP_Female", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 120, 0, 120, 30);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"My_HP_Genderless", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 240, 0, 120, 30);
+	
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Other_HP_Male", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 30, 120, 41);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Other_HP_Female", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 120, 30, 120, 41);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Other_HP_Genderless", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 240, 30, 120, 41);
+	
+	GET_SINGLE(ResourceManager)->CreateSprite(L"LowHPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 71, 12, 7);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"MiddleHPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 78, 24, 7);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"HighHPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 85, 48, 7);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"EXPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 85, 90, 3);
 
+	// Number
+	for (int32 i = 0; i < 10; i++)
+	{
+		GET_SINGLE(ResourceManager)->CreateSprite(std::to_wstring(i), GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 100 + 8 * i, 100, 8, 7);
+	}
 	
 	LoadMap();
 	LoadTouchScreen();
@@ -189,15 +209,8 @@ void BattleScene::LoadPokemon()
 void BattleScene::LoadUI()
 {
 	{
-		std::shared_ptr<TextBox> ui = std::make_shared<TextBox>();
+		std::shared_ptr<BattlePanel> ui = std::make_shared<BattlePanel>();
 
-		ui->SetTextStyle(TextStyle::BattleText);
-		std::wstring pokemonName = L"거북왕";
-		ui->SetTextZip({
-			L"우왓! 야생의 리자몽이 나왔다!",
-			std::format(L"가랏! {0}!", pokemonName),
-			std::format(L"{0}은 무엇을 할까?", pokemonName)
-			});
 		AddUI(ui);
 	}
 }
