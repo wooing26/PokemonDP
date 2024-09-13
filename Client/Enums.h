@@ -19,7 +19,7 @@ enum LAYER_TYPE
 	LAYER_MAXCOUNT
 };
 
-enum TileMap_LAYER
+enum Tilemap_TYPE
 {
 	PLAT_Buildings,
 	PLAT_Mount,

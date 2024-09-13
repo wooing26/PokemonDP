@@ -34,37 +34,7 @@ void Tilemap::LoadFile(const std::wstring& path)
 			{
 				std::wstring data = line.substr(x * 6, 6);
 				
-				switch (std::stoi(data.substr(0, 2)))
-				{
-				case 0:
-					_tiles[y][x].layer = TileMap_LAYER::PLAT_Buildings;
-					break;
-				case 1:
-					_tiles[y][x].layer = TileMap_LAYER::PLAT_Mount;
-					break;
-				case 2:
-					_tiles[y][x].layer = TileMap_LAYER::PLAT_Nature;
-					break;
-				case 3:
-					_tiles[y][x].layer = TileMap_LAYER::PLAT_Props;
-					break;
-				case 4:
-					_tiles[y][x].layer = TileMap_LAYER::Buildings;
-					break;
-				case 5:
-					_tiles[y][x].layer = TileMap_LAYER::Caves;
-					break;
-				case 6:
-					_tiles[y][x].layer = TileMap_LAYER::Mounts;
-					break;
-				case 7:
-					_tiles[y][x].layer = TileMap_LAYER::Nature;
-					break;
-				case 8:
-					_tiles[y][x].layer = TileMap_LAYER::Props;
-					break;
-				}
-				
+				_tiles[y][x].type = static_cast<Tilemap_TYPE>(std::stoi(data.substr(0, 2)));
 				_tiles[y][x].y = std::stoi(data.substr(2, 2));
 				_tiles[y][x].x = std::stoi(data.substr(4, 2));
 			}
@@ -93,7 +63,7 @@ void Tilemap::SaveFile(const std::wstring& path)
 			{
 				ofs.width(2);
 				ofs.fill('0');
-				ofs << _tiles[y][x].layer;
+				ofs << _tiles[y][x].type;
 				ofs.width(2);
 				ofs.fill('0');
 				ofs << _tiles[y][x].y;

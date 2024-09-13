@@ -22,10 +22,10 @@ void TilemapActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	std::wstring texture[TileMap_LAYER::MAXCOUNT] = { L"PLAT_Buildings", L"PLAT_Mount", L"PLAT_Nature", L"PLAT_Props",
-		L"Buildings", L"Caves", L"Mounts" L"Nature", L"Props"};
+	std::wstring texture[Tilemap_TYPE::MAXCOUNT] = { L"PLAT_Buildings", L"PLAT_Mount", L"PLAT_Nature", L"PLAT_Props",
+		L"Buildings", L"Caves", L"Mounts", L"Nature", L"Props"};
 
-	for (int32 i = 0; i < TileMap_LAYER::MAXCOUNT; i++)
+	for (int32 i = 0; i < Tilemap_TYPE::MAXCOUNT; i++)
 	{
 		_sprites[i] = GET_SINGLE(ResourceManager)->GetSprite(texture[i]);
 	}
@@ -98,12 +98,12 @@ void TilemapActor::Render(HDC hdc)
 				_pos.y + y * TILE_SIZEY,
 				TILE_SIZEX,
 				TILE_SIZEY,
-				_sprites[tiles[y][x].layer]->GetDC(),
+				_sprites[tiles[y][x].type]->GetDC(),
 				tiles[y][x].x * TILE_SIZEX,
 				tiles[y][x].y * TILE_SIZEY,
 				TILE_SIZEX,
 				TILE_SIZEY,
-				_sprites[tiles[y][x].layer]->GetTransparent());
+				_sprites[tiles[y][x].type]->GetTransparent());
 		}
 	}
 }

@@ -34,6 +34,6 @@ private:
 	class TilemapActor*		_tilemapActor = nullptr;
 	class SpriteActor*		_spriteActor = nullptr;
 	Vec2Int					_selectedTilePos = {0, 0};
-	TileMap_LAYER			_tilemapLayer = TileMap_LAYER::PLAT_Nature;
+	Tilemap_TYPE			_tilemapLayer = Tilemap_TYPE::PLAT_Nature;
 };
 

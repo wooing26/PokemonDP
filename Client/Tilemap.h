@@ -4,7 +4,7 @@
 struct Tile
 {
 	// TODO
-	TileMap_LAYER	layer = TileMap_LAYER::PLAT_Nature;
+	Tilemap_TYPE	type = Tilemap_TYPE::PLAT_Nature;
 	int32			x = 0;
 	int32			y = 0;
 };

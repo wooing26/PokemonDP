@@ -33,7 +33,7 @@ protected:
 	Tilemap*									_tilemap = nullptr;
 	bool										_showDebug = true;
 	bool										_showAll = false;
-	class Sprite*								_sprites[TileMap_LAYER::MAXCOUNT] = {};
+	class Sprite*								_sprites[Tilemap_TYPE::MAXCOUNT] = {};
 
 	float										_speed = 500;
 };

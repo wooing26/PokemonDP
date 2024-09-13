@@ -35,11 +35,6 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Props", L"Sprite\\Tile\\TileSet\\props (HGSS).png");
 
-	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasDown", L"Sprite\\Player\\LucasDown.bmp");
-
-	GET_SINGLE(ResourceManager)->LoadTexture(L"borders", L"Sprite\\Tile\\TileSet\\borders.png");
-
-	GET_SINGLE(ResourceManager)->CreateSprite(L"borders", GET_SINGLE(ResourceManager)->GetTexture(L"borders"), 0, 0);
 	
 	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Buildings", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Buildings"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Mount", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Mount"), 0, 0);
@@ -143,47 +138,47 @@ void TileMapScene::Update()
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_1))
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Buildings"));
-		_tilemapLayer = TileMap_LAYER::PLAT_Buildings;
+		_tilemapLayer = Tilemap_TYPE::PLAT_Buildings;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_2))
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Mount"));
-		_tilemapLayer = TileMap_LAYER::PLAT_Mount;
+		_tilemapLayer = Tilemap_TYPE::PLAT_Mount;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_3))
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Nature"));
-		_tilemapLayer = TileMap_LAYER::PLAT_Nature;
+		_tilemapLayer = Tilemap_TYPE::PLAT_Nature;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_4))
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Props"));
-		_tilemapLayer = TileMap_LAYER::PLAT_Props;
+		_tilemapLayer = Tilemap_TYPE::PLAT_Props;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_5))
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Buildings"));
-		_tilemapLayer = TileMap_LAYER::Buildings;
+		_tilemapLayer = Tilemap_TYPE::Buildings;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_6))
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Caves"));
-		_tilemapLayer = TileMap_LAYER::Caves;
+		_tilemapLayer = Tilemap_TYPE::Caves;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_7))
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Mounts"));
-		_tilemapLayer = TileMap_LAYER::Mounts;
+		_tilemapLayer = Tilemap_TYPE::Mounts;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_8))
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Nature"));
-		_tilemapLayer = TileMap_LAYER::Nature;
+		_tilemapLayer = Tilemap_TYPE::Nature;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_9))
 	{
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Props"));
-		_tilemapLayer = TileMap_LAYER::Props;
+		_tilemapLayer = Tilemap_TYPE::Props;
 	}
 
 	GET_SINGLE(SceneManager)->SetCameraPos(_cameraPos);
