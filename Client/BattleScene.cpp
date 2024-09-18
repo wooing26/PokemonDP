@@ -43,13 +43,13 @@ void BattleScene::Init()
 	// UI
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TextBox", GET_SINGLE(ResourceManager)->GetTexture(L"Text_Boxes"), 0, 0, 250, 44);
 	
-	GET_SINGLE(ResourceManager)->CreateSprite(L"My_HP_Male", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 0, 120, 30);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"My_HP_Female", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 120, 0, 120, 30);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"My_HP_Genderless", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 240, 0, 120, 30);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Other_HP_Male", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 0, 120, 30);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Other_HP_Female", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 120, 0, 120, 30);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Other_HP_Genderless", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 240, 0, 120, 30);
 	
-	GET_SINGLE(ResourceManager)->CreateSprite(L"Other_HP_Male", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 30, 120, 41);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"Other_HP_Female", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 120, 30, 120, 41);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"Other_HP_Genderless", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 240, 30, 120, 41);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"My_HP_Male", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 30, 120, 41);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"My_HP_Female", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 120, 30, 120, 41);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"My_HP_Genderless", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 240, 30, 120, 41);
 	
 	GET_SINGLE(ResourceManager)->CreateSprite(L"LowHPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 71, 12, 7);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"MiddleHPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 78, 24, 7);

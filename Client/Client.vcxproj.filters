@@ -173,8 +173,14 @@
     <ClInclude Include="BattlePanel.h">
       <Filter>소스 파일\06. UI\Game</Filter>
     </ClInclude>
-    <ClInclude Include="TextBox.h">
+    <ClInclude Include="HpBar.h">
       <Filter>소스 파일\06. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>소스 파일\06. UI\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerPanel.h">
+      <Filter>소스 파일\06. UI\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,8 +293,14 @@
     <ClCompile Include="BattlePanel.cpp">
       <Filter>소스 파일\06. UI\Game</Filter>
     </ClCompile>
-    <ClCompile Include="TextBox.cpp">
+    <ClCompile Include="HpBar.cpp">
       <Filter>소스 파일\06. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>소스 파일\06. UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerPanel.cpp">
+      <Filter>소스 파일\06. UI\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

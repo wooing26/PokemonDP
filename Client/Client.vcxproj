@@ -166,6 +166,7 @@
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="HpBar.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LayerPanel.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="HpBar.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LayerPanel.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
