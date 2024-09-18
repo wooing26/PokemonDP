@@ -20,9 +20,16 @@ public:
 	bool			IsMouseInSelect(POINT mousePos);
 	bool			IsMouseInEdit(POINT mousePos);
 
+	void			EditTilemap();
+	
+	void			SaveLoadTilemap();
+
+	void			ChangeSprite();
 	void			ChangeSelectedSprite(class Sprite* sprite);
 
 	bool			SaveHDCToBMP(HDC hdc, int width, int height, const char* filePath);
+
+
 
 private:
 	Vec2					_pos = { 0, 0 };

@@ -32,11 +32,12 @@ void Tilemap::LoadFile(const std::wstring& path)
 
 			for (int32 x = 0; x < _mapSize.x; x++)
 			{
-				std::wstring data = line.substr(x * 6, 6);
+				std::wstring data = line.substr(x * 7, 7);
 				
 				_tiles[y][x].type = static_cast<Tilemap_TYPE>(std::stoi(data.substr(0, 2)));
 				_tiles[y][x].y = std::stoi(data.substr(2, 2));
 				_tiles[y][x].x = std::stoi(data.substr(4, 2));
+				_tiles[y][x].layer = data[6] - L'0';
 			}
 		}
 
@@ -70,6 +71,7 @@ void Tilemap::SaveFile(const std::wstring& path)
 				ofs.width(2);
 				ofs.fill('0');
 				ofs << _tiles[y][x].x;
+				ofs << _tiles[y][x].layer;
 			}
 
 			ofs << std::endl;

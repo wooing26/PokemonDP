@@ -25,16 +25,16 @@ void Button::Tick()
 
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
-	if (_state == BS_Clicked)
+	/*if (_state == BS_Clicked)
 	{
 		_sumTime += deltaTime;
 
-		if (_sumTime >= 0.2f)
+		if (_sumTime >= 5.f)
 		{
 			_sumTime = 0.f;
 			SetButtonState(BS_Default);
 		}
-	}
+	}*/
 
 	if (IsMouseInRect())
 	{
@@ -51,10 +51,6 @@ void Button::Tick()
 					_onClick();
 			}
 		}
-	}
-	else
-	{
-		SetButtonState(BS_Default);
 	}
 
 }

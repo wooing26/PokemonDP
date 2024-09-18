@@ -11,6 +11,7 @@
 #include "FlipbookActor.h"
 #include "SpriteActor.h"
 #include "TilemapActor.h"
+#include "LayerPanel.h"
 
 #include <fstream>
 
@@ -35,6 +36,8 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Props", L"Sprite\\Tile\\TileSet\\props (HGSS).png");
 
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Layer_tag", L"Sprite\\Tile\\TileSet\\terrain_tag.png");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Layer_button", L"Sprite\\Tile\\LayerButton.bmp");
 	
 	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Buildings", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Buildings"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"PLAT_Mount", GET_SINGLE(ResourceManager)->GetTexture(L"PLAT_Mount"), 0, 0);
@@ -46,6 +49,19 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Mounts", GET_SINGLE(ResourceManager)->GetTexture(L"Mounts"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Nature", GET_SINGLE(ResourceManager)->GetTexture(L"Nature"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Props", GET_SINGLE(ResourceManager)->GetTexture(L"Props"), 0, 0);
+
+	for (int32 i = 0; i < 4; i++)
+	{
+		std::wstring spriteName = std::format(L"LayerTag_{0}", i);
+		GET_SINGLE(ResourceManager)->CreateSprite(spriteName, GET_SINGLE(ResourceManager)->GetTexture(L"Layer_tag"), i * 32, 0, 32, 32);
+	}
+
+	for (int32 i = 0; i < 4; i++)
+	{
+		std::wstring spriteName = std::format(L"Layer_{0}", i + 1);
+		GET_SINGLE(ResourceManager)->CreateSprite(spriteName + L"On", GET_SINGLE(ResourceManager)->GetTexture(L"Layer_button"), i * 92, 0, 92, 28);
+		GET_SINGLE(ResourceManager)->CreateSprite(spriteName + L"Off", GET_SINGLE(ResourceManager)->GetTexture(L"Layer_button"), i * 92, 28, 92, 28);
+	}
 
 	{
 		TilemapActor* actor = new TilemapActor();
@@ -71,6 +87,13 @@ void TileMapScene::Init()
 		background->SetPos(Vec2{ (float)size.x / 2, (float)size.y / 2});
 		AddActor(background);
 		_spriteActor = background;
+	}
+
+	{
+		std::shared_ptr<LayerPanel> ui = std::make_shared<LayerPanel>();
+
+		ui->SetPos({ GWinSizeX / 2, 100 });
+		AddUI(ui);
 	}
 
 	Super::Init();
@@ -101,85 +124,14 @@ void TileMapScene::Update()
 	}
 
 	// Edit Tilemap
-	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
-	if (IsMouseInSelect(mousePos))
-	{
-		if (GET_SINGLE(InputManager)->GetButtonUp(KeyType::LeftMouse))
-		{
-			Vec2 selectedPos = { (mousePos.x + (_cameraPos.x - GWinSizeX / 2)), (mousePos.y + (_cameraPos.y - GWinSizeY / 2)) };
-			
-			if (0 <= selectedPos.x && selectedPos.x <= _mapSize.x
-				&& 0 <= selectedPos.y && selectedPos.y <= _mapSize.y)
-			{
-				_selectedTilePos.x = selectedPos.x / _tileSize;
-				_selectedTilePos.y = selectedPos.y / _tileSize;
-			}
-		}
-	}
-	else if (IsMouseInEdit(mousePos))
-	{
-		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LeftMouse))
-		{
-			_tilemapActor->SetTileAt({ _tilemapLayer,_selectedTilePos.x, _selectedTilePos.y });
-		}
-	}
+	EditTilemap();
+	
 	
 	// Save or Load Tilemap
-	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Q))
-	{
-		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_01", L"Sprite\\Tile\\Tilemap01.txt");
-	}
-	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::E))
-	{
-		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Sprite\\Tile\\Tilemap01.txt");
-	}
+	SaveLoadTilemap();
 
 	// Change Sprite
-	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_1))
-	{
-		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Buildings"));
-		_tilemapLayer = Tilemap_TYPE::PLAT_Buildings;
-	}
-	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_2))
-	{
-		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Mount"));
-		_tilemapLayer = Tilemap_TYPE::PLAT_Mount;
-	}
-	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_3))
-	{
-		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Nature"));
-		_tilemapLayer = Tilemap_TYPE::PLAT_Nature;
-	}
-	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_4))
-	{
-		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Props"));
-		_tilemapLayer = Tilemap_TYPE::PLAT_Props;
-	}
-	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_5))
-	{
-		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Buildings"));
-		_tilemapLayer = Tilemap_TYPE::Buildings;
-	}
-	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_6))
-	{
-		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Caves"));
-		_tilemapLayer = Tilemap_TYPE::Caves;
-	}
-	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_7))
-	{
-		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Mounts"));
-		_tilemapLayer = Tilemap_TYPE::Mounts;
-	}
-	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_8))
-	{
-		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Nature"));
-		_tilemapLayer = Tilemap_TYPE::Nature;
-	}
-	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_9))
-	{
-		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Props"));
-		_tilemapLayer = Tilemap_TYPE::Props;
-	}
+	ChangeSprite();
 
 	GET_SINGLE(SceneManager)->SetCameraPos(_cameraPos);
 }
@@ -287,6 +239,93 @@ bool TileMapScene::IsMouseInEdit(POINT mousePos)
 		return false;
 
 	return true;
+}
+
+void TileMapScene::EditTilemap()
+{
+	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
+	if (IsMouseInSelect(mousePos))
+	{
+		if (GET_SINGLE(InputManager)->GetButtonUp(KeyType::LeftMouse))
+		{
+			Vec2 selectedPos = { (mousePos.x + (_cameraPos.x - GWinSizeX / 2)), (mousePos.y + (_cameraPos.y - GWinSizeY / 2)) };
+
+			if (0 <= selectedPos.x && selectedPos.x <= _mapSize.x
+				&& 0 <= selectedPos.y && selectedPos.y <= _mapSize.y)
+			{
+				_selectedTilePos.x = selectedPos.x / _tileSize;
+				_selectedTilePos.y = selectedPos.y / _tileSize;
+			}
+		}
+	}
+	else if (IsMouseInEdit(mousePos))
+	{
+		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LeftMouse))
+		{
+			_tilemapActor->SetTileAt({ _tilemapLayer,_selectedTilePos.x, _selectedTilePos.y });
+		}
+	}
+}
+
+void TileMapScene::SaveLoadTilemap()
+{
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Q))
+	{
+		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_01", L"Sprite\\Tile\\Tilemap01.txt");
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::E))
+	{
+		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Sprite\\Tile\\Tilemap01.txt");
+	}
+}
+
+void TileMapScene::ChangeSprite()
+{
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_1))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Buildings"));
+		_tilemapLayer = Tilemap_TYPE::PLAT_Buildings;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_2))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Mount"));
+		_tilemapLayer = Tilemap_TYPE::PLAT_Mount;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_3))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Nature"));
+		_tilemapLayer = Tilemap_TYPE::PLAT_Nature;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_4))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PLAT_Props"));
+		_tilemapLayer = Tilemap_TYPE::PLAT_Props;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_5))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Buildings"));
+		_tilemapLayer = Tilemap_TYPE::Buildings;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_6))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Caves"));
+		_tilemapLayer = Tilemap_TYPE::Caves;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_7))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Mounts"));
+		_tilemapLayer = Tilemap_TYPE::Mounts;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_8))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Nature"));
+		_tilemapLayer = Tilemap_TYPE::Nature;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::KEY_9))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Props"));
+		_tilemapLayer = Tilemap_TYPE::Props;
+	}
 }
 
 void TileMapScene::ChangeSelectedSprite(Sprite* sprite)

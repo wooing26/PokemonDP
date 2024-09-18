@@ -7,6 +7,7 @@ struct Tile
 	Tilemap_TYPE	type = Tilemap_TYPE::PLAT_Nature;
 	int32			x = 0;
 	int32			y = 0;
+	int32			layer = 0;
 };
 
 class Tilemap : public ResourceBase
