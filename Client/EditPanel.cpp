@@ -12,12 +12,11 @@ EditPanel::EditPanel()
 
 EditPanel::~EditPanel()
 {
-	int32 a = 3;
+
 }
 
 void EditPanel::BeginPlay()
 {
-	Super::BeginPlay();
 	{
 		std::shared_ptr<Button> ui = std::make_shared<Button>();
 		ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"BattleButton_Off"), BS_Default);
@@ -38,6 +37,8 @@ void EditPanel::BeginPlay()
 		ui->AddOnClickDelegate(this, &EditPanel::OnClickTilemapButton);
 		AddChild(ui);
 	}
+
+	Super::BeginPlay();
 }
 
 void EditPanel::Tick()

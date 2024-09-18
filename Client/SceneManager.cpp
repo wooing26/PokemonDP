@@ -5,8 +5,9 @@
 #include "TileMapScene.h"
 #include "EditScene.h"
 
-void SceneManager::Init()
+void SceneManager::Init(HWND hwnd)
 {
+	_hwnd = hwnd;
 }
 
 void SceneManager::Update()
@@ -53,4 +54,12 @@ void SceneManager::ChangeScene(SceneType sceneType)
 	_sceneType = sceneType;
 
 	newScene->Init();
+}
+
+RECT SceneManager::GetScreenSizeRect()
+{
+	RECT rt;
+	::GetClientRect(_hwnd, &rt);
+
+	return rt;
 }

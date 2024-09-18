@@ -6,7 +6,7 @@ class SceneManager
 {
 	DECLARE_SINGLE(SceneManager)
 public:
-	void		Init();
+	void		Init(HWND hwnd);
 	void		Update();
 	void		Render(HDC hdc);
 
@@ -17,7 +17,10 @@ public:
 	Scene*		GetCurrentScene() { return _scene; }
 	SceneType	GetSceneType() { return _sceneType; }
 
+	RECT		GetScreenSizeRect();
+
 private:
+	HWND		_hwnd;
 	Scene*		_scene;
 	SceneType	_sceneType = SceneType::None;
 
