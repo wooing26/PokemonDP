@@ -93,17 +93,18 @@ void TilemapActor::Render(HDC hdc)
 	{
 		for (int32 x = startX; x < endX; x++)
 		{
-			::TransparentBlt(hdc,
-				_pos.x + x * TILE_SIZEX,
-				_pos.y + y * TILE_SIZEY,
-				TILE_SIZEX,
-				TILE_SIZEY,
-				_sprites[tiles[y][x].type]->GetDC(),
-				tiles[y][x].x * TILE_SIZEX,
-				tiles[y][x].y * TILE_SIZEY,
-				TILE_SIZEX,
-				TILE_SIZEY,
-				_sprites[tiles[y][x].type]->GetTransparent());
+			if (x >= 0 && y >= 0)
+				::TransparentBlt(hdc,
+					_pos.x + x * TILE_SIZEX,
+					_pos.y + y * TILE_SIZEY,
+					TILE_SIZEX,
+					TILE_SIZEY,
+					_sprites[tiles[y][x].type]->GetDC(),
+					tiles[y][x].x * TILE_SIZEX,
+					tiles[y][x].y * TILE_SIZEY,
+					TILE_SIZEX,
+					TILE_SIZEY,
+					_sprites[tiles[y][x].type]->GetTransparent());
 		}
 	}
 }

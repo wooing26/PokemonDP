@@ -7,7 +7,6 @@ struct Tile
 	Tilemap_TYPE	type = Tilemap_TYPE::PLAT_Nature;
 	int32			x = 0;
 	int32			y = 0;
-	int32			layer = 0;
 };
 
 class Tilemap : public ResourceBase
@@ -18,6 +17,8 @@ public:
 
 	virtual void					LoadFile(const std::wstring& path) override;
 	virtual void					SaveFile(const std::wstring& path) override;
+
+	void							SetTileAll(Tile tile);
 	
 	void							SetTileAt(Tile tile, Vec2Int pos);
 	Tile*							GetTileAt(Vec2Int pos);

@@ -18,6 +18,7 @@ public:
 	void			SetMapSize(Vec2 mapSize) { _mapSize = mapSize; }
 
 	bool			IsMouseInSelect(POINT mousePos);
+	bool			IsMouseInLayerButton(POINT mousePos);
 	bool			IsMouseInEdit(POINT mousePos);
 
 	void			EditTilemap();
@@ -32,15 +33,18 @@ public:
 
 
 private:
-	Vec2					_pos = { 0, 0 };
-	Vec2					_cameraPos = { GWinSizeX / 2, GWinSizeY / 2 };
-	Vec2					_mapSize = { 320, 320 };
-	int32					_speed = 500;
-	int32					_tileSize = 32;
+	Vec2									_pos = { 0, 0 };
+	Vec2									_cameraPos = { GWinSizeX / 2, GWinSizeY / 2 };
+	Vec2									_mapSize = { 320, 320 };
+	int32									_speed = 500;
+	int32									_tileSize = 32;
 
-	class TilemapActor*		_tilemapActor = nullptr;
-	class SpriteActor*		_spriteActor = nullptr;
-	Vec2Int					_selectedTilePos = {0, 0};
-	Tilemap_TYPE			_tilemapLayer = Tilemap_TYPE::PLAT_Nature;
+	class TilemapActor*						_tilemapActor[4] = {};
+	class SpriteActor*						_spriteActor = nullptr;
+	Vec2Int									_selectedTilePos = {0, 0};
+	Tilemap_TYPE							_tilemapType = Tilemap_TYPE::PLAT_Nature;
+
+	std::shared_ptr<class LayerPanel>		_layerPanel = nullptr;
+	int32									_selectedLayer = 0;
 };
 

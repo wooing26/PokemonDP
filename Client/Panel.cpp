@@ -59,3 +59,11 @@ bool Panel::RemoveChild(std::shared_ptr<UI> ui)
 	return true;
 }
 
+std::shared_ptr<UI> Panel::GetChild(int32 index)
+{
+	if (index >= _children.size())
+		return nullptr;
+
+	return _children[index];
+}
+
