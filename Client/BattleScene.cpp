@@ -54,7 +54,7 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->CreateSprite(L"LowHPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 71, 12, 7);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"MiddleHPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 78, 24, 7);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"HighHPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 85, 48, 7);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"EXPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 85, 90, 3);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"EXPBar", GET_SINGLE(ResourceManager)->GetTexture(L"HP_Bars"), 0, 92, 90, 3);
 
 	// Number
 	for (int32 i = 0; i < 10; i++)
