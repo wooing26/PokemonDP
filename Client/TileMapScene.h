@@ -17,6 +17,8 @@ public:
 
 	void			SetMapSize(Vec2 mapSize) { _mapSize = mapSize; }
 
+	void			DrawTileLine(HDC hdc);
+
 	bool			IsMouseInSelect(POINT mousePos);
 	bool			IsMouseInLayerButton(POINT mousePos);
 	bool			IsMouseInEdit(POINT mousePos);
@@ -33,7 +35,6 @@ public:
 
 
 private:
-	Vec2									_pos = { 0, 0 };
 	Vec2									_cameraPos = { GWinSizeX / 2, GWinSizeY / 2 };
 	Vec2									_mapSize = { 320, 320 };
 	int32									_speed = 500;

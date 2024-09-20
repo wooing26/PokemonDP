@@ -84,7 +84,7 @@ void TilemapActor::Render(HDC hdc)
 	if (_showAll == false)
 	{
 		startX = left / TILE_SIZEX;
-		startY = top / TILE_SIZEY;
+		startY = top / TILE_SIZEY ;
 		endX = right / TILE_SIZEX;
 		endY = bottom / TILE_SIZEY;
 	}

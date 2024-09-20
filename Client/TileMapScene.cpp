@@ -162,35 +162,7 @@ void TileMapScene::Render(HDC hdc)
 		_tilemapActor[0]->SetPos(pos);
 	}
 
-	int32 MaxX = min(_mapSize.x - (_cameraPos.x - GWinSizeX / 2) + 1, GWinSizeX / 2);
-	int32 MaxY = min(_mapSize.y - (_cameraPos.y - GWinSizeY / 2) + 1, GWinSizeY);
-
-	Vec2Int from = Vec2Int{ - ((int32)_cameraPos.x - GWinSizeX / 2), - ((int32)_cameraPos.y - GWinSizeY / 2) };
-	Vec2Int to = from;
-	to.y += _mapSize.y;
-
-	while (from.x <= MaxX)
-	{	
-		if (from.x >= 0)
-			Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
-		
-		from.x += _tileSize;
-		to.x += _tileSize;
-	}
-
-	from = Vec2Int{ - ((int32)_cameraPos.x - GWinSizeX / 2), - ((int32)_cameraPos.y - GWinSizeY / 2) };
-	to = from;
-	to.x += _mapSize.x;
-	if (to.x > GWinSizeX / 2)
-		to.x = GWinSizeX / 2;
-	while (from.y <= MaxY)
-	{
-		if (from.y >= 0)
-			Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
-		
-		from.y += _tileSize;
-		to.y += _tileSize;
-	}
+	DrawTileLine(hdc);
 }
 
 void TileMapScene::AddActor(Actor* actor)
@@ -201,6 +173,39 @@ void TileMapScene::AddActor(Actor* actor)
 void TileMapScene::RemoveActor(Actor* actor)
 {
 	Super::RemoveActor(actor);
+}
+
+void TileMapScene::DrawTileLine(HDC hdc)
+{
+	int32 MaxX = min(_mapSize.x - (_cameraPos.x - GWinSizeX / 2) + 1, GWinSizeX / 2);
+	int32 MaxY = min(_mapSize.y - (_cameraPos.y - GWinSizeY / 2) + 1, GWinSizeY);
+
+	Vec2Int from = Vec2Int{ -((int32)_cameraPos.x - GWinSizeX / 2), -((int32)_cameraPos.y - GWinSizeY / 2) };
+	Vec2Int to = from;
+	to.y += _mapSize.y;
+
+	while (from.x <= MaxX)
+	{
+		if (from.x >= 0)
+			Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
+
+		from.x += _tileSize;
+		to.x += _tileSize;
+	}
+
+	from = Vec2Int{ -((int32)_cameraPos.x - GWinSizeX / 2), -((int32)_cameraPos.y - GWinSizeY / 2) };
+	to = from;
+	to.x += _mapSize.x;
+	if (to.x > GWinSizeX / 2)
+		to.x = GWinSizeX / 2;
+	while (from.y <= MaxY)
+	{
+		if (from.y >= 0)
+			Utils::DrawLineColored(hdc, from, to, RGB(255, 255, 255));
+
+		from.y += _tileSize;
+		to.y += _tileSize;
+	}
 }
 
 bool TileMapScene::IsMouseInSelect(POINT mousePos)
@@ -268,6 +273,11 @@ void TileMapScene::EditTilemap()
 			{
 				_selectedTilePos.x = selectedPos.x / _tileSize;
 				_selectedTilePos.y = selectedPos.y / _tileSize;
+			}
+			else
+			{
+				_selectedTilePos.x = -1;
+				_selectedTilePos.y = -1;
 			}
 		}
 	}
