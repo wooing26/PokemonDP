@@ -146,6 +146,7 @@ void TileMapScene::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
+	// Tilemap Layer 1 이미지 추출
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::I))
 	{
 		Vec2 pos = _tilemapActor[0]->GetPos();
@@ -162,7 +163,21 @@ void TileMapScene::Render(HDC hdc)
 		_tilemapActor[0]->SetPos(pos);
 	}
 
+	// Sprite 이미지 격자무늬 그리기
 	DrawTileLine(hdc);
+
+	// Tilemap 마우스 위치 사각형 그리기
+	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
+	if (IsMouseInEdit(mousePos))
+	{
+		Vec2 pos = _tilemapActor[0]->GetPos();
+		Vec2Int tilePos = { (int32)(mousePos.x - pos.x) / _tileSize, (int32)(mousePos.y - pos.y) / _tileSize };
+		
+		tilePos *= _tileSize;
+		tilePos.x = tilePos.x + pos.x + _tileSize / 2;
+		tilePos.y = tilePos.y + pos.y + _tileSize / 2;
+		Utils::DrawRect(hdc, tilePos, _tileSize, _tileSize);
+	}
 }
 
 void TileMapScene::AddActor(Actor* actor)

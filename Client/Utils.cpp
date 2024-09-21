@@ -29,7 +29,13 @@ void Utils::DrawTextRect(HDC hdc, RECT rect, const std::wstring& str)
 
 void Utils::DrawRect(HDC hdc, Vec2Int pos, int32 w, int32 h)
 {
+	HBRUSH brush = (HBRUSH)::GetStockObject(NULL_BRUSH);
+	HBRUSH oldBrush = (HBRUSH)::SelectObject(hdc, brush);
+
 	::Rectangle(hdc, pos.x - w / 2, pos.y - h / 2, pos.x + w / 2, pos.y + h / 2);
+
+	::SelectObject(hdc, oldBrush);
+	::DeleteObject(brush);
 }
 
 void Utils::DrawCircle(HDC hdc, Vec2Int pos, int32 radius)
