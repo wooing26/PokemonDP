@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "HpBar.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
 #include "Sprite.h"
 
 HpBar::HpBar()
@@ -9,6 +10,7 @@ HpBar::HpBar()
 
 HpBar::~HpBar()
 {
+	int32 a = 3;
 }
 
 void HpBar::BeginPlay()
@@ -25,6 +27,9 @@ void HpBar::BeginPlay()
 	_hpBar[0] = GET_SINGLE(ResourceManager)->GetSprite(L"LowHPBar");
 	_hpBar[1] = GET_SINGLE(ResourceManager)->GetSprite(L"MiddleHPBar");
 	_hpBar[2] = GET_SINGLE(ResourceManager)->GetSprite(L"HighHPBar");
+
+	_currentHpBar = _hpBar[2];
+	_standardHp = _status.maxHp;		// HP Bar 변환을 위한 기준 HP
 
 	// 내 포켓몬인지 확인
 	if (_isMine)
@@ -50,10 +55,38 @@ void HpBar::Tick()
 {
 	Super::Tick();
 
-	if (_status.hp > 0)
-		//_status.hp--;
+	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Left))
+	{
+		if (_status.hp >= 0)
+			_status.hp--;
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Right))
+	{
+		if (_status.hp <= _status.maxHp)
+			_status.hp++;
+	}
+
+
 	if (_status.exp <= _status.maxExp)
 		_status.exp++;
+
+	// hp 크기에 따른 hp 바 선택 및 기준 hp 변경
+	if (_status.hp > _status.maxHp / 2)
+	{
+		_standardHp = _status.maxHp;
+		_currentHpBar = _hpBar[2];
+	}
+	else if (_status.hp > _status.maxHp / 4)
+	{
+		_standardHp = _status.maxHp / 2;
+		_currentHpBar = _hpBar[1];
+	}
+	else
+	{
+		_standardHp = _status.maxHp / 4;
+		_currentHpBar = _hpBar[0];
+	}
+	
 }
 
 void HpBar::Render(HDC hdc)
@@ -79,21 +112,21 @@ void HpBar::Render(HDC hdc)
 		_statusBar->GetSize().y,
 		bf);
 	
-
+	// 내 포켓몬 렌더링
 	if (_isMine)
 	{
 		// HP Bar
-		Vec2Int size = _hpBar[2]->GetSize() * _ratio;
+		Vec2Int size = _currentHpBar->GetSize() * _ratio;
 		::AlphaBlend(hdc,
 			_pos.x + _size.x * 31 / 60,
 			_pos.y + _size.y * 19 / 41,
-			size.x * _status.hp / _status.maxHp,
+			size.x * _status.hp / _standardHp,
 			size.y,
-			_hpBar[2]->GetDC(),
-			_hpBar[2]->GetPos().x,
-			_hpBar[2]->GetPos().y,
-			_hpBar[2]->GetSize().x * _status.hp / _status.maxHp,
-			_hpBar[2]->GetSize().y,
+			_currentHpBar->GetDC(),
+			_currentHpBar->GetPos().x,
+			_currentHpBar->GetPos().y,
+			_currentHpBar->GetSize().x * _status.hp / _standardHp,
+			_currentHpBar->GetSize().y,
 			bf);
 
 		// EXP Bar
@@ -112,18 +145,19 @@ void HpBar::Render(HDC hdc)
 	}
 	else
 	{
+		// 상대편 포켓몬 렌더링
 		// HP Bar
-		Vec2Int size = _hpBar[2]->GetSize() * _ratio;
+		Vec2Int size = _currentHpBar->GetSize() * _ratio;
 		::AlphaBlend(hdc,
 			_pos.x + _size.x * 3 / 7 - 5,
 			_pos.y + _size.y * 6 / 10 + 4,
-			size.x * _status.hp / _status.maxHp,
+			size.x * _status.hp / _standardHp,
 			size.y,
-			_hpBar[2]->GetDC(),
-			_hpBar[2]->GetPos().x,
-			_hpBar[2]->GetPos().y,
-			_hpBar[2]->GetSize().x * _status.hp / _status.maxHp,
-			_hpBar[2]->GetSize().y,
+			_currentHpBar->GetDC(),
+			_currentHpBar->GetPos().x,
+			_currentHpBar->GetPos().y,
+			_currentHpBar->GetSize().x * _status.hp / _standardHp,
+			_currentHpBar->GetSize().y,
 			bf);
 	}
 }

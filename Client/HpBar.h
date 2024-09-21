@@ -32,6 +32,9 @@ private:
 	Sprite*			_statusBar = nullptr;
 	Sprite*			_numbers[10] = {};
 	Sprite*			_expBar = nullptr;
+
+	Sprite*			_currentHpBar = nullptr;
+	int32			_standardHp = 0;
 	Sprite*			_hpBar[3] = {};
 
 	int32			_ratio = 4;
