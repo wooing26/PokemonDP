@@ -2,6 +2,7 @@
 #include "HpBar.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "TimeManager.h"
 #include "Sprite.h"
 
 HpBar::HpBar()
@@ -57,17 +58,17 @@ void HpBar::Tick()
 
 	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Left))
 	{
-		if (_status.hp >= 0)
+		if (_status.hp > 0)
 			_status.hp--;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Right))
 	{
-		if (_status.hp <= _status.maxHp)
+		if (_status.hp < _status.maxHp)
 			_status.hp++;
 	}
 
 
-	if (_status.exp <= _status.maxExp)
+	if (_status.exp < _status.maxExp)
 		_status.exp++;
 
 	// hp 크기에 따른 hp 바 선택 및 기준 hp 변경
@@ -116,48 +117,120 @@ void HpBar::Render(HDC hdc)
 	if (_isMine)
 	{
 		// HP Bar
-		Vec2Int size = _currentHpBar->GetSize() * _ratio;
+		Vec2Int size = _currentHpBar->GetSize();
 		::AlphaBlend(hdc,
 			_pos.x + _size.x * 31 / 60,
 			_pos.y + _size.y * 19 / 41,
-			size.x * _status.hp / _standardHp,
-			size.y,
+			size.x * _ratio * _status.hp / _standardHp,
+			size.y * _ratio,
 			_currentHpBar->GetDC(),
 			_currentHpBar->GetPos().x,
 			_currentHpBar->GetPos().y,
-			_currentHpBar->GetSize().x * _status.hp / _standardHp,
-			_currentHpBar->GetSize().y,
+			size.x * _status.hp / _standardHp,
+			size.y,
 			bf);
 
+		// HP 표시
+		std::wstring hp = std::to_wstring(_status.hp);
+		size = _numbers[0]->GetSize();
+		for (int32 i = 0; i < hp.size(); i++)
+		{
+			::AlphaBlend(hdc,
+				_pos.x + _size.x * 3 / 4 + 16 + size.x * _ratio * (i - 2),
+				_pos.y + _size.y * 6 / 9,
+				size.x * _ratio,
+				size.y * _ratio,
+				_numbers[hp[i] - L'0']->GetDC(),
+				_numbers[hp[i] - L'0']->GetPos().x,
+				_numbers[hp[i] - L'0']->GetPos().y,
+				size.x,
+				size.y,
+				bf);
+		}
+
+		// Max HP 표시
+		std::wstring maxHp = std::to_wstring(_status.maxHp);
+		size = _numbers[0]->GetSize();
+		for (int32 i = 0; i < maxHp.size(); i++)
+		{
+			::AlphaBlend(hdc,
+				_pos.x + _size.x * 3 / 4 + 16 + size.x * _ratio * i,
+				_pos.y + _size.y * 6 / 9,
+				size.x * _ratio,
+				size.y * _ratio,
+				_numbers[maxHp[i] - L'0']->GetDC(),
+				_numbers[maxHp[i] - L'0']->GetPos().x,
+				_numbers[maxHp[i] - L'0']->GetPos().y,
+				size.x,
+				size.y,
+				bf);
+		}
+
 		// EXP Bar
-		size = _expBar->GetSize() * _ratio;
+		size = _expBar->GetSize();
 		::AlphaBlend(hdc,
 			_pos.x + _size.x * 23 / (24 * _ratio),
-			_pos.y + _size.y - size.y,
-			size.x * _status.exp / _status.maxExp,
-			size.y,
+			_pos.y + _size.y - size.y * _ratio,
+			size.x * _ratio * _status.exp / _status.maxExp,
+			size.y * _ratio,
 			_expBar->GetDC(),
 			_expBar->GetPos().x,
 			_expBar->GetPos().y,
-			_expBar->GetSize().x * _status.exp / _status.maxExp,
-			_expBar->GetSize().y,
+			size.x * _status.exp / _status.maxExp,
+			size.y,
 			bf);
+
+		// Level
+		std::wstring level = std::to_wstring(_status.level);
+		size = _numbers[0]->GetSize();
+		for (int32 i = 0; i < level.size(); i++)
+		{
+			::AlphaBlend(hdc,
+				_pos.x + _size.x * 3 / 4 + 16 + size.x * _ratio * i,
+				_pos.y + _size.y * 1 / 4 - 9,
+				size.x * _ratio,
+				size.y * _ratio,
+				_numbers[level[i] - L'0']->GetDC(),
+				_numbers[level[i] - L'0']->GetPos().x,
+				_numbers[level[i] - L'0']->GetPos().y,
+				size.x,
+				size.y,
+				bf);
+		}
 	}
 	else
 	{
 		// 상대편 포켓몬 렌더링
 		// HP Bar
-		Vec2Int size = _currentHpBar->GetSize() * _ratio;
+		Vec2Int size = _currentHpBar->GetSize();
 		::AlphaBlend(hdc,
 			_pos.x + _size.x * 3 / 7 - 5,
 			_pos.y + _size.y * 6 / 10 + 4,
-			size.x * _status.hp / _standardHp,
-			size.y,
+			size.x * _ratio * _status.hp / _standardHp,
+			size.y * _ratio,
 			_currentHpBar->GetDC(),
 			_currentHpBar->GetPos().x,
 			_currentHpBar->GetPos().y,
-			_currentHpBar->GetSize().x * _status.hp / _standardHp,
-			_currentHpBar->GetSize().y,
+			size.x * _status.hp / _standardHp,
+			size.y,
 			bf);
+
+		// Level
+		std::wstring level = std::to_wstring(_status.level);
+		size = _numbers[0]->GetSize();
+		for (int32 i = 0; i < level.size(); i++)
+		{
+			::AlphaBlend(hdc,
+				_pos.x + _size.x * 2 / 3 + 8 + size.x * _ratio * i,
+				_pos.y + _size.y * 1 / 4 + 2,
+				size.x * _ratio,
+				size.y * _ratio,
+				_numbers[level[i] - L'0']->GetDC(),
+				_numbers[level[i] - L'0']->GetPos().x,
+				_numbers[level[i] - L'0']->GetPos().y,
+				size.x,
+				size.y,
+				bf);
+		}
 	}
 }

@@ -5,8 +5,9 @@ class Sprite;
 
 struct Status
 {
-	int32	hp = 100;
-	int32   maxHp = 100;
+	int32   level = 50;
+	int32	hp = 21;
+	int32   maxHp = 21;
 	int32	exp = 100;
 	int32	maxExp = 100;
 };
