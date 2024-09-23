@@ -71,7 +71,7 @@ void TileMapScene::Init()
 		AddActor(actor);
 
 		Tilemap* tm = GET_SINGLE(ResourceManager)->CreateTilemap(std::format(L"Tilemap_0{}", i + 1));
-		tm->SetMapSize({ 40, 40 });
+		tm->SetMapSize({ 80, 40 });
 		tm->SetTileSize(32);
 		if (i > 0)
 			tm->SetTileAll({ _tilemapType, -1, -1 });
@@ -392,30 +392,30 @@ void TileMapScene::ChangeSelectedSprite(Sprite* sprite)
 	_cameraPos = { GWinSizeX / 2, GWinSizeY / 2 };
 }
 
-bool TileMapScene::SaveHDCToBMP(HDC hdc, int width, int height, const char* filePath)
+bool TileMapScene::SaveHDCToBMP(HDC hdc, int32 width, int32 height, const char* filePath)
 {
 	// 호환 가능한 비트맵 생성
-	HBITMAP hBitmap = CreateCompatibleBitmap(hdc, width, height);
+	HBITMAP hBitmap = ::CreateCompatibleBitmap(hdc, width, height);
 	if (!hBitmap) {
 		return false;
 	}
 
 	// HDC와 호환되는 메모리 DC 생성
-	HDC hMemDC = CreateCompatibleDC(hdc);
+	HDC hMemDC = ::CreateCompatibleDC(hdc);
 	if (!hMemDC) {
-		DeleteObject(hBitmap);
+		::DeleteObject(hBitmap);
 		return false;
 	}
 
 	// 메모리 DC에 호환 비트맵 선택
-	HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap);
+	HBITMAP hOldBitmap = (HBITMAP)::SelectObject(hMemDC, hBitmap);
 
 	// HDC의 내용을 메모리 DC에 복사
-	BitBlt(hMemDC, 0, 0, width, height, hdc, 0, 0, SRCCOPY);
+	::BitBlt(hMemDC, 0, 0, width, height, hdc, 0, 0, SRCCOPY);
 
 	// BITMAPINFO 구조체 생성
 	BITMAPINFO bmpInfo;
-	ZeroMemory(&bmpInfo, sizeof(BITMAPINFO));
+	::ZeroMemory(&bmpInfo, sizeof(BITMAPINFO));
 	bmpInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	bmpInfo.bmiHeader.biWidth = width;
 	bmpInfo.bmiHeader.biHeight = height;
@@ -424,25 +424,25 @@ bool TileMapScene::SaveHDCToBMP(HDC hdc, int width, int height, const char* file
 	bmpInfo.bmiHeader.biCompression = BI_RGB;
 
 	// 비트맵 데이터 메모리 할당
-	int bmpDataSize = ((width * 24 + 31) / 32) * 4 * height;	// 행 크기는 4바이트의 배수여야 함
+	int32 bmpDataSize = ((width * 24 + 31) / 32) * 4 * height;	// 행 크기는 4바이트의 배수여야 함
 	BYTE* bmpData = new BYTE[bmpDataSize];
 	if (!bmpData) {
-		SelectObject(hMemDC, hOldBitmap);
-		DeleteDC(hMemDC);
-		DeleteObject(hBitmap);
+		::SelectObject(hMemDC, hOldBitmap);
+		::DeleteDC(hMemDC);
+		::DeleteObject(hBitmap);
 		return false;
 	}
 
 	// 비트맵 데이터 가져오기
-	GetDIBits(hMemDC, hBitmap, 0, height, bmpData, &bmpInfo, DIB_RGB_COLORS);
+	::GetDIBits(hMemDC, hBitmap, 0, height, bmpData, &bmpInfo, DIB_RGB_COLORS);
 
 	// .bmp 파일 생성 (ofstream 사용)
 	std::ofstream file(filePath, std::ios::out | std::ios::binary);
 	if (!file) {
 		delete[] bmpData;
-		SelectObject(hMemDC, hOldBitmap);
-		DeleteDC(hMemDC);
-		DeleteObject(hBitmap);
+		::SelectObject(hMemDC, hOldBitmap);
+		::DeleteDC(hMemDC);
+		::DeleteObject(hBitmap);
 		return false;
 	}
 
@@ -465,9 +465,9 @@ bool TileMapScene::SaveHDCToBMP(HDC hdc, int width, int height, const char* file
 	// 정리 작업
 	file.close();
 	delete[] bmpData;
-	SelectObject(hMemDC, hOldBitmap);
-	DeleteDC(hMemDC);
-	DeleteObject(hBitmap);
+	::SelectObject(hMemDC, hOldBitmap);
+	::DeleteDC(hMemDC);
+	::DeleteObject(hBitmap);
 
 	return true;
 }
