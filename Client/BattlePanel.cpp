@@ -19,7 +19,7 @@ void BattlePanel::BeginPlay()
 		ui->SetTextStyle(TextStyle::BattleText);
 		std::wstring pokemonName = L"이상해씨";
 		ui->SetTextZip({
-			L"우왓! 야생의 리자몽이 나왔다!\n안녕하세요\n안녕하세요",
+			L"우왓! 야생의 리자몽이 나왔다!",
 			std::format(L"가랏! {0}!", pokemonName),
 			std::format(L"{0}은 무엇을 할까?", pokemonName)
 			});
