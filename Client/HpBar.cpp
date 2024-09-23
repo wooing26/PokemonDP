@@ -60,16 +60,19 @@ void HpBar::Tick()
 	{
 		if (_status.hp > 0)
 			_status.hp--;
+
+		if (_status.exp > 0)
+			_status.exp--;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Right))
 	{
 		if (_status.hp < _status.maxHp)
 			_status.hp++;
+
+		if (_status.exp < _status.maxExp)
+			_status.exp++;
 	}
 
-
-	if (_status.exp < _status.maxExp)
-		_status.exp++;
 
 	// hp 크기에 따른 hp 바 선택 및 기준 hp 변경
 	if (_status.hp > _status.maxHp / 2)
@@ -136,13 +139,13 @@ void HpBar::Render(HDC hdc)
 		for (int32 i = 0; i < hp.size(); i++)
 		{
 			::AlphaBlend(hdc,
-				_pos.x + _size.x * 3 / 4 + 16 + size.x * _ratio * (i - 2),
+				_pos.x + _size.x * 47 / 60 + size.x * _ratio * (-i - 2),
 				_pos.y + _size.y * 6 / 9,
 				size.x * _ratio,
 				size.y * _ratio,
-				_numbers[hp[i] - L'0']->GetDC(),
-				_numbers[hp[i] - L'0']->GetPos().x,
-				_numbers[hp[i] - L'0']->GetPos().y,
+				_numbers[hp[hp.size() - 1 - i] - L'0']->GetDC(),
+				_numbers[hp[hp.size() - 1 - i] - L'0']->GetPos().x,
+				_numbers[hp[hp.size() - 1 - i] - L'0']->GetPos().y,
 				size.x,
 				size.y,
 				bf);
@@ -154,7 +157,7 @@ void HpBar::Render(HDC hdc)
 		for (int32 i = 0; i < maxHp.size(); i++)
 		{
 			::AlphaBlend(hdc,
-				_pos.x + _size.x * 3 / 4 + 16 + size.x * _ratio * i,
+				_pos.x + _size.x * 47 / 60 + size.x * _ratio * i,
 				_pos.y + _size.y * 6 / 9,
 				size.x * _ratio,
 				size.y * _ratio,
@@ -169,7 +172,7 @@ void HpBar::Render(HDC hdc)
 		// EXP Bar
 		size = _expBar->GetSize();
 		::AlphaBlend(hdc,
-			_pos.x + _size.x * 23 / (24 * _ratio),
+			_pos.x + _size.x * 29 / 120,
 			_pos.y + _size.y - size.y * _ratio,
 			size.x * _ratio * _status.exp / _status.maxExp,
 			size.y * _ratio,
@@ -186,8 +189,8 @@ void HpBar::Render(HDC hdc)
 		for (int32 i = 0; i < level.size(); i++)
 		{
 			::AlphaBlend(hdc,
-				_pos.x + _size.x * 3 / 4 + 16 + size.x * _ratio * i,
-				_pos.y + _size.y * 1 / 4 - 9,
+				_pos.x + _size.x * 47 / 60 + size.x * _ratio * i,
+				_pos.y + _size.y * 8 / 41,
 				size.x * _ratio,
 				size.y * _ratio,
 				_numbers[level[i] - L'0']->GetDC(),
@@ -204,8 +207,8 @@ void HpBar::Render(HDC hdc)
 		// HP Bar
 		Vec2Int size = _currentHpBar->GetSize();
 		::AlphaBlend(hdc,
-			_pos.x + _size.x * 3 / 7 - 5,
-			_pos.y + _size.y * 6 / 10 + 4,
+			_pos.x + _size.x * 281 / 672,
+			_pos.y + _size.y * 19 / 30,
 			size.x * _ratio * _status.hp / _standardHp,
 			size.y * _ratio,
 			_currentHpBar->GetDC(),
@@ -221,8 +224,8 @@ void HpBar::Render(HDC hdc)
 		for (int32 i = 0; i < level.size(); i++)
 		{
 			::AlphaBlend(hdc,
-				_pos.x + _size.x * 2 / 3 + 8 + size.x * _ratio * i,
-				_pos.y + _size.y * 1 / 4 + 2,
+				_pos.x + _size.x * 41/ 60 + size.x * _ratio * i,
+				_pos.y + _size.y * 4 / 15,
 				size.x * _ratio,
 				size.y * _ratio,
 				_numbers[level[i] - L'0']->GetDC(),
