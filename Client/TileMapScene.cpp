@@ -156,7 +156,7 @@ void TileMapScene::Render(HDC hdc)
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::I))
 	{
 		Tilemap* tm = _tilemapActor[_selectedLayer]->GetTilemap();
-		std::string path = std::format("..\\Resources\\Sprite\\Tilemap\\TilemapLayer0{}.bmp", _selectedLayer + 1);
+		std::string path = std::format("..\\Resources\\Sprite\\Tilemap\\Image\\TilemapLayer0{}.bmp", _selectedLayer + 1);
 		SaveHDCToBMP(hdc, tm->GetMapSize().x * _tileSize, tm->GetMapSize().y * _tileSize, path.c_str());
 	}
 
@@ -332,17 +332,17 @@ void TileMapScene::SaveLoadTilemap()
 {
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Q))
 	{
-		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_01", L"Sprite\\Tile\\Tilemap01.txt");
-		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_02", L"Sprite\\Tile\\Tilemap02.txt");
-		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_03", L"Sprite\\Tile\\Tilemap03.txt");
-		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_04", L"Sprite\\Tile\\Tilemap04.txt");
+		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_01", L"Sprite\\Tilemap\\Text\\Tilemap01.txt");
+		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_02", L"Sprite\\Tilemap\\Text\\Tilemap02.txt");
+		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_03", L"Sprite\\Tilemap\\Text\\Tilemap03.txt");
+		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_04", L"Sprite\\Tilemap\\Text\\Tilemap04.txt");
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::E))
 	{
-		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Sprite\\Tile\\Tilemap01.txt");
-		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_02", L"Sprite\\Tile\\Tilemap02.txt");
-		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_03", L"Sprite\\Tile\\Tilemap03.txt");
-		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_04", L"Sprite\\Tile\\Tilemap04.txt");
+		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Sprite\\Tilemap\\Text\\Tilemap01.txt");
+		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_02", L"Sprite\\Tilemap\\Text\\Tilemap02.txt");
+		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_03", L"Sprite\\Tilemap\\Text\\Tilemap03.txt");
+		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_04", L"Sprite\\Tilemap\\Text\\Tilemap04.txt");
 	}
 }
 
