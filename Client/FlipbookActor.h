@@ -8,7 +8,7 @@ class FlipbookActor : public Actor
 	using Super = Actor;
 public:
 	FlipbookActor();
-	virtual ~FlipbookActor();
+	virtual ~FlipbookActor() override;
 
 	virtual void	BeginPlay();
 	virtual void	Tick();

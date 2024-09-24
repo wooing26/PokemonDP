@@ -5,7 +5,7 @@ class Texture : public ResourceBase
 {
 public:
 	Texture();
-	virtual ~Texture();
+	virtual ~Texture() override;
 
 public:
 	Texture*		LoadBmp(HWND hwnd, const std::wstring& path);

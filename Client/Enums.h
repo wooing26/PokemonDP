@@ -49,7 +49,8 @@ enum class ObjectState
 {
 	Idle,
 	Move,
-	Skill,
+	Run,
+	Battle,
 	Bag
 };
 

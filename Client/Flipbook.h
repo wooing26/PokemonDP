@@ -19,7 +19,7 @@ class Flipbook : public ResourceBase
 {
 public:
 	Flipbook();
-	virtual ~Flipbook();
+	virtual ~Flipbook() override;
 
 	void				SetInfo(const FlipbookInfo& info) { _info = info; }
 	const FlipbookInfo& GetInfo() { return _info; }

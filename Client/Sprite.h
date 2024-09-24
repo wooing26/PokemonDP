@@ -7,7 +7,7 @@ class Sprite : public ResourceBase
 {
 public:
 	Sprite(Texture* texture, int32 x, int32 y, int32 cx, int32 cy);
-	virtual ~Sprite();
+	virtual ~Sprite() override;
 
 	HDC				GetDC();
 	uint32			GetTransparent();

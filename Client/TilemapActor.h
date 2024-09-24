@@ -15,7 +15,7 @@ class TilemapActor : public Actor
 	using Super = Actor;
 public:
 	TilemapActor();
-	virtual ~TilemapActor();
+	virtual ~TilemapActor() override;
 
 	virtual void	BeginPlay();
 	virtual void	Tick();

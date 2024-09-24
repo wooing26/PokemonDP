@@ -6,7 +6,7 @@ class BattleScene : public Scene
 	using Super = Scene;
 public:
 	BattleScene();
-	virtual ~BattleScene();
+	virtual ~BattleScene() override;
 
 	virtual void	Init() override;
 	virtual void	Update() override;

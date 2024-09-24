@@ -33,7 +33,7 @@ void Player::TickMove()
 {
 }
 
-void Player::TickSkill()
+void Player::TickBattle()
 {
 }
 

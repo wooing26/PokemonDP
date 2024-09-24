@@ -8,7 +8,7 @@ class Player : public GameObject
 	using Super = GameObject;
 public:
 	Player();
-	virtual ~Player();
+	virtual ~Player() override;
 
 	virtual void	BeginPlay() override;
 	virtual void	Tick() override;
@@ -16,7 +16,7 @@ public:
 
 	virtual void	TickIdle() override;
 	virtual void	TickMove() override;
-	virtual void	TickSkill() override;
+	virtual void	TickBattle() override;
 
 	virtual void	UpdateAnimation() override;
 

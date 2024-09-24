@@ -6,7 +6,7 @@ class TileMapScene : public Scene
 	using Super = Scene;
 public:
 	TileMapScene();
-	virtual ~TileMapScene();
+	virtual ~TileMapScene() override;
 
 	virtual void	Init() override;
 	virtual void	Update() override;
