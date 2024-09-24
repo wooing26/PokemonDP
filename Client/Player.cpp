@@ -33,6 +33,10 @@ void Player::TickMove()
 {
 }
 
+void Player::TickRun()
+{
+}
+
 void Player::TickBattle()
 {
 }

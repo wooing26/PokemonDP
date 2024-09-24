@@ -26,8 +26,11 @@ void GameObject::Tick()
 	case ObjectState::Move:
 		TickMove();
 		break;
-	case ObjectState::Skill:
-		TickSkill();
+	case ObjectState::Run:
+		TickRun();
+		break;
+	case ObjectState::Battle:
+		TickBattle();
 		break;
 	}
 }

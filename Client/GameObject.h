@@ -6,7 +6,7 @@ class GameObject : public FlipbookActor
 	using Super = FlipbookActor;
 public:
 	GameObject();
-	virtual ~GameObject();
+	virtual ~GameObject() override;
 
 	virtual void	BeginPlay() override;
 	virtual void	Tick() override;
@@ -14,7 +14,8 @@ public:
 
 	virtual void	TickIdle() {}
 	virtual void	TickMove() {}
-	virtual void	TickSkill() {}
+	virtual void	TickRun() {}
+	virtual void	TickBattle() {}
 
 	virtual void	UpdateAnimation() {}
 
@@ -32,6 +33,5 @@ private:
 	Dir				_dir = DIR_Down;
 	ObjectState		_state = ObjectState::Idle;
 	
-
 };
 
