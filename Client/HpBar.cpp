@@ -46,7 +46,7 @@ void HpBar::BeginPlay()
 	}
 	else
 	{
-		_statusBar = GET_SINGLE(ResourceManager)->GetSprite(L"Other_HP_Male");
+		_statusBar = GET_SINGLE(ResourceManager)->GetSprite(L"Enemy_HP_Male");
 		_size = _statusBar->GetSize() * _ratio;
 		_pos = Vec2(0, MainSizeY * 1 / 5);
 	}
