@@ -1,6 +1,7 @@
 #pragma once
 #include "Actor.h"
 
+class Tile;
 class Tilemap;
 
 enum TILE_SIZE
@@ -20,7 +21,8 @@ public:
 	virtual void	Tick();
 	virtual void	Render(HDC hdc);
 
-	void			SetTileAt(class Tile tile);
+	void			SetTileAt(Tile tile);
+	void			SetTileGroup(Tile tile, Vec2Int size);
 
 	void			SetTilemap(Tilemap* tilemap) { _tilemap = tilemap; }
 	Tilemap*		GetTilemap() { return _tilemap; }

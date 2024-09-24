@@ -32,6 +32,8 @@ enum Tilemap_TYPE
 	Nature,
 	Props,
 
+	Tree,
+
 	MAXCOUNT
 };
 

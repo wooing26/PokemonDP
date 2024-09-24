@@ -25,6 +25,7 @@ TileMapScene::~TileMapScene()
 
 void TileMapScene::Init()
 {
+	//GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Buildings", L"Sprite\\Background\\Sinnoh_Route_201_Pt.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Buildings", L"Sprite\\Tile\\TileSet\\PLAT Buildings.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Mount", L"Sprite\\Tile\\TileSet\\PLAT Mount.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"PLAT_Nature", L"Sprite\\Tile\\TileSet\\PLAT Nature.png");
@@ -36,6 +37,9 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Nature", L"Sprite\\Tile\\TileSet\\nature (HGSS).png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Props", L"Sprite\\Tile\\TileSet\\props (HGSS).png");
 
+	// Tree
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Tree", L"Sprite\\Tile\\TileSet\\Tree.bmp");
+	
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Layer_tag", L"Sprite\\Tile\\TileSet\\terrain_tag.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Layer_button", L"Sprite\\Tile\\LayerButton.bmp");
 	
@@ -49,6 +53,8 @@ void TileMapScene::Init()
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Mounts", GET_SINGLE(ResourceManager)->GetTexture(L"Mounts"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Nature", GET_SINGLE(ResourceManager)->GetTexture(L"Nature"), 0, 0);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Props", GET_SINGLE(ResourceManager)->GetTexture(L"Props"), 0, 0);
+
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Tree", GET_SINGLE(ResourceManager)->GetTexture(L"Tree"), 0, 0);
 
 	for (int32 i = 0; i < 4; i++)
 	{
@@ -149,18 +155,9 @@ void TileMapScene::Render(HDC hdc)
 	// Tilemap Layer 1 이미지 추출
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::I))
 	{
-		Vec2 pos = _tilemapActor[0]->GetPos();
-		_tilemapActor[0]->SetPos({0, 0});
-
-		_tilemapActor[0]->SetShowAll(true);
-
-		_tilemapActor[0]->Render(hdc);
-		Tilemap* tm = _tilemapActor[0]->GetTilemap();
-
-		SaveHDCToBMP(hdc, tm->GetMapSize().x * _tileSize, tm->GetMapSize().y * _tileSize, "..\\Resources\\Sprite\\Background\\test.bmp");
-
-		_tilemapActor[0]->SetShowAll(false);
-		_tilemapActor[0]->SetPos(pos);
+		Tilemap* tm = _tilemapActor[_selectedLayer]->GetTilemap();
+		std::string path = std::format("..\\Resources\\Sprite\\Tilemap\\TilemapLayer0{}.bmp", _selectedLayer + 1);
+		SaveHDCToBMP(hdc, tm->GetMapSize().x * _tileSize, tm->GetMapSize().y * _tileSize, path.c_str());
 	}
 
 	// Sprite 이미지 격자무늬 그리기
@@ -174,9 +171,21 @@ void TileMapScene::Render(HDC hdc)
 		Vec2Int tilePos = { (int32)(mousePos.x - pos.x) / _tileSize, (int32)(mousePos.y - pos.y) / _tileSize };
 		
 		tilePos *= _tileSize;
-		tilePos.x = tilePos.x + pos.x + _tileSize / 2;
-		tilePos.y = tilePos.y + pos.y + _tileSize / 2;
-		Utils::DrawRect(hdc, tilePos, _tileSize, _tileSize);
+		tilePos.x = tilePos.x + pos.x;
+		tilePos.y = tilePos.y + pos.y;
+		if (_tilemapType == Tilemap_TYPE::Tree)
+		{
+			tilePos.x += _tileSize;
+			tilePos.y += _tileSize;
+			Utils::DrawRect(hdc, tilePos, _tileSize * 2, _tileSize * 2);
+		}
+		else
+		{
+			tilePos.x += _tileSize / 2;
+			tilePos.y += _tileSize / 2;
+			Utils::DrawRect(hdc, tilePos, _tileSize, _tileSize);
+		}
+		
 	}
 }
 
@@ -307,7 +316,14 @@ void TileMapScene::EditTilemap()
 	{
 		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LeftMouse))
 		{
-			_tilemapActor[_selectedLayer]->SetTileAt({_tilemapType,_selectedTilePos.x, _selectedTilePos.y});
+			if (_tilemapType == Tilemap_TYPE::Tree)
+			{
+				_tilemapActor[_selectedLayer]->SetTileGroup({ _tilemapType,_selectedTilePos.x, _selectedTilePos.y }, {2, 2});
+			}
+			else
+			{
+				_tilemapActor[_selectedLayer]->SetTileAt({ _tilemapType,_selectedTilePos.x, _selectedTilePos.y });
+			}
 		}
 	}
 }
@@ -377,6 +393,11 @@ void TileMapScene::ChangeSprite()
 		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Props"));
 		_tilemapType = Tilemap_TYPE::Props;
 	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::T))
+	{
+		ChangeSelectedSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Tree"));
+		_tilemapType = Tilemap_TYPE::Tree;
+	}
 }
 
 void TileMapScene::ChangeSelectedSprite(Sprite* sprite)
@@ -394,7 +415,7 @@ void TileMapScene::ChangeSelectedSprite(Sprite* sprite)
 
 bool TileMapScene::SaveHDCToBMP(HDC hdc, int32 width, int32 height, const char* filePath)
 {
-	// 호환 가능한 비트맵 생성
+	// 호환 가능한 비트맵 생성 (비어 있는 상태)
 	HBITMAP hBitmap = ::CreateCompatibleBitmap(hdc, width, height);
 	if (!hBitmap) {
 		return false;
@@ -410,8 +431,25 @@ bool TileMapScene::SaveHDCToBMP(HDC hdc, int32 width, int32 height, const char* 
 	// 메모리 DC에 호환 비트맵 선택
 	HBITMAP hOldBitmap = (HBITMAP)::SelectObject(hMemDC, hBitmap);
 
-	// HDC의 내용을 메모리 DC에 복사
-	::BitBlt(hMemDC, 0, 0, width, height, hdc, 0, 0, SRCCOPY);
+	// 메모리 DC 초기화: 배경을 흰색(또는 다른 원하는 색)으로 설정
+	HBRUSH hBrush = ::CreateSolidBrush(RGB(255, 0, 255));  // 마젠타색으로 초기화
+	RECT rc = { 0, 0, width, height };
+	::FillRect(hMemDC, &rc, hBrush);
+	::DeleteObject(hBrush);  // 브러시 해제
+
+	// 원하는 이미지만 그리기
+	{
+		Vec2 pos = _tilemapActor[_selectedLayer]->GetPos();
+		_tilemapActor[_selectedLayer]->SetPos({ 0, 0 });
+
+		_tilemapActor[_selectedLayer]->SetShowAll(true);
+
+		_tilemapActor[_selectedLayer]->Render(hMemDC);
+		Tilemap* tm = _tilemapActor[_selectedLayer]->GetTilemap();
+
+		_tilemapActor[_selectedLayer]->SetShowAll(false);
+		_tilemapActor[_selectedLayer]->SetPos(pos);
+	}
 
 	// BITMAPINFO 구조체 생성
 	BITMAPINFO bmpInfo;
@@ -420,11 +458,11 @@ bool TileMapScene::SaveHDCToBMP(HDC hdc, int32 width, int32 height, const char* 
 	bmpInfo.bmiHeader.biWidth = width;
 	bmpInfo.bmiHeader.biHeight = height;
 	bmpInfo.bmiHeader.biPlanes = 1;
-	bmpInfo.bmiHeader.biBitCount = 24;							// 24비트 컬러
+	bmpInfo.bmiHeader.biBitCount = 24;                          // 24비트 컬러
 	bmpInfo.bmiHeader.biCompression = BI_RGB;
 
 	// 비트맵 데이터 메모리 할당
-	int32 bmpDataSize = ((width * 24 + 31) / 32) * 4 * height;	// 행 크기는 4바이트의 배수여야 함
+	int32 bmpDataSize = ((width * 24 + 31) / 32) * 4 * height;  // 행 크기는 4바이트의 배수여야 함
 	BYTE* bmpData = new BYTE[bmpDataSize];
 	if (!bmpData) {
 		::SelectObject(hMemDC, hOldBitmap);

@@ -23,7 +23,7 @@ void TilemapActor::BeginPlay()
 	Super::BeginPlay();
 	
 	std::wstring texture[Tilemap_TYPE::MAXCOUNT] = { L"PLAT_Buildings", L"PLAT_Mount", L"PLAT_Nature", L"PLAT_Props",
-		L"Buildings", L"Caves", L"Mounts", L"Nature", L"Props"};
+		L"Buildings", L"Caves", L"Mounts", L"Nature", L"Props", L"Tree"};
 
 	for (int32 i = 0; i < Tilemap_TYPE::MAXCOUNT; i++)
 	{
@@ -39,19 +39,19 @@ void TilemapActor::Tick()
 
 	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Up))
 	{
-		_pos.y += _speed * deltaTime;
+		_pos.y -= _speed * deltaTime;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Down))
 	{
-		_pos.y -= _speed * deltaTime;
+		_pos.y += _speed * deltaTime;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Left))
 	{
-		_pos.x -= _speed * deltaTime;
+		_pos.x += _speed * deltaTime;
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Right))
 	{
-		_pos.x += _speed * deltaTime;
+		_pos.x -= _speed * deltaTime;
 	}
 }
 
@@ -111,7 +111,6 @@ void TilemapActor::Render(HDC hdc)
 
 void TilemapActor::SetTileAt(Tile tile)
 {
-	
 	{
 		POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
 		int32 posX = mousePos.x - _pos.x;
@@ -122,5 +121,22 @@ void TilemapActor::SetTileAt(Tile tile)
 		
 		_tilemap->SetTileAt(tile, { x, y });
 	}
+}
 
+void TilemapActor::SetTileGroup(Tile tile, Vec2Int size)
+{
+	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
+	int32 posX = mousePos.x - _pos.x;
+	int32 posY = mousePos.y - _pos.y;
+
+	int32 x = posX / TILE_SIZEX;
+	int32 y = posY / TILE_SIZEY;
+
+	for (int32 i = 0; i < size.x; i++)
+	{
+		for (int32 j = 0; j < size.y; j++)
+		{
+			_tilemap->SetTileAt({ tile.type, tile.x + i, tile.y + j }, { x + i, y + j });
+		}
+	}
 }

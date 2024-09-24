@@ -30,7 +30,7 @@ public:
 	void			ChangeSprite();
 	void			ChangeSelectedSprite(class Sprite* sprite);
 
-	bool			SaveHDCToBMP(HDC hdc, int width, int height, const char* filePath);
+	bool			SaveHDCToBMP(HDC hdc, int32 width, int32 height, const char* filePath);
 
 
 
