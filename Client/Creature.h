@@ -18,5 +18,11 @@ public:
 	virtual void	TickBattle() override {}
 
 	virtual void	UpdateAnimation() override {}
+
+	void			SetBattleMode(bool onBattle) { _onBattle = onBattle; }
+	bool			GetBattleMode() { return _onBattle; }
+
+private:
+	bool			_onBattle = false;
 };
 

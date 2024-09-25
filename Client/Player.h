@@ -25,6 +25,9 @@ private:
 	Flipbook*	_flipbookIdle[4] = {};
 	Flipbook*	_flipbookMove[4] = {};
 	Flipbook*	_flipbookRun[4] = {};
+
+	// Bicycle
+	Flipbook*	_flipbookBicycleIdle[4] = {};
 	Flipbook*	_flipbookBicycle[4] = {};
 
 	bool		_onBicycle = false;

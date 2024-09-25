@@ -185,6 +185,9 @@
     <ClInclude Include="Creature.h">
       <Filter>소스 파일\03. Objects\Game\Creature</Filter>
     </ClInclude>
+    <ClInclude Include="InfoManager.h">
+      <Filter>소스 파일\01. Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -307,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="Creature.cpp">
       <Filter>소스 파일\03. Objects\Game\Creature</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoManager.cpp">
+      <Filter>소스 파일\01. Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

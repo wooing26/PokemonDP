@@ -166,6 +166,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="HpBar.h" />
+    <ClInclude Include="InfoManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LayerPanel.h" />
     <ClInclude Include="Panel.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="HpBar.cpp" />
+    <ClCompile Include="InfoManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LayerPanel.cpp" />
     <ClCompile Include="Panel.cpp" />
