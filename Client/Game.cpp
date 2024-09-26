@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+#include "InfoManager.h"
 
 Game::Game()
 {
@@ -35,6 +36,7 @@ void Game::Init(HWND hwnd)
 	GET_SINGLE(InputManager)->Init(hwnd);
 	GET_SINGLE(SceneManager)->Init(hwnd);
 	GET_SINGLE(ResourceManager)->Init(hwnd, L"..\\Resources");
+	//GET_SINGLE(InfoManager)->Init();
 
 	GET_SINGLE(SceneManager)->ChangeScene(SceneType::EditScene);
 }

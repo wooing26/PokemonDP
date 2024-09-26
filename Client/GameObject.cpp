@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "GameObject.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 GameObject::GameObject()
 {
@@ -59,5 +61,9 @@ void GameObject::SetCellPos(Vec2Int cellPos, bool teleport)
 {
 	_cellPos = cellPos;
 
-	
+	Scene* scene = GET_SINGLE(SceneManager)->GetCurrentScene();
+	_destPos = scene->ConverPos(cellPos);
+
+	if (teleport)
+		_pos = _destPos;
 }

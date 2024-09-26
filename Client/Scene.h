@@ -19,6 +19,8 @@ public:
 	void					AddUI(std::shared_ptr<UI> ui);
 	void					RemoveUI(std::shared_ptr<UI> ui);
 
+	Vec2					ConverPos(Vec2Int cellPos);
+
 	void					SetMainScreenSize(Vec2Int screenSize) { _mainScreenSize = screenSize; }
 	const Vec2Int&			GetMainScreenSize() { return _mainScreenSize; }
 
