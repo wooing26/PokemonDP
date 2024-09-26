@@ -30,6 +30,7 @@ private:
 	Flipbook*	_flipbookBicycleIdle[4] = {};
 	Flipbook*	_flipbookBicycle[4] = {};
 
+	bool		_keyPressed = false;
 	bool		_onBicycle = false;
 };
 

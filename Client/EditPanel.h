@@ -14,5 +14,6 @@ public:
 
 	void			OnClickTilemapButton();
 	void			OnClickBattleButton();
+	void			OnClickDevSceneButton();
 };
 

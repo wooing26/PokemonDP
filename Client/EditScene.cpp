@@ -18,14 +18,18 @@ void EditScene::Init()
 {
 	SetSceneType(SceneType::EditScene);
 
-	GET_SINGLE(ResourceManager)->LoadTexture(L"TilemapEditorButton", L"Sprite\\Miscellaneous\\TilemapEditorButton.bmp");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"BattleButton", L"Sprite\\Miscellaneous\\BattleButton.bmp");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"TilemapEditorButton", L"Sprite\\Miscellaneous\\TilemapEditorButton.bmp", RGB(128, 128, 128));
+	GET_SINGLE(ResourceManager)->LoadTexture(L"BattleButton", L"Sprite\\Miscellaneous\\BattleButton.bmp", RGB(128, 128, 128));
+	GET_SINGLE(ResourceManager)->LoadTexture(L"DevSceneButton", L"Sprite\\Miscellaneous\\DevSceneButton.bmp", RGB(128, 128, 128));
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TilemapEditorButton_Off", GET_SINGLE(ResourceManager)->GetTexture(L"TilemapEditorButton"), 0, 0, 300, 143);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"TilemapEditorButton_On", GET_SINGLE(ResourceManager)->GetTexture(L"TilemapEditorButton"), 0, 143, 300, 143);
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"BattleButton_Off", GET_SINGLE(ResourceManager)->GetTexture(L"BattleButton"), 0, 0, 300, 143);
 	GET_SINGLE(ResourceManager)->CreateSprite(L"BattleButton_On", GET_SINGLE(ResourceManager)->GetTexture(L"BattleButton"), 0, 143, 300, 143);
+
+	GET_SINGLE(ResourceManager)->CreateSprite(L"DevSceneButton_Off", GET_SINGLE(ResourceManager)->GetTexture(L"DevSceneButton"), 0, 0, 300, 143);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"DevSceneButton_On", GET_SINGLE(ResourceManager)->GetTexture(L"DevSceneButton"), 0, 143, 300, 143);
 
 	{
 		std::shared_ptr<EditPanel> ui = std::make_shared<EditPanel>();

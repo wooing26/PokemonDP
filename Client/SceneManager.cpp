@@ -4,6 +4,7 @@
 #include "BattleScene.h"
 #include "TileMapScene.h"
 #include "EditScene.h"
+#include "DevScene.h"
 
 void SceneManager::Init(HWND hwnd)
 {
@@ -36,6 +37,7 @@ void SceneManager::ChangeScene(SceneType sceneType)
 	switch (sceneType)
 	{
 	case SceneType::DevScene:
+		newScene = new DevScene();
 		break;
 	case SceneType::EditScene:
 		newScene = new EditScene();

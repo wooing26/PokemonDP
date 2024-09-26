@@ -57,5 +57,7 @@ void GameObject::SetDir(Dir dir)
 
 void GameObject::SetCellPos(Vec2Int cellPos, bool teleport)
 {
+	_cellPos = cellPos;
 
+	
 }

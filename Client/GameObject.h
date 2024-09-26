@@ -27,7 +27,7 @@ public:
 	Vec2Int			GetCellPos() { return _cellPos; }
 
 
-private:
+protected:
 	Vec2Int			_cellPos = {};
 	Vec2			_speed = {};
 	Dir				_dir = DIR_Down;
