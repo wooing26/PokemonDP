@@ -29,6 +29,7 @@ class Pokemon : public Creature
 	using Super = Creature;
 public:
 	Pokemon();
+	Pokemon(int32 No);
 	virtual ~Pokemon() override;
 
 	virtual void	BeginPlay() override;
@@ -41,14 +42,23 @@ public:
 
 	virtual void	UpdateAnimation() override;
 
-private:
-	Flipbook* _flipbookIdle[4] = {};
-	Flipbook* _flipbookMove[4] = {};
-
-	Flipbook* _flipbookBattle[2] = {};
+	void			SetIsMine(bool isMine) { _isMine = isMine; }
 
 private:
-	PokemonInfo			_info = {};
+	Flipbook*			_flipbookIdle[4] = {};
+	Flipbook*			_flipbookMove[4] = {};
+	Flipbook*			_flipbookBattle[2] = {};
+
+	bool				_isMine = true;
+
+private:
 	PokemonStat			_stat = {};
+	int32				_level = 1;
+	int32				_maxHp = 10;
+	int32				_exp = 0;
+	int32				_maxExp = 10;
+
+	PokemonInfo*		_info = {};
+	PokemonStat*		_baseStat = {};
 };
 

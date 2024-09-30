@@ -7,6 +7,7 @@
 #include "Actor.h"
 #include "SpriteActor.h"
 #include "FlipbookActor.h"
+#include "Pokemon.h"
 #include "BattlePanel.h"
 #include "TextBox.h"
 
@@ -26,6 +27,7 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Text_Boxes", L"Sprite\\UI\\Text Boxes.png");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"HP_Bars", L"Sprite\\UI\\HP.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Pokemon_1st", L"Sprite\\Pokemon\\Pokemon_Gen1.bmp");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Pokemon_2nd", L"Sprite\\Pokemon\\Pokemon_Gen2.bmp");
 	
 	
 	// Player Overworld
@@ -175,33 +177,18 @@ void BattleScene::LoadPlayer()
 void BattleScene::LoadPokemon()
 {
 	{
-		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st");
-		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"001_Bulbasaur");
-		Vec2Int size = { 80, 80 };
-		int32 index = 10;
-		fb->SetInfo({ texture, L"001_Bulbasaur", size, (index - 1) * 3 + 2, (index - 1) * 3 + 2, 0, 0.f, false });
+		Pokemon* pokemon = new Pokemon(1);
 
-		size *= 3;
-		FlipbookActor* pokemon = new FlipbookActor();
-		pokemon->SetFlipbook(fb);
-		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos({_myPos.x + size.x / 2, _myPos.y - size.y / 2});
-		pokemon->SetSize(size);
+		pokemon->SetPos({_myPos.x, _myPos.y - 80 * 3 / 2});
+		
 		AddActor(pokemon);
 	}
 	{
-		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Pokemon_1st");
-		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"006_Charizard");
-		Vec2Int size = { 80, 80 };
-		int32 index = 7;
-		fb->SetInfo({ texture, L"006_Charizard", size, (index - 1) * 3, (index - 1) * 3, 0, 0.f, false });
+		Pokemon* pokemon = new Pokemon(6);
 
-		size *= 3;
-		FlipbookActor* pokemon = new FlipbookActor();
-		pokemon->SetFlipbook(fb);
-		pokemon->SetLayer(LAYER_OBJECT);
-		pokemon->SetPos({ _enemyPos.x, _enemyPos.y - size.y / 4 });
-		pokemon->SetSize(size);
+		pokemon->SetIsMine(false);
+		pokemon->SetPos({ _enemyPos.x, _enemyPos.y - 80 * 3 / 2 });
+		
 		AddActor(pokemon);
 	}
 }

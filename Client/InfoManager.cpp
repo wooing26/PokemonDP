@@ -91,12 +91,12 @@ void InfoManager::LoadPokemonInfo(const std::wstring& path)
 			// 리소스 위치
 			start = end + 1;
 			_infos[no]->generation = line[start] - L'0';
-			_infos[no]->line = line[start + 2] - L'0';
-			_infos[no]->start = line[start + 4] - L'0';
-			_infos[no]->separateGender = line[start + 6] - L'0';
+			_infos[no]->line = std::stoi(line.substr(start + 2, 2));
+			_infos[no]->start = line[start + 5] - L'0';
+			_infos[no]->separateGender = line[start + 7] - L'0';
 
 			// 타입 1
-			start = start + 8;
+			start = start + 9;
 			end = line.find(L',', start);
 			_infos[no]->type1 = _types[line.substr(start, end - start)];
 

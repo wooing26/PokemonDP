@@ -68,17 +68,6 @@ void FlipbookActor::Render(HDC hdc)
 		info.size.x,
 		info.size.y,
 		bf);
-	/*::TransparentBlt(hdc,
-		_pos.x - info.size.x / 2,
-		_pos.y - info.size.y / 2,
-		info.size.x,
-		info.size.y,
-		info.texture->GetDC(),
-		(info.start + _idx) * info.size.x,
-		info.line * info.size.y,
-		info.size.x,
-		info.size.y,
-		info.texture->GetTransparent());*/
 }
 
 void FlipbookActor::SetFlipbook(Flipbook* flipbook)
