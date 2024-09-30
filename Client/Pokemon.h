@@ -9,8 +9,8 @@ struct PokemonInfo
 	int32			line = 0;
 	int32			start = 0;
 	bool			separateGender = false;
-	PokeType		type1 = PokeType::End;
-	PokeType		type2 = PokeType::End;
+	PokeType		type1 = PokeType::None;
+	PokeType		type2 = PokeType::None;
 };
 
 struct PokemonStat

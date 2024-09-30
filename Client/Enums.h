@@ -56,6 +56,7 @@ enum class ObjectState
 
 enum class PokeType
 {
+	None,
 	Normal,
 	Fire,
 	Water,
