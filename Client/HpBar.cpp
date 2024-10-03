@@ -31,7 +31,7 @@ void HpBar::BeginPlay()
 	_hpBar[2] = GET_SINGLE(ResourceManager)->GetSprite(L"HighHPBar");
 
 	_currentHpBar = _hpBar[2];
-	_standardHp = _status.maxHp;		// HP Bar 변환을 위한 기준 HP
+	_standardHp = _pokemon->GetStat().hp;		// HP Bar 변환을 위한 기준 HP
 
 	// 내 포켓몬인지 확인
 	if (_isMine)
@@ -43,7 +43,6 @@ void HpBar::BeginPlay()
 
 		// 내 포켓몬만 경험치 표시
 		_expBar = GET_SINGLE(ResourceManager)->GetSprite(L"EXPBar");
-		_status.exp = 0;
 	}
 	else
 	{
@@ -57,38 +56,44 @@ void HpBar::Tick()
 {
 	Super::Tick();
 
+	int32 maxHp = _pokemon->GetStat().hp;
+	int32 hp = _pokemon->GetHp();
+	int32 exp = _pokemon->GetExp();
+	int32 maxExp = _pokemon->GetMaxExp();
+
 	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Left))
 	{
-		if (_status.hp > 0)
-			_status.hp--;
+		if (hp > 0)
+			_pokemon->AddHp(-1);
 
-		if (_status.exp > 0)
-			_status.exp--;
+		if (exp > 0)
+			_pokemon->AddExp(-1);
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Right))
 	{
-		if (_status.hp < _status.maxHp)
-			_status.hp++;
+		if (hp < maxHp)
+			_pokemon->AddHp(1);
 
-		if (_status.exp < _status.maxExp)
-			_status.exp++;
+		if (exp < maxExp)
+			_pokemon->AddExp(1);
 	}
 
 
 	// hp 크기에 따른 hp 바 선택 및 기준 hp 변경
-	if (_status.hp > _status.maxHp / 2)
+	
+	if (hp > maxHp / 2)
 	{
-		_standardHp = _status.maxHp;
+		_standardHp = maxHp;
 		_currentHpBar = _hpBar[2];
 	}
-	else if (_status.hp > _status.maxHp / 4)
+	else if (hp > maxHp / 4)
 	{
-		_standardHp = _status.maxHp / 2;
+		_standardHp = maxHp / 2;
 		_currentHpBar = _hpBar[1];
 	}
 	else
 	{
-		_standardHp = _status.maxHp / 4;
+		_standardHp = maxHp / 4;
 		_currentHpBar = _hpBar[0];
 	}
 	
@@ -121,39 +126,40 @@ void HpBar::Render(HDC hdc)
 	if (_isMine)
 	{
 		// HP Bar
+		int32 hp = _pokemon->GetHp();
 		Vec2Int size = _currentHpBar->GetSize();
 		::AlphaBlend(hdc,
 			_pos.x + _size.x * 31 / 60,
 			_pos.y + _size.y * 19 / 41,
-			size.x * _ratio * _status.hp / _standardHp,
+			size.x * _ratio * hp / _standardHp,
 			size.y * _ratio,
 			_currentHpBar->GetDC(),
 			_currentHpBar->GetPos().x,
 			_currentHpBar->GetPos().y,
-			size.x * _status.hp / _standardHp,
+			size.x * hp / _standardHp,
 			size.y,
 			bf);
 
 		// HP 표시
-		std::wstring hp = std::to_wstring(_status.hp);
+		std::wstring hp_string = std::to_wstring(hp);
 		size = _numbers[0]->GetSize();
-		for (int32 i = 0; i < hp.size(); i++)
+		for (int32 i = 0; i < hp_string.size(); i++)
 		{
 			::AlphaBlend(hdc,
 				_pos.x + _size.x * 47 / 60 + size.x * _ratio * (-i - 2),
 				_pos.y + _size.y * 6 / 9,
 				size.x * _ratio,
 				size.y * _ratio,
-				_numbers[hp[hp.size() - 1 - i] - L'0']->GetDC(),
-				_numbers[hp[hp.size() - 1 - i] - L'0']->GetPos().x,
-				_numbers[hp[hp.size() - 1 - i] - L'0']->GetPos().y,
+				_numbers[hp_string[hp_string.size() - 1 - i] - L'0']->GetDC(),
+				_numbers[hp_string[hp_string.size() - 1 - i] - L'0']->GetPos().x,
+				_numbers[hp_string[hp_string.size() - 1 - i] - L'0']->GetPos().y,
 				size.x,
 				size.y,
 				bf);
 		}
 
 		// Max HP 표시
-		std::wstring maxHp = std::to_wstring(_status.maxHp);
+		std::wstring maxHp = std::to_wstring(_pokemon->GetStat().hp);
 		size = _numbers[0]->GetSize();
 		for (int32 i = 0; i < maxHp.size(); i++)
 		{
@@ -172,20 +178,21 @@ void HpBar::Render(HDC hdc)
 
 		// EXP Bar
 		size = _expBar->GetSize();
+		int32 exp = _pokemon->GetExp();
 		::AlphaBlend(hdc,
 			_pos.x + _size.x * 29 / 120,
 			_pos.y + _size.y - size.y * _ratio,
-			size.x * _ratio * _status.exp / _status.maxExp,
+			size.x * _ratio * _pokemon->GetExp() / _pokemon->GetMaxExp(),
 			size.y * _ratio,
 			_expBar->GetDC(),
 			_expBar->GetPos().x,
 			_expBar->GetPos().y,
-			size.x * _status.exp / _status.maxExp,
+			size.x * _pokemon->GetExp() / _pokemon->GetMaxExp(),
 			size.y,
 			bf);
 
 		// Level
-		std::wstring level = std::to_wstring(_status.level);
+		std::wstring level = std::to_wstring(_pokemon->GetLevel());
 		size = _numbers[0]->GetSize();
 		for (int32 i = 0; i < level.size(); i++)
 		{
@@ -201,26 +208,35 @@ void HpBar::Render(HDC hdc)
 				size.y,
 				bf);
 		}
+
+		// Name
+		Utils::DrawTextSize(hdc,
+			{
+				(int32)_pos.x + _size.x * 2 / 15, 
+				(int32)_pos.y + _size.y * 2 / 13
+			}, 
+			40, _pokemon->GetName());
 	}
 	else
 	{
 		// 상대편 포켓몬 렌더링
 		// HP Bar
+		int32 hp = _pokemon->GetHp();
 		Vec2Int size = _currentHpBar->GetSize();
 		::AlphaBlend(hdc,
 			_pos.x + _size.x * 281 / 672,
 			_pos.y + _size.y * 19 / 30,
-			size.x * _ratio * _status.hp / _standardHp,
+			size.x * _ratio * hp / _standardHp,
 			size.y * _ratio,
 			_currentHpBar->GetDC(),
 			_currentHpBar->GetPos().x,
 			_currentHpBar->GetPos().y,
-			size.x * _status.hp / _standardHp,
+			size.x * hp / _standardHp,
 			size.y,
 			bf);
 
 		// Level
-		std::wstring level = std::to_wstring(_status.level);
+		std::wstring level = std::to_wstring(_pokemon->GetLevel());
 		size = _numbers[0]->GetSize();
 		for (int32 i = 0; i < level.size(); i++)
 		{
@@ -236,5 +252,21 @@ void HpBar::Render(HDC hdc)
 				size.y,
 				bf);
 		}
+
+		// Name
+		Utils::DrawTextSize(hdc,
+			{
+				(int32)_pos.x + _size.x * 1 / 20,
+				(int32)_pos.y + _size.y * 2 / 13
+			},
+			40, _pokemon->GetName());
 	}
+}
+
+void HpBar::SetPokemon(Pokemon* pokemon)
+{
+	if (pokemon == nullptr)
+		return;
+
+	_pokemon = pokemon;
 }

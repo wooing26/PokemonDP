@@ -76,6 +76,9 @@ void Pokemon::BeginPlay()
 	_stat.specialAttack = ((2 * _baseStat->specialAttack) * _level / 100 + 5);
 	_stat.specialDefense = ((2 * _baseStat->specialDefense) * _level / 100 + 5);
 	_stat.speed = ((2 * _baseStat->speed) * _level / 100 + 5);
+
+	// 필요 경험치
+	_maxExp = _level * _level * _level;
 }
 
 void Pokemon::Tick()
@@ -104,14 +107,49 @@ void Pokemon::UpdateAnimation()
 {
 }
 
+const std::wstring& Pokemon::GetName()
+{
+	return _info->name;
+}
+
+void Pokemon::UseSkill(int32 skillIndex)
+{
+}
+
+void Pokemon::OnDamaged(Pokemon* attacker)
+{
+}
+
 void Pokemon::AddHp(int32 hp)
 {
+	if (hp > _stat.hp - _hp)
+		_hp = _stat.hp;
+	else
+		_hp += hp;
 }
 
 void Pokemon::AddExp(int32 exp)
 {
+	if (exp > _maxExp - _exp)
+		_exp = _maxExp;
+	else
+		_exp += exp;
 }
 
 void Pokemon::LevelUp()
 {
+	// 레벨 업
+	_level++;
+	// 최대 체력
+	_stat.hp = ((2 * _baseStat->hp + 100) * _level / 100) + 10;
+
+	// 실제 스탯
+	_stat.attack = ((2 * _baseStat->attack) * _level / 100 + 5);
+	_stat.defense = ((2 * _baseStat->defense) * _level / 100 + 5);
+	_stat.specialAttack = ((2 * _baseStat->specialAttack) * _level / 100 + 5);
+	_stat.specialDefense = ((2 * _baseStat->specialDefense) * _level / 100 + 5);
+	_stat.speed = ((2 * _baseStat->speed) * _level / 100 + 5);
+
+	// 필요 경험치
+	_maxExp = _level * _level * _level;
 }

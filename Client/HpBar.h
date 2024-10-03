@@ -26,11 +26,7 @@ public:
 
 	void			SetIsMine(bool isMine) { _isMine = isMine; }
 
-	void			SetPokemon(Pokemon* pokemon) { _pokemon = pokemon; }
-
-	void			SetStatus(Status status) { _status = status; }
-	void			SetHp(int32 hp) { _status.hp = hp; }
-	void			SetExp(int32 exp) { _status.exp = exp; }
+	void			SetPokemon(Pokemon* pokemon);
 
 private:
 	Pokemon*		_pokemon = nullptr;
@@ -46,7 +42,5 @@ private:
 	int32			_ratio = 4;
 
 	bool			_isMine = true;
-
-	Status			_status = {};
 };
 

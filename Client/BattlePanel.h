@@ -14,7 +14,11 @@ public:
 	virtual void	Tick() override;
 	virtual void	Render(HDC hdc) override;
 
-private:
+	void			SetMyPokemon(Pokemon* pokemon);
+	void			SetEnemyPokemon(Pokemon* pokemon);
 
+private:
+	Pokemon*		_myPokemon = nullptr;
+	Pokemon*		_enemyPokemon = nullptr;
 };
 

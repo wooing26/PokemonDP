@@ -28,13 +28,6 @@ void BattleScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"HP_Bars", L"Sprite\\UI\\HP.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Pokemon_1st", L"Sprite\\Pokemon\\Pokemon_Gen1.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Pokemon_2nd", L"Sprite\\Pokemon\\Pokemon_Gen2.bmp");
-	
-	
-	// Player Overworld
-	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasUp", L"Sprite\\Player\\LucasUp.bmp");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasDown", L"Sprite\\Player\\LucasDown.bmp");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasLeft", L"Sprite\\Player\\LucasLeft.bmp");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"LucasRight", L"Sprite\\Player\\LucasRight.bmp");
 
 	// Battle Screen
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Battle_DryWater", GET_SINGLE(ResourceManager)->GetTexture(L"BattleBG"), 0, 0, 256, 144);
@@ -140,38 +133,7 @@ void BattleScene::LoadTouchScreen()
 
 void BattleScene::LoadPlayer()
 {
-	{
-		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasDown");
-		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LIdleDown");
-		fb->SetInfo({ texture, L"FB_LIdleDown", {32, 32}, 0, 3, 0, 0.5f });
 
-		FlipbookActor* player = new FlipbookActor();
-		player->SetFlipbook(fb);
-		player->SetLayer(LAYER_OBJECT);
-		player->SetPos(Vec2{ 1025, 150 });
-		AddActor(player);
-	}
-	// Move
-	{
-		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasUp");
-		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LucasMoveUp");
-		fb->SetInfo({ texture, L"FB_LucasMoveUp", {32, 32}, 0, 3, 0, 0.5f });
-	}
-	{
-		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasDown");
-		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LucasMoveDown");
-		fb->SetInfo({ texture, L"FB_LucasMoveDown", {32, 32}, 0, 3, 0, 0.5f });
-	}
-	{
-		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasLeft");
-		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LucasMoveLeft");
-		fb->SetInfo({ texture, L"FB_LucasMoveLeft", {32, 32}, 0, 3, 0, 0.5f });
-	}
-	{
-		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasDown");
-		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LucasMoveRight");
-		fb->SetInfo({ texture, L"FB_LucasMoveRight", {32, 32}, 0, 3, 0, 0.5f });
-	}
 }
 
 void BattleScene::LoadPokemon()
@@ -180,6 +142,7 @@ void BattleScene::LoadPokemon()
 		Pokemon* pokemon = new Pokemon(1);
 
 		pokemon->SetPos({_myPos.x, _myPos.y - 80 * 3 / 2});
+		_myPokemon = pokemon;
 		
 		AddActor(pokemon);
 	}
@@ -188,6 +151,8 @@ void BattleScene::LoadPokemon()
 
 		pokemon->SetIsMine(false);
 		pokemon->SetPos({ _enemyPos.x, _enemyPos.y - 80 * 3 / 2 });
+
+		_enemyPokemon = pokemon;
 		
 		AddActor(pokemon);
 	}
@@ -197,6 +162,9 @@ void BattleScene::LoadUI()
 {
 	{
 		std::shared_ptr<BattlePanel> ui = std::make_shared<BattlePanel>();
+		
+		ui->SetMyPokemon(_myPokemon);
+		ui->SetEnemyPokemon(_enemyPokemon);
 
 		AddUI(ui);
 	}

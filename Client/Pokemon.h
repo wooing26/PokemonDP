@@ -45,7 +45,14 @@ public:
 	void				SetIsMine(bool isMine) { _isMine = isMine; }
 
 	const PokemonStat&	GetStat() { return _stat; }
+	const std::wstring& GetName();
+	int32				GetLevel() { return _level; }
+	int32				GetHp() { return _hp; }
+	int32				GetExp() { return _exp; }
+	int32				GetMaxExp() { return _maxExp; }
 
+	void				UseSkill(int32 skillIndex);
+	void				OnDamaged(Pokemon* attacker);
 
 	void				AddHp(int32 hp);
 	void				AddExp(int32 exp);
@@ -62,8 +69,9 @@ private:
 	PokemonStat			_stat = {};				// 실제 스탯
 	int32				_level = 5;
 	int32				_hp = 10;
-	int32				_exp = 0;
-	int32				_maxExp = 10;
+	int32				_destHp = 10;
+	int32				_exp = 100;
+	int32				_maxExp = 1000;
 
 	PokemonInfo*		_info = {};
 	PokemonStat*		_baseStat = {};			// 종족치
