@@ -32,17 +32,24 @@ public:
 	Pokemon(int32 No);
 	virtual ~Pokemon() override;
 
-	virtual void	BeginPlay() override;
-	virtual void	Tick() override;
-	virtual void	Render(HDC hdc) override;
+	virtual void		BeginPlay() override;
+	virtual void		Tick() override;
+	virtual void		Render(HDC hdc) override;
 
-	virtual void	TickIdle() override;
-	virtual void	TickMove() override;
-	virtual void	TickBattle() override;
+	virtual void		TickIdle() override;
+	virtual void		TickMove() override;
+	virtual void		TickBattle() override;
 
-	virtual void	UpdateAnimation() override;
+	virtual void		UpdateAnimation() override;
 
-	void			SetIsMine(bool isMine) { _isMine = isMine; }
+	void				SetIsMine(bool isMine) { _isMine = isMine; }
+
+	const PokemonStat&	GetStat() { return _stat; }
+
+
+	void				AddHp(int32 hp);
+	void				AddExp(int32 exp);
+	void				LevelUp();
 
 private:
 	Flipbook*			_flipbookIdle[4] = {};
@@ -53,8 +60,8 @@ private:
 
 private:
 	PokemonStat			_stat = {};				// Ω«¡¶ Ω∫≈»
-	int32				_level = 1;
-	int32				_maxHp = 10;
+	int32				_level = 5;
+	int32				_hp = 10;
 	int32				_exp = 0;
 	int32				_maxExp = 10;
 

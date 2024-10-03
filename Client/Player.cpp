@@ -158,7 +158,7 @@ void Player::TickMove()
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
 	Vec2 dir = _destPos - _pos;
-	if (dir.Length() < 3.f)
+	if (dir.Length() < 1.f)
 	{
 		SetState(ObjectState::Idle);
 		_pos = _destPos;
@@ -188,7 +188,7 @@ void Player::TickRun()
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
 	Vec2 dir = _destPos - _pos;
-	if (dir.Length() < 3.f)
+	if (dir.Length() < 0.5f)
 	{
 		SetState(ObjectState::Idle);
 		_pos = _destPos;

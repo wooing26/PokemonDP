@@ -2,6 +2,7 @@
 #include "UI.h"
 
 class Sprite;
+class Pokemon;
 
 struct Status
 {
@@ -25,11 +26,15 @@ public:
 
 	void			SetIsMine(bool isMine) { _isMine = isMine; }
 
+	void			SetPokemon(Pokemon* pokemon) { _pokemon = pokemon; }
+
 	void			SetStatus(Status status) { _status = status; }
 	void			SetHp(int32 hp) { _status.hp = hp; }
 	void			SetExp(int32 exp) { _status.exp = exp; }
 
 private:
+	Pokemon*		_pokemon = nullptr;
+
 	Sprite*			_statusBar = nullptr;
 	Sprite*			_numbers[10] = {};
 	Sprite*			_expBar = nullptr;

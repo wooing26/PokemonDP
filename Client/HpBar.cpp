@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "Sprite.h"
+#include "Pokemon.h"
 
 HpBar::HpBar()
 {

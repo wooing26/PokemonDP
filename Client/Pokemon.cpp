@@ -68,9 +68,14 @@ void Pokemon::BeginPlay()
 	_level = 10;
 
 	// 최대 체력
-	_maxHp = ((2 * _baseStat->hp + 100) * _level / 100) + 10;
+	_stat.hp = ((2 * _baseStat->hp + 100) * _level / 100) + 10;
 
-	
+	// 실제 스탯
+	_stat.attack = ((2 * _baseStat->attack) * _level / 100 + 5);
+	_stat.defense = ((2 * _baseStat->defense) * _level / 100 + 5);
+	_stat.specialAttack = ((2 * _baseStat->specialAttack) * _level / 100 + 5);
+	_stat.specialDefense = ((2 * _baseStat->specialDefense) * _level / 100 + 5);
+	_stat.speed = ((2 * _baseStat->speed) * _level / 100 + 5);
 }
 
 void Pokemon::Tick()
@@ -96,5 +101,17 @@ void Pokemon::TickBattle()
 }
 
 void Pokemon::UpdateAnimation()
+{
+}
+
+void Pokemon::AddHp(int32 hp)
+{
+}
+
+void Pokemon::AddExp(int32 exp)
+{
+}
+
+void Pokemon::LevelUp()
 {
 }

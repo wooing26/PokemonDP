@@ -1,6 +1,8 @@
 #pragma once
 #include "Panel.h"
 
+class Pokemon;
+
 class BattlePanel : public Panel
 {
 	using Super = Panel;
@@ -11,5 +13,8 @@ public:
 	virtual void	BeginPlay() override;
 	virtual void	Tick() override;
 	virtual void	Render(HDC hdc) override;
+
+private:
+
 };
 
