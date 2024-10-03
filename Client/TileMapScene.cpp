@@ -340,7 +340,12 @@ void TileMapScene::SaveLoadTilemap()
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::E))
 	{
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_01", L"Sprite\\Tilemap\\Text\\Tilemap01.txt");
+		Tilemap* tm = _tilemapActor[0]->GetTilemap();
+		Vec2Int mapSize = tm->GetMapSize();
+
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_02", L"Sprite\\Tilemap\\Text\\Tilemap02.txt");
+		Tilemap* tm2 = _tilemapActor[1]->GetTilemap();
+		tm2->SetMapSize(mapSize);
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_03", L"Sprite\\Tilemap\\Text\\Tilemap03.txt");
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_04", L"Sprite\\Tilemap\\Text\\Tilemap04.txt");
 	}
