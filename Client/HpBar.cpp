@@ -61,21 +61,21 @@ void HpBar::Tick()
 	int32 exp = _pokemon->GetExp();
 	int32 maxExp = _pokemon->GetMaxExp();
 
-	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Left))
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Left))
 	{
 		if (hp > 0)
-			_pokemon->AddHp(-1);
+			_pokemon->AddHp(-100);
 
 		if (exp > 0)
-			_pokemon->AddExp(-1);
+			_pokemon->AddExp(-100);
 	}
-	else if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::Right))
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Right))
 	{
 		if (hp < maxHp)
-			_pokemon->AddHp(1);
+			_pokemon->AddHp(100);
 
 		if (exp < maxExp)
-			_pokemon->AddExp(1);
+			_pokemon->AddExp(100);
 	}
 
 

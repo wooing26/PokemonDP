@@ -68,9 +68,12 @@ private:
 private:
 	PokemonStat			_stat = {};				// Ω«¡¶ Ω∫≈»
 	int32				_level = 5;
+	
 	int32				_hp = 10;
 	int32				_destHp = 10;
-	int32				_exp = 100;
+
+	int32				_exp = 0;
+	int32				_destExp = 5000;
 	int32				_maxExp = 1000;
 
 	PokemonInfo*		_info = {};

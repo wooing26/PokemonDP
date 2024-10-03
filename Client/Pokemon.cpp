@@ -65,7 +65,7 @@ void Pokemon::BeginPlay()
 	SetSize({ 80 * 3, 80 * 3 });
 
 	// 레벨
-	_level = 10;
+	_level = 100;
 
 	// 최대 체력
 	_stat.hp = ((2 * _baseStat->hp + 100) * _level / 100) + 10;
@@ -78,12 +78,32 @@ void Pokemon::BeginPlay()
 	_stat.speed = ((2 * _baseStat->speed) * _level / 100 + 5);
 
 	// 필요 경험치
-	_maxExp = _level * _level * _level;
+	_maxExp = _level * _level;
+	_destExp = _maxExp;
 }
 
 void Pokemon::Tick()
 {
 	Super::Tick();
+
+	if (_hp > _destHp)
+		_hp--;
+	else if (_hp < _destHp)
+		_hp++;
+
+	if (_exp > _destExp)
+		_exp--;
+	else if (_exp < _destExp)
+	{
+		_exp += 100;
+		if (_exp > _destExp)
+			_exp = _destExp;
+		else if (_exp > _maxExp)
+			_exp = _maxExp;
+	}
+
+	if (_exp >= _maxExp)
+		int32 a = 3;
 }
 
 void Pokemon::Render(HDC hdc)
@@ -122,18 +142,19 @@ void Pokemon::OnDamaged(Pokemon* attacker)
 
 void Pokemon::AddHp(int32 hp)
 {
-	if (hp > _stat.hp - _hp)
-		_hp = _stat.hp;
-	else
-		_hp += hp;
+	_destHp += hp;
+	if (_destHp < 0)
+		_destHp = 0;
+	else if (_destHp > _stat.hp)
+		_destHp = _stat.hp;
 }
 
 void Pokemon::AddExp(int32 exp)
 {
-	if (exp > _maxExp - _exp)
-		_exp = _maxExp;
-	else
-		_exp += exp;
+	_destExp += exp;
+	if (_destExp < 0)
+		_destExp = 0;
+	
 }
 
 void Pokemon::LevelUp()
