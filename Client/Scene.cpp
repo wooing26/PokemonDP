@@ -86,7 +86,7 @@ void Scene::RemoveUI(std::shared_ptr<UI> ui)
 	_uis.erase(std::remove(_uis.begin(), _uis.end(), ui), _uis.end());
 }
 
-Vec2 Scene::ConverPos(Vec2Int cellPos)
+Vec2 Scene::ConvertPos(Vec2Int cellPos)
 {
 	Vec2 ret = {};
 

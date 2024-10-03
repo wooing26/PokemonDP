@@ -13,6 +13,8 @@ enum class KeyType
 	Space = VK_SPACE,
 	Enter = VK_RETURN,
 
+	LShift = VK_LSHIFT,
+
 	KEY_1 = '1',
 	KEY_2 = '2',
 	KEY_3 = '3',
@@ -31,6 +33,7 @@ enum class KeyType
 	E = 'E',
 	I = 'I',
 	T = 'T',
+	B = 'B',
 };
 
 enum class KeyState

@@ -2,6 +2,7 @@
 #include "FlipbookActor.h"
 #include "Flipbook.h"
 #include "TimeManager.h"
+#include "SceneManager.h"
 #include "Texture.h"
 
 FlipbookActor::FlipbookActor()
@@ -49,6 +50,7 @@ void FlipbookActor::Render(HDC hdc)
 	if (_flipbook == nullptr)
 		return;
 
+	Vec2 cameraPos = GET_SINGLE(SceneManager)->GetCameraPos();
 	const FlipbookInfo& info = _flipbook->GetInfo();
 
 	BLENDFUNCTION bf;
@@ -76,7 +78,8 @@ void FlipbookActor::SetFlipbook(Flipbook* flipbook)
 		return;
 
 	_flipbook = flipbook;
-	SetSize(flipbook->GetInfo().size);
+	Vec2Int size = flipbook->GetInfo().size;
+	SetSize(size * _sizeRatio);
 }
 
 void FlipbookActor::Reset()

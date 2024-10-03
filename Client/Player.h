@@ -32,5 +32,7 @@ private:
 
 	bool		_keyPressed = false;
 	bool		_onBicycle = false;
+
+	float		_speed = 100.f;
 };
 

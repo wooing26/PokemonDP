@@ -52,13 +52,13 @@ private:
 	bool				_isMine = true;
 
 private:
-	PokemonStat			_stat = {};
+	PokemonStat			_stat = {};				// 실제 스탯
 	int32				_level = 1;
 	int32				_maxHp = 10;
 	int32				_exp = 0;
 	int32				_maxExp = 10;
 
 	PokemonInfo*		_info = {};
-	PokemonStat*		_baseStat = {};
+	PokemonStat*		_baseStat = {};			// 종족치
 };
 

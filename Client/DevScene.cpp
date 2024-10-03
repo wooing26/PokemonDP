@@ -27,7 +27,11 @@ void DevScene::Init()
 	LoadPokemon();
 	LoadUI();
 
-	Player();
+	{
+		Player* player = new Player();
+		AddActor(player);
+	}
+	
 
 	Super::Init();
 }
@@ -43,10 +47,12 @@ void DevScene::Render(HDC hdc)
 
 void DevScene::AddActor(Actor* actor)
 {
+	Super::AddActor(actor);
 }
 
 void DevScene::RemoveActor(Actor* actor)
 {
+	Super::RemoveActor(actor);
 }
 
 void DevScene::LoadMap()
@@ -147,22 +153,22 @@ void DevScene::LoadPlayer()
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasUp");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LucasUp_BicycleIdle");
-		fb->SetInfo({ texture, L"FB_LucasUp_BicycleIdle", {32, 32}, 0, 0, 3, 0.5f });
+		fb->SetInfo({ texture, L"FB_LucasUp_BicycleIdle", {32, 32}, 0, 0, 3, 0.5f, false });
 	}
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasDown");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LucasDown_BicycleIdle");
-		fb->SetInfo({ texture, L"FB_LucasDown_BicycleIdle", {32, 32}, 0, 0, 3, 0.5f });
+		fb->SetInfo({ texture, L"FB_LucasDown_BicycleIdle", {32, 32}, 0, 0, 3, 0.5f, false });
 	}
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasLeft");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LucasLeft_BicycleIdle");
-		fb->SetInfo({ texture, L"FB_LucasLeft_BicycleIdle", {32, 32}, 0, 0, 3, 0.5f });
+		fb->SetInfo({ texture, L"FB_LucasLeft_BicycleIdle", {32, 32}, 0, 0, 3, 0.5f, false });
 	}
 	{
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"LucasRight");
 		Flipbook* fb = GET_SINGLE(ResourceManager)->CreateFlipbook(L"FB_LucasRight_BicycleIdle");
-		fb->SetInfo({ texture, L"FB_LucasRight_BicycleIdle", {32, 32}, 0, 0, 3, 0.5f });
+		fb->SetInfo({ texture, L"FB_LucasRight_BicycleIdle", {32, 32}, 0, 0, 3, 0.5f, false });
 	}
 }
 
