@@ -79,6 +79,33 @@ void Tilemap::SaveFile(const std::wstring& path)
 	}
 }
 
+void Tilemap::SaveLayer(const std::wstring& path)
+{
+	// C++ Ω∫≈∏¿œ
+	{
+		std::wofstream ofs;
+
+		ofs.open(path);
+
+		ofs << _mapSize.x << std::endl;
+		ofs << _mapSize.y << std::endl;
+
+		for (int32 y = 0; y < _mapSize.y; y++)
+		{
+			for (int32 x = 0; x < _mapSize.x; x++)
+			{
+				if (_tiles[y][x].x == -1 || _tiles[y][x].y == -1)
+					ofs << 0;
+				else
+					ofs << 1;
+			}
+			ofs << std::endl;
+		}
+
+		ofs.close();
+	}
+}
+
 void Tilemap::SetTileAll(Tile tile)
 {
 	for (int32 y = 0; y < _mapSize.y; y++)
@@ -119,6 +146,25 @@ void Tilemap::SetMapSize(Vec2Int size)
 			_tiles[y][x] = Tile();
 		}
 	}
+}
+
+void Tilemap::ResizeMap(Vec2Int size)
+{
+	std::vector<std::vector<Tile>> tiles = std::vector<std::vector<Tile>>(size.y, std::vector<Tile>(size.x));
+	for (int32 y = 0; y < size.y; y++)
+	{
+		for (int32 x = 0; x < size.x; x++)
+		{
+			if (x >= _mapSize.x || y >= _mapSize.y)
+				tiles[y][x] = Tile(Tilemap_TYPE::PLAT_Nature, -1, -1);
+			else
+				tiles[y][x] = _tiles[y][x];
+		}
+	}
+
+	_tiles.resize(size.y, std::vector<Tile>(size.x));
+	_tiles = tiles;
+	_mapSize = size;
 }
 
 void Tilemap::SetTileSize(int32 size)

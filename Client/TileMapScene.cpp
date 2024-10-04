@@ -334,6 +334,7 @@ void TileMapScene::SaveLoadTilemap()
 	{
 		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_01", L"Sprite\\Tilemap\\Text\\Tilemap01.txt");
 		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_02", L"Sprite\\Tilemap\\Text\\Tilemap02.txt");
+		GET_SINGLE(ResourceManager)->SaveTilemapLayer(L"Tilemap_02", L"Sprite\\Tilemap\\Text\\TilemapLayer.txt");
 		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_03", L"Sprite\\Tilemap\\Text\\Tilemap03.txt");
 		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_04", L"Sprite\\Tilemap\\Text\\Tilemap04.txt");
 	}
@@ -345,9 +346,13 @@ void TileMapScene::SaveLoadTilemap()
 
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_02", L"Sprite\\Tilemap\\Text\\Tilemap02.txt");
 		Tilemap* tm2 = _tilemapActor[1]->GetTilemap();
-		tm2->SetMapSize(mapSize);
+		tm2->ResizeMap(mapSize);
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_03", L"Sprite\\Tilemap\\Text\\Tilemap03.txt");
+		Tilemap* tm3 = _tilemapActor[2]->GetTilemap();
+		tm3->ResizeMap(mapSize);
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_04", L"Sprite\\Tilemap\\Text\\Tilemap04.txt");
+		Tilemap* tm4 = _tilemapActor[3]->GetTilemap();
+		tm4->ResizeMap(mapSize);
 	}
 }
 

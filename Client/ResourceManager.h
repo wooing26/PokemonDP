@@ -29,6 +29,7 @@ public:
 	Tilemap*			GetTilemap(const std::wstring& key) { return _tilemaps[key]; }
 	Tilemap*			CreateTilemap(const std::wstring& key);
 	void				SaveTilemap(const std::wstring& key, const std::wstring& path);
+	void				SaveTilemapLayer(const std::wstring& key, const std::wstring& path);
 	Tilemap*			LoadTilemap(const std::wstring& key, const std::wstring& path);
 
 

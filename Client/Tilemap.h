@@ -17,6 +17,7 @@ public:
 
 	virtual void					LoadFile(const std::wstring& path) override;
 	virtual void					SaveFile(const std::wstring& path) override;
+	void							SaveLayer(const std::wstring& path);
 
 	void							SetTileAll(Tile tile);
 	
@@ -27,6 +28,7 @@ public:
 	
 	void							SetMapSize(Vec2Int size);
 	Vec2Int							GetMapSize() { return _mapSize; }
+	void							ResizeMap(Vec2Int size);
 
 	void							SetTileSize(int32 size);
 	int32							GetTileSize() { return _tileSize; }

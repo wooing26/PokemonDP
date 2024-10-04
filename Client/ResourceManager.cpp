@@ -107,6 +107,14 @@ void ResourceManager::SaveTilemap(const std::wstring& key, const std::wstring& p
 	tm->SaveFile(fullPath);
 }
 
+void ResourceManager::SaveTilemapLayer(const std::wstring& key, const std::wstring& path)
+{
+	Tilemap* tm = GetTilemap(key);
+
+	fs::path fullPath = _resourcePath / path;
+	tm->SaveLayer(fullPath);
+}
+
 Tilemap* ResourceManager::LoadTilemap(const std::wstring& key, const std::wstring& path)
 {
 	Tilemap* tm = nullptr;
