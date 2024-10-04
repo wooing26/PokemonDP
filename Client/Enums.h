@@ -78,3 +78,12 @@ enum class PokeType
 
 	End
 };
+
+enum class SkillCategory
+{
+	Physical,
+	Special,
+	Status,
+
+	End
+};

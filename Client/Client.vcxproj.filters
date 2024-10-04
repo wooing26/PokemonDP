@@ -57,6 +57,9 @@
     <Filter Include="소스 파일\06. UI\Game">
       <UniqueIdentifier>{8ef3e779-1917-4680-a457-c51462ecabc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03. Objects\Game\Skill">
+      <UniqueIdentifier>{0f7d598a-968e-483d-8a31-8470f54ca483}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -194,6 +197,9 @@
     <ClInclude Include="DevScene.h">
       <Filter>소스 파일\02. Scene\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>소스 파일\03. Objects\Game\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -325,6 +331,9 @@
     </ClCompile>
     <ClCompile Include="DevScene.cpp">
       <Filter>소스 파일\02. Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>소스 파일\03. Objects\Game\Skill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

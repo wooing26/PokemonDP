@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "InfoManager.h"
 #include "Pokemon.h"
+#include "Skill.h"
 
 #include <iostream>
 #include <fstream>
@@ -36,12 +37,26 @@ void InfoManager::Init()
 		L"페어리",
 	};
 
+	const int32 size2 = static_cast<int32>(SkillCategory::End);
+	std::wstring categoryName[size2] =
+	{
+		L"물리",
+		L"특수",
+		L"변화"
+	};
+
 	for (int32 i = 0; i < size; i++)
 	{
 		_types[typeName[i]] = static_cast<PokeType>(i);
 	}
 
+	for (int32 i = 0; i < size2; i++)
+	{
+		_categories[categoryName[i]] = static_cast<SkillCategory>(i);
+	}
+
 	LoadPokemonInfo(L"..\\Resources\\Info\\PokemonInfo.csv");
+	LoadPokemonSkill(L"..\\Resources\\Info\\PokemonSkill.csv");
 }
 
 void InfoManager::Clear()
@@ -119,6 +134,67 @@ void InfoManager::LoadPokemonInfo(const std::wstring& path)
 	}
 }
 
+void InfoManager::LoadPokemonSkill(const std::wstring& path)
+{
+	_skills.resize(SkillMaxCount + 1);
+	// C++ 스타일
+	{
+		std::locale::global(std::locale("korean"));
+
+		std::wifstream ifs;
+
+		ifs.open(path);
+
+		for (int32 no = 1; no <= SkillMaxCount; no++)
+		{
+			std::wstring line;
+			ifs >> line;
+			int32 start = 4;
+			int32 end = line.find(L',', start);
+
+			_skills[no] = new SkillInfo();
+
+			// 기술 번호, 한글 이름
+			_skills[no]->No = std::stoi(line.substr(0, 3));
+			_skills[no]->name = line.substr(start, end - start);
+
+			// 타입
+			start = end + 1;
+			end = line.find(L',', start);
+			_skills[no]->type = _types[line.substr(start, end - start)];
+
+			// 분류
+			start = end + 1;
+			end = line.find(L',', start);
+			_skills[no]->category = _categories[line.substr(start, end - start)];
+
+			// 위력
+			start = end + 1;
+			end = line.find(L',', start);
+			_skills[no]->power = std::stoi(line.substr(start, end - start));
+
+			// 명중률
+			start = end + 1;
+			end = line.find(L',', start);
+			_skills[no]->accuracy = std::stoi(line.substr(start, end - start));
+
+			// pp
+			start = end + 1;
+			end = line.find(L',', start);
+			_skills[no]->maxPp = std::stoi(line.substr(start, end - start));
+
+			// 세대
+			start = end + 1;
+			_skills[no]->generation = line[start] - L'0';
+
+			// 컨디션 (포켓몬 콘테스트)
+			_skills[no]->condition = line.substr(start + 2);
+
+		}
+		ifs.close();
+	}
+}
+
 PokemonInfo* InfoManager::GetPokemonInfo(int32 pokeNum)
 {
 	if (pokeNum > PokemonMaxCount)
@@ -133,4 +209,9 @@ PokemonStat* InfoManager::GetPokemonStat(int32 pokeNum)
 		return nullptr;
 
 	return _stats[pokeNum];
+}
+
+PokemonStat* InfoManager::GetPokemonSkill(int32 skillNum)
+{
+	return nullptr;
 }
