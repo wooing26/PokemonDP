@@ -64,10 +64,10 @@ void Tilemap::SaveFile(const std::wstring& path)
 				ofs.width(2);
 				ofs.fill('0');
 				ofs << _tiles[y][x].type;
-				ofs.width(2);
+				ofs.width(3);
 				ofs.fill('0');
 				ofs << _tiles[y][x].y;
-				ofs.width(2);
+				ofs.width(3);
 				ofs.fill('0');
 				ofs << _tiles[y][x].x;
 			}
