@@ -30,6 +30,7 @@ public:
 	virtual void	UpdateAnimation() override;
 
 private:
+	SkillInfo*			_info = nullptr;
 	int32				_pp = 0;
 };
 
