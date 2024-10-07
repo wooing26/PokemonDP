@@ -158,7 +158,7 @@ void Player::TickMove()
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
 	Vec2 dir = _destPos - _pos;
-	if (dir.Length() < 1.f)
+	if (dir.Length() < 3.f)
 	{
 		SetState(ObjectState::Idle);
 		_pos = _destPos;
@@ -188,7 +188,7 @@ void Player::TickRun()
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
 	Vec2 dir = _destPos - _pos;
-	if (dir.Length() < 0.5f)
+	if (dir.Length() < 3.f)
 	{
 		SetState(ObjectState::Idle);
 		_pos = _destPos;
@@ -198,16 +198,16 @@ void Player::TickRun()
 		switch (_dir)
 		{
 		case DIR_Up:
-			_pos.y -= _speed * 2 * deltaTime;
+			_pos.y -= _speed * 1.5 * deltaTime;
 			break;
 		case DIR_Down:
-			_pos.y += _speed * 2 * deltaTime;
+			_pos.y += _speed * 1.5 * deltaTime;
 			break;
 		case DIR_Left:
-			_pos.x -= _speed * 2 * deltaTime;
+			_pos.x -= _speed * 1.5 * deltaTime;
 			break;
 		case DIR_Right:
-			_pos.x += _speed * 2 * deltaTime;
+			_pos.x += _speed * 1.5 * deltaTime;
 			break;
 		}
 	}
