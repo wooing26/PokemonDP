@@ -23,6 +23,8 @@ void Game::Init(HWND hwnd)
 	_hwnd = hwnd;
 	hdc = ::GetDC(hwnd);
 
+	std::srand(static_cast<uint32>(std::time(NULL)));
+
 	::GetClientRect(hwnd, &_rect);
 
 	hdcBack = ::CreateCompatibleDC(hdc);									// hdc와 호환되는 DC 생성

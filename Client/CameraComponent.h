@@ -5,11 +5,11 @@ class CameraComponent : public Component
 {
 public:
 	CameraComponent();
-	virtual ~CameraComponent();
+	virtual ~CameraComponent() override;
 
-	virtual void BeginPlay();
-	virtual void TickComponent();
-	virtual void Render(HDC hdc);
+	virtual void BeginPlay() override;
+	virtual void TickComponent() override;
+	virtual void Render(HDC hdc) override;
 
 
 };

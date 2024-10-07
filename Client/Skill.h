@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "Component.h"
 
 struct SkillInfo
 {
@@ -14,20 +14,21 @@ struct SkillInfo
 	std::wstring		condition = L"";
 };
 
-class Skill : public GameObject
+class Skill : public Component
 {
-	using Super = GameObject;
+	using Super = Component;
 public:
 	Skill();
+	Skill(int32 No);
 	virtual ~Skill() override;
 
-	virtual void	BeginPlay() override;
-	virtual void	Tick() override;
-	virtual void	Render(HDC hdc) override;
+	virtual void		BeginPlay() override;
+	virtual void		TickComponent() override;
+	virtual void		Render(HDC hdc) override;
 
-	virtual void	TickBattle() override;
-
-	virtual void	UpdateAnimation() override;
+	const SkillInfo*	GetSkillInfo() { return _info; }
+	PokeType			GetSkillType() { return _info->type; }
+	SkillCategory		GetSkillCategory() { return _info->category; }
 
 private:
 	SkillInfo*			_info = nullptr;

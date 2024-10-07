@@ -1,6 +1,8 @@
 #pragma once
 #include "Creature.h"
 
+class Skill;
+
 struct PokemonInfo
 {
 	int32			No = 0;
@@ -52,11 +54,14 @@ public:
 	int32				GetMaxExp() { return _maxExp; }
 
 	void				UseSkill(int32 skillIndex);
-	void				OnDamaged(Pokemon* attacker);
+	void				OnDamaged(Pokemon* attacker, Skill* skill);
 
 	void				AddHp(int32 hp);
 	void				AddExp(int32 exp);
 	void				LevelUp();
+
+	void				AddSkill(Skill* skill);
+	void				RemoveSkill(int32 skillIndex);
 
 private:
 	Flipbook*			_flipbookIdle[4] = {};
@@ -78,5 +83,8 @@ private:
 
 	PokemonInfo*		_info = {};
 	PokemonStat*		_baseStat = {};			// Á¾Á·Ä¡
+
+	Pokemon*			_target = nullptr;
+	Skill*				_skills[4] = {};
 };
 

@@ -3,6 +3,7 @@
 #include "InfoManager.h"
 #include "ResourceManager.h"
 #include "Flipbook.h"
+#include "Skill.h"
 
 Pokemon::Pokemon()
 {
@@ -134,10 +135,56 @@ const std::wstring& Pokemon::GetName()
 
 void Pokemon::UseSkill(int32 skillIndex)
 {
+	// 상대방이 없으면 취소
+	if (_target == nullptr)
+		return;
+
+	// 스킬 최대 보유 수보다 많으면 취소
+	if (skillIndex >= 4)
+		return;
+
+	_target->OnDamaged(this, _skills[skillIndex]);
 }
 
-void Pokemon::OnDamaged(Pokemon* attacker)
+void Pokemon::OnDamaged(Pokemon* attacker, Skill* skill)
 {
+	const SkillInfo* info = skill->GetSkillInfo();
+
+	// 명중률 계산
+	int32 accuracy = std::rand() % 100 + 1;
+	if (accuracy > info->accuracy)
+		return;
+	
+	//(데미지 = (위력 × 공격 ×(레벨 × 2 ÷ 5 + 2) ÷ 방어 ÷ 50 × [[급소]] + 2)
+	// × [[자속 보정]] × 타입상성1 × 타입상성2 × 랜덤수 / 255)
+
+	// 급소 계산
+	int32 criticalRate = std::rand() % 100 + 1;
+	if (criticalRate <= 12)
+		criticalRate = 2;
+	else
+		criticalRate = 1;
+
+	// 공격력 및 방어력 계산
+	PokemonStat attackerStat = attacker->GetStat();
+	int32 attack, defense;
+	switch (info->category)
+	{
+	case SkillCategory::Physical:
+		attack = attackerStat.attack;
+		defense = _stat.defense;
+		break;
+	case SkillCategory::Special:
+		attack = attackerStat.attack;
+		defense = _stat.defense;
+		break;
+	case SkillCategory::Status:
+		break;
+	}
+
+	int32 damage = info->power * attack * (attacker->GetLevel() * 2 / 5 + 2) / defense / 50;
+	damage = damage * criticalRate + 2;
+
 }
 
 void Pokemon::AddHp(int32 hp)
@@ -173,4 +220,27 @@ void Pokemon::LevelUp()
 
 	// 필요 경험치
 	_maxExp = _level * _level * _level;
+}
+
+void Pokemon::AddSkill(Skill* skill)
+{
+	// 비어있는 스킬 인덱스 찾기
+	int32 skillIndex = 0;
+	while (_skills[skillIndex] != nullptr)
+		skillIndex++;
+
+	// 최대 스킬 보유 수보다 작으면 해당 인덱스에 스킬 할당
+	if (skillIndex < 4)
+		_skills[skillIndex] = skill;
+}
+
+void Pokemon::RemoveSkill(int32 skillIndex)
+{
+	if (skillIndex >= 4)
+		return;
+
+	if (_skills[skillIndex] == nullptr)
+		return;
+
+	SAFE_DELETE(_skills[skillIndex]);
 }

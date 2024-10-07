@@ -13,6 +13,7 @@ InfoManager::~InfoManager()
 
 void InfoManager::Init()
 {
+	// 한글 이름으로 포켓몬 타입 변환
 	const int32 size = static_cast<int32>(PokeType::End);
 	std::wstring typeName[size] =
 	{
@@ -37,6 +38,7 @@ void InfoManager::Init()
 		L"페어리",
 	};
 
+	// 한글 이름으로 기술 카테고리 변환
 	const int32 size2 = static_cast<int32>(SkillCategory::End);
 	std::wstring categoryName[size2] =
 	{
@@ -45,11 +47,13 @@ void InfoManager::Init()
 		L"변화"
 	};
 
+	// map으로 포켓몬 타입을 변환하기 위한 세팅
 	for (int32 i = 0; i < size; i++)
 	{
 		_types[typeName[i]] = static_cast<PokeType>(i);
 	}
 
+	// map으로 기술 카테고리를 변환하기 위한 세팅
 	for (int32 i = 0; i < size2; i++)
 	{
 		_categories[categoryName[i]] = static_cast<SkillCategory>(i);
@@ -57,6 +61,8 @@ void InfoManager::Init()
 
 	LoadPokemonInfo(L"..\\Resources\\Info\\PokemonInfo.csv");
 	LoadPokemonSkill(L"..\\Resources\\Info\\PokemonSkill.csv");
+
+	SetTypeChart();
 }
 
 void InfoManager::Clear()
@@ -211,7 +217,41 @@ PokemonStat* InfoManager::GetPokemonStat(int32 pokeNum)
 	return _stats[pokeNum];
 }
 
-PokemonStat* InfoManager::GetPokemonSkill(int32 skillNum)
+SkillInfo* InfoManager::GetPokemonSkill(int32 skillNum)
 {
 	return nullptr;
+}
+
+void InfoManager::SetTypeChart()
+{
+	_typeChart =
+	{
+		{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f},
+		{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.5f, 1.0f},
+		{1.0f, 1.0f, 0.5f, 0.5f, 2.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 1.0f, 0.5f, 1.0f, 2.0f, 1.0f},
+		{1.0f, 1.0f, 2.0f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f},
+		{1.0f, 1.0f, 0.5f, 2.0f, 0.5f, 1.0f, 1.0f, 1.0f, 0.5f, 2.0f, 0.5f, 1.0f, 0.5f, 2.0f, 1.0f, 0.5f, 1.0f, 0.5f, 1.0f},
+		{1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f},
+		{1.0f, 1.0f, 0.5f, 0.5f, 2.0f, 1.0f, 0.5f, 1.0f, 1.0f, 2.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f},
+		{1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f, 0.5f, 0.5f, 0.5f, 2.0f, 0.0f, 1.0f, 2.0f, 2.0f, 0.5f},
+		{1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f, 2.0f},
+		{1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 2.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.0f, 1.0f, 0.5f, 2.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f},
+		{1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f},
+		{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.5f, 1.0f},
+		{1.0f, 1.0f, 0.5f, 1.0f, 2.0f, 1.0f, 1.0f, 0.5f, 0.5f, 1.0f, 0.5f, 2.0f, 1.0f, 1.0f, 0.5f, 1.0f, 2.0f, 0.5f, 0.5f},
+		{1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 1.0f, 0.5f, 2.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f},
+		{1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f, 1.0f},
+		{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 0.0f},
+		{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 2.0f, 1.0f, 0.5f, 1.0f, 0.5f},
+		{1.0f, 1.0f, 0.5f, 0.5f, 1.0f, 0.5f, 2.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f, 1.0f, 0.5f, 2.0f},
+		{1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 0.5f, 1.0f},
+	};
+}
+
+float InfoManager::GetTypeEffectiveness(PokeType attackType, PokeType defenseType)
+{
+	if (attackType == PokeType::End || defenseType == PokeType::End)
+		return 0.0f;
+
+	return _typeChart[static_cast<int32>(attackType)][static_cast<int32>(defenseType)];
 }

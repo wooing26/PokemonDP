@@ -54,7 +54,7 @@ enum class ObjectState
 	Bag
 };
 
-enum class PokeType
+enum class PokeType : int32
 {
 	None,
 	Normal,

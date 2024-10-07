@@ -25,7 +25,10 @@ public:
 
 	PokemonInfo*		GetPokemonInfo(int32 pokeNum);
 	PokemonStat*		GetPokemonStat(int32 pokeNum);
-	PokemonStat*		GetPokemonSkill(int32 skillNum);
+	SkillInfo*			GetPokemonSkill(int32 skillNum);
+
+	void				SetTypeChart();
+	float				GetTypeEffectiveness(PokeType attackType, PokeType defenseType);
 
 private:
 	std::vector<PokemonInfo*>				_infos = {};
@@ -34,5 +37,7 @@ private:
 
 	std::map<std::wstring, PokeType>		_types;
 	std::map<std::wstring, SkillCategory>	_categories;
+
+	std::vector<std::vector<float>>			_typeChart = {};
 };
 
