@@ -31,6 +31,7 @@ public:
 	void				SaveTilemap(const std::wstring& key, const std::wstring& path);
 	void				SaveTilemapLayer(const std::wstring& key, const std::wstring& path);
 	Tilemap*			LoadTilemap(const std::wstring& key, const std::wstring& path);
+	Tilemap*			LoadTilemapOld(const std::wstring& key, const std::wstring& path);
 
 
 private:

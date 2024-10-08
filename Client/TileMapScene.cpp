@@ -152,7 +152,7 @@ void TileMapScene::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
-	// Tilemap Layer 1 이미지 추출
+	// Tilemap 선택 Layer 이미지 추출
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::I))
 	{
 		Tilemap* tm = _tilemapActor[_selectedLayer]->GetTilemap();
@@ -334,9 +334,9 @@ void TileMapScene::SaveLoadTilemap()
 	{
 		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_01", L"Sprite\\Tilemap\\Text\\Tilemap01.txt");
 		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_02", L"Sprite\\Tilemap\\Text\\Tilemap02.txt");
-		GET_SINGLE(ResourceManager)->SaveTilemapLayer(L"Tilemap_02", L"Sprite\\Tilemap\\Text\\TilemapLayer.txt");
 		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_03", L"Sprite\\Tilemap\\Text\\Tilemap03.txt");
 		GET_SINGLE(ResourceManager)->SaveTilemap(L"Tilemap_04", L"Sprite\\Tilemap\\Text\\Tilemap04.txt");
+		GET_SINGLE(ResourceManager)->SaveTilemapLayer(L"Tilemap_03", L"Sprite\\Tilemap\\Text\\TilemapLayer.txt");
 	}
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::E))
 	{
@@ -351,6 +351,22 @@ void TileMapScene::SaveLoadTilemap()
 		Tilemap* tm3 = _tilemapActor[2]->GetTilemap();
 		tm3->ResizeMap(mapSize);
 		GET_SINGLE(ResourceManager)->LoadTilemap(L"Tilemap_04", L"Sprite\\Tilemap\\Text\\Tilemap04.txt");
+		Tilemap* tm4 = _tilemapActor[3]->GetTilemap();
+		tm4->ResizeMap(mapSize);
+	}
+	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::B))
+	{
+		GET_SINGLE(ResourceManager)->LoadTilemapOld(L"Tilemap_01", L"Sprite\\Tilemap\\Text\\Tilemap01.txt");
+		Tilemap* tm = _tilemapActor[0]->GetTilemap();
+		Vec2Int mapSize = tm->GetMapSize();
+
+		GET_SINGLE(ResourceManager)->LoadTilemapOld(L"Tilemap_02", L"Sprite\\Tilemap\\Text\\Tilemap02.txt");
+		Tilemap* tm2 = _tilemapActor[1]->GetTilemap();
+		tm2->ResizeMap(mapSize);
+		GET_SINGLE(ResourceManager)->LoadTilemapOld(L"Tilemap_03", L"Sprite\\Tilemap\\Text\\Tilemap03.txt");
+		Tilemap* tm3 = _tilemapActor[2]->GetTilemap();
+		tm3->ResizeMap(mapSize);
+		GET_SINGLE(ResourceManager)->LoadTilemapOld(L"Tilemap_04", L"Sprite\\Tilemap\\Text\\Tilemap04.txt");
 		Tilemap* tm4 = _tilemapActor[3]->GetTilemap();
 		tm4->ResizeMap(mapSize);
 	}

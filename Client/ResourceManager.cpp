@@ -129,3 +129,18 @@ Tilemap* ResourceManager::LoadTilemap(const std::wstring& key, const std::wstrin
 
 	return tm;
 }
+
+Tilemap* ResourceManager::LoadTilemapOld(const std::wstring& key, const std::wstring& path)
+{
+	Tilemap* tm = nullptr;
+
+	if (_tilemaps.find(key) == _tilemaps.end())
+		_tilemaps[key] = new Tilemap();
+
+	tm = _tilemaps[key];
+
+	fs::path fullPath = _resourcePath / path;
+	tm->LoadFileOld(fullPath);
+
+	return tm;
+}

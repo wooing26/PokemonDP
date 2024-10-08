@@ -32,11 +32,19 @@ void Tilemap::LoadFile(const std::wstring& path)
 
 			for (int32 x = 0; x < _mapSize.x; x++)
 			{
-				std::wstring data = line.substr(x * 6, 6);
+				std::wstring data = line.substr(x * 8, 8);
 				
 				_tiles[y][x].type = static_cast<Tilemap_TYPE>(std::stoi(data.substr(0, 2)));
-				_tiles[y][x].y = std::stoi(data.substr(2, 2));
-				_tiles[y][x].x = std::stoi(data.substr(4, 2));
+				if (data.find(L'-') != std::wstring::npos)
+				{
+					_tiles[y][x].y = -1;
+					_tiles[y][x].x = -1;
+				}
+				else
+				{
+					_tiles[y][x].y = std::stoi(data.substr(2, 3));
+					_tiles[y][x].x = std::stoi(data.substr(5, 3));
+				}
 			}
 		}
 
@@ -76,6 +84,37 @@ void Tilemap::SaveFile(const std::wstring& path)
 		}
 
 		ofs.close();
+	}
+}
+
+void Tilemap::LoadFileOld(const std::wstring& path)
+{
+	// C++ ½ºÅ¸ÀÏ
+	{
+		std::wifstream ifs;
+
+		ifs.open(path);
+
+		ifs >> _mapSize.x >> _mapSize.y;
+
+		SetMapSize(_mapSize);
+
+		for (int32 y = 0; y < _mapSize.y; y++)
+		{
+			std::wstring line;
+			ifs >> line;
+
+			for (int32 x = 0; x < _mapSize.x; x++)
+			{
+				std::wstring data = line.substr(x * 6, 6);
+
+				_tiles[y][x].type = static_cast<Tilemap_TYPE>(std::stoi(data.substr(0, 2)));
+				_tiles[y][x].y = std::stoi(data.substr(2, 2));
+				_tiles[y][x].x = std::stoi(data.substr(4, 2));
+			}
+		}
+
+		ifs.close();
 	}
 }
 

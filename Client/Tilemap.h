@@ -17,6 +17,7 @@ public:
 
 	virtual void					LoadFile(const std::wstring& path) override;
 	virtual void					SaveFile(const std::wstring& path) override;
+	void							LoadFileOld(const std::wstring& path);
 	void							SaveLayer(const std::wstring& path);
 
 	void							SetTileAll(Tile tile);
