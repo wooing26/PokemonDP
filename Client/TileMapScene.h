@@ -47,5 +47,6 @@ private:
 
 	std::shared_ptr<class LayerPanel>		_layerPanel = nullptr;
 	int32									_selectedLayer = 0;
+	bool									_isTileGroup = false;
 };
 

@@ -135,9 +135,12 @@ void TileMapScene::Update()
 		_cameraPos.x += _speed * deltaTime;
 	}
 
+	// Select Tile Group or Each
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Wave))
+		_isTileGroup = !_isTileGroup;
+
 	// Edit Tilemap
 	EditTilemap();
-	
 	
 	// Save or Load Tilemap
 	SaveLoadTilemap();
@@ -173,7 +176,7 @@ void TileMapScene::Render(HDC hdc)
 		tilePos *= _tileSize;
 		tilePos.x = tilePos.x + pos.x;
 		tilePos.y = tilePos.y + pos.y;
-		if (_tilemapType == Tilemap_TYPE::Tree)
+		if (_isTileGroup)
 		{
 			tilePos.x += _tileSize;
 			tilePos.y += _tileSize;
@@ -316,7 +319,7 @@ void TileMapScene::EditTilemap()
 	{
 		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LeftMouse))
 		{
-			if (_tilemapType == Tilemap_TYPE::Tree)
+			if (_isTileGroup)
 			{
 				_tilemapActor[_selectedLayer]->SetTileGroup({ _tilemapType,_selectedTilePos.x, _selectedTilePos.y }, {2, 2});
 			}

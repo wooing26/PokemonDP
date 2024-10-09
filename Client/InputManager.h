@@ -14,6 +14,7 @@ enum class KeyType
 	Enter = VK_RETURN,
 
 	LShift = VK_LSHIFT,
+	Wave = VK_OEM_3,
 
 	KEY_1 = '1',
 	KEY_2 = '2',
