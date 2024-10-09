@@ -66,7 +66,7 @@ void Pokemon::BeginPlay()
 	SetSize({ 80 * 3, 80 * 3 });
 
 	// 레벨
-	_level = 100;
+	_level = 10;
 
 	// 최대 체력
 	_stat.hp = ((2 * _baseStat->hp + 100) * _level / 100) + 10;
@@ -96,7 +96,7 @@ void Pokemon::Tick()
 		_exp--;
 	else if (_exp < _destExp)
 	{
-		_exp += 100;
+		_exp += 10;
 		if (_exp > _destExp)
 			_exp = _destExp;
 		else if (_exp > _maxExp)
@@ -175,8 +175,8 @@ void Pokemon::OnDamaged(Pokemon* attacker, Skill* skill)
 		defense = _stat.defense;
 		break;
 	case SkillCategory::Special:
-		attack = attackerStat.attack;
-		defense = _stat.defense;
+		attack = attackerStat.specialAttack;
+		defense = _stat.specialDefense;
 		break;
 	case SkillCategory::Status:
 		break;
