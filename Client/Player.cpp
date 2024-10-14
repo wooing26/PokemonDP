@@ -223,7 +223,12 @@ void Player::UpdateAnimation()
 	{
 	case ObjectState::Idle:
 		if (_keyPressed)
-			SetFlipbook(_flipbookMove[_dir]);
+		{
+			if (_onBicycle)
+				SetFlipbook(_flipbookBicycle[_dir]);
+			else
+				SetFlipbook(_flipbookMove[_dir]);
+		}
 		else
 		{
 			if (_onBicycle)

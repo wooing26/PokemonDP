@@ -74,12 +74,18 @@ void FlipbookActor::Render(HDC hdc)
 
 void FlipbookActor::SetFlipbook(Flipbook* flipbook)
 {
+	// null 체크
 	if (flipbook == nullptr)
+		return;
+
+	// 같은 flipbook이라면 넘어가기
+	if (_flipbook == flipbook)
 		return;
 
 	_flipbook = flipbook;
 	Vec2Int size = flipbook->GetInfo().size;
 	SetSize(size * _sizeRatio);
+	Reset();
 }
 
 void FlipbookActor::Reset()
