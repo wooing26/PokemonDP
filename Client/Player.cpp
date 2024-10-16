@@ -77,13 +77,19 @@ void Player::TickIdle()
 		_speed = 400 - _speed;
 	}
 
+	// 달리기 모드 변경
+	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LShift))
+		_isRunState = true;
+	else
+		_isRunState = false;
+
 	// 이동
 	if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::W))
 	{
 		SetDir(DIR_Up);
 
 		Vec2Int nextPos = _cellPos + deltaXY[_dir];
-		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LShift))
+		if (_isRunState)
 		{
 			// 달리기
 			SetCellPos(nextPos);
@@ -101,7 +107,7 @@ void Player::TickIdle()
 		SetDir(DIR_Down);
 
 		Vec2Int nextPos = _cellPos + deltaXY[_dir];
-		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LShift))
+		if (_isRunState)
 		{
 			SetCellPos(nextPos);
 			SetState(ObjectState::Run);
@@ -117,7 +123,7 @@ void Player::TickIdle()
 		SetDir(DIR_Left);
 
 		Vec2Int nextPos = _cellPos + deltaXY[_dir];
-		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LShift))
+		if (_isRunState)
 		{
 			SetCellPos(nextPos);
 			SetState(ObjectState::Run);
@@ -133,7 +139,7 @@ void Player::TickIdle()
 		SetDir(DIR_Right);
 
 		Vec2Int nextPos = _cellPos + deltaXY[_dir];
-		if (GET_SINGLE(InputManager)->GetButtonPress(KeyType::LShift))
+		if (_isRunState)
 		{
 			SetCellPos(nextPos);
 			SetState(ObjectState::Run);
@@ -226,6 +232,8 @@ void Player::UpdateAnimation()
 		{
 			if (_onBicycle)
 				SetFlipbook(_flipbookBicycle[_dir]);
+			else if (_isRunState)
+				SetFlipbook(_flipbookRun[_dir]);
 			else
 				SetFlipbook(_flipbookMove[_dir]);
 		}
