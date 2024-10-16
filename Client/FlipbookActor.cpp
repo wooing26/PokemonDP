@@ -93,3 +93,10 @@ void FlipbookActor::Reset()
 	_sumTime = 0.f;
 	_idx = 0;
 }
+
+void FlipbookActor::SetSizeRatio(int32 ratio)
+{
+	_sizeRatio = ratio;
+	Vec2Int size = _flipbook->GetInfo().size;
+	SetSize(size * _sizeRatio);
+}

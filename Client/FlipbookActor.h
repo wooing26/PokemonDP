@@ -17,7 +17,7 @@ public:
 	void			SetFlipbook(Flipbook* flipbook);
 	void			Reset();
 
-	void			SetSizeRatio(int32 ratio) { _sizeRatio = ratio; }
+	void			SetSizeRatio(int32 ratio);
 
 private:
 	Flipbook*	_flipbook = nullptr;
