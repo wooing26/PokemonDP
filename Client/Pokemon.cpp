@@ -66,7 +66,7 @@ void Pokemon::BeginPlay()
 	SetSize({ 80 * 3, 80 * 3 });
 
 	// 레벨
-	_level = 10;
+	_level = 100;
 
 	// 최대 체력
 	_stat.hp = ((2 * _baseStat->hp + 100) * _level / 100) + 10;

@@ -64,7 +64,7 @@ void HpBar::Tick()
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Left))
 	{
 		if (hp > 0)
-			_pokemon->AddHp(-100);
+			_pokemon->AddHp(-10);
 
 		if (exp > 0)
 			_pokemon->AddExp(-100);
@@ -72,7 +72,7 @@ void HpBar::Tick()
 	else if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Right))
 	{
 		if (hp < maxHp)
-			_pokemon->AddHp(100);
+			_pokemon->AddHp(10);
 
 		if (exp < maxExp)
 			_pokemon->AddExp(100);
