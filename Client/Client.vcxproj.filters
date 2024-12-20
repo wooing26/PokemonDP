@@ -60,6 +60,9 @@
     <Filter Include="소스 파일\05. Component\Skill">
       <UniqueIdentifier>{e62436a4-2bf2-4cdb-87bc-52ac81ee424f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03. Objects\Game\Background">
+      <UniqueIdentifier>{a5acd481-1cc9-476a-b7fc-640da087d3fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -200,6 +203,9 @@
     <ClInclude Include="Skill.h">
       <Filter>소스 파일\05. Component\Skill</Filter>
     </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>소스 파일\03. Objects\Game\Background</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -334,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="Skill.cpp">
       <Filter>소스 파일\05. Component\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>소스 파일\03. Objects\Game\Background</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,34 +9,44 @@ struct Tile
 	int32			y = 0;
 };
 
+enum
+{
+	MAX_LAYER = 4
+};
+
 class Tilemap : public ResourceBase
 {
 public:
 	Tilemap();
 	virtual ~Tilemap() override;
 
-	virtual void					LoadFile(const std::wstring& path) override;
-	virtual void					SaveFile(const std::wstring& path) override;
-	void							LoadFileOld(const std::wstring& path);
-	void							SaveLayer(const std::wstring& path);
-
-	void							SetTileAll(Tile tile);
+	virtual void							LoadFile(const std::wstring& path) override;
+	virtual void							SaveFile(const std::wstring& path) override;
+	void									LoadFileOld(const std::wstring& path);
+	void									SaveLayer(const std::wstring& path);
 	
-	void							SetTileAt(Tile tile, Vec2Int pos);
-	Tile*							GetTileAt(Vec2Int pos);
+	void									SaveAllLayers(const std::wstring& path, std::vector<Tilemap>& layers);
+	void									LoadAllLayers(const std::wstring& path, std::vector<Tilemap>& layers);
 
-	std::vector<std::vector<Tile>>&	GetTiles() { return _tiles; };
+	void									SetTileAll(Tile tile);
 	
-	void							SetMapSize(Vec2Int size);
-	Vec2Int							GetMapSize() { return _mapSize; }
-	void							ResizeMap(Vec2Int size);
+	void									SetTileAt(Tile tile, Vec2Int pos);
+	Tile*									GetTileAt(Vec2Int pos);
 
-	void							SetTileSize(int32 size);
-	int32							GetTileSize() { return _tileSize; }
+	std::vector<std::vector<Tile>>&			GetTiles() { return _tiles; };
+	
+	void									SetMapSize(Vec2Int size);
+	Vec2Int									GetMapSize() { return _mapSize; }
+	void									ResizeMap(Vec2Int size);
+
+	void									SetTileSize(int32 size);
+	int32									GetTileSize() { return _tileSize; }
 
 private:
-	Vec2Int							_mapSize = {};
-	int32							_tileSize = {};
-	std::vector<std::vector<Tile>>	_tiles;
+	Vec2Int									_mapSize = {};
+	int32									_tileSize = {};
+	std::vector<std::vector<Tile>>			_tiles;
+
+	int32									_selectedLayer = 0;
 };
 

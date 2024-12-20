@@ -145,6 +145,92 @@ void Tilemap::SaveLayer(const std::wstring& path)
 	}
 }
 
+void Tilemap::SaveAllLayers(const std::wstring& path, std::vector<Tilemap>& layers)
+{
+	// C++ 스타일
+	{
+		std::wofstream ofs;
+
+		ofs.open(path);
+
+		ofs << layers.size() << std::endl;
+
+		ofs << _mapSize.x << std::endl;
+		ofs << _mapSize.y << std::endl;
+		for (Tilemap& layer : layers)
+		{
+			std::vector<std::vector<Tile>>& tiles = layer.GetTiles();
+			for (int32 y = 0; y < _mapSize.y; y++)
+			{
+				for (int32 x = 0; x < _mapSize.x; x++)
+				{
+					ofs.width(2);
+					ofs.fill('0');
+					ofs << tiles[y][x].type;
+					ofs.width(3);
+					ofs.fill('0');
+					ofs << tiles[y][x].y;
+					ofs.width(3);
+					ofs.fill('0');
+					ofs << tiles[y][x].x;
+				}
+
+				ofs << std::endl;
+			}
+			ofs << std::endl;
+		}
+
+		ofs.close();
+	}
+}
+
+void Tilemap::LoadAllLayers(const std::wstring& path, std::vector<Tilemap>& layers)
+{
+	// C++ 스타일
+	{
+		std::wifstream ifs;
+
+		ifs.open(path);
+		
+		int32 layerSize;
+		ifs >> layerSize;
+
+		ifs >> _mapSize.x >> _mapSize.y;
+
+		SetMapSize(_mapSize);
+
+		for (Tilemap& layer : layers)
+		{
+			std::vector<std::vector<Tile>>& tiles = layer.GetTiles();
+			for (int32 y = 0; y < _mapSize.y; y++)
+			{
+				std::wstring line;
+				ifs >> line;
+
+				for (int32 x = 0; x < _mapSize.x; x++)
+				{
+					std::wstring data = line.substr(x * 8, 8);
+
+					tiles[y][x].type = static_cast<Tilemap_TYPE>(std::stoi(data.substr(0, 2)));
+					if (data.find(L'-') != std::wstring::npos)
+					{
+						tiles[y][x].y = -1;
+						tiles[y][x].x = -1;
+					}
+					else
+					{
+						tiles[y][x].y = std::stoi(data.substr(2, 3));
+						tiles[y][x].x = std::stoi(data.substr(5, 3));
+					}
+				}
+			}
+
+		}
+
+		ifs.close();
+	}
+}
+
 void Tilemap::SetTileAll(Tile tile)
 {
 	for (int32 y = 0; y < _mapSize.y; y++)

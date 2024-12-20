@@ -26,6 +26,7 @@ public:
 	void			EditTilemap();
 	
 	void			SaveLoadTilemap();
+	
 
 	void			ChangeSprite();
 	void			ChangeSelectedSprite(class Sprite* sprite);

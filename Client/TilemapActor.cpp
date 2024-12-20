@@ -67,7 +67,7 @@ void TilemapActor::Render(HDC hdc)
 
 	const Vec2Int mapSize = _tilemap->GetMapSize();
 
-	std::vector<std::vector<Tile>>& tiles = _tilemap->GetTiles();
+	const std::vector<std::vector<Tile>>& tiles = _tilemap->GetTiles();
 
 	
 
