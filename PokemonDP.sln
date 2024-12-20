@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{4E2AD90A-E7A1-4ACE-8B01-6799F32A1EA9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TilemapEditor", "TilemapEditor\TilemapEditor.vcxproj", "{608C5DFE-4901-42E3-8367-3A8EA30E3960}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{4E2AD90A-E7A1-4ACE-8B01-6799F32A1EA9}.Release|x64.Build.0 = Release|x64
 		{4E2AD90A-E7A1-4ACE-8B01-6799F32A1EA9}.Release|x86.ActiveCfg = Release|Win32
 		{4E2AD90A-E7A1-4ACE-8B01-6799F32A1EA9}.Release|x86.Build.0 = Release|Win32
+		{608C5DFE-4901-42E3-8367-3A8EA30E3960}.Debug|x64.ActiveCfg = Debug|x64
+		{608C5DFE-4901-42E3-8367-3A8EA30E3960}.Debug|x64.Build.0 = Debug|x64
+		{608C5DFE-4901-42E3-8367-3A8EA30E3960}.Debug|x86.ActiveCfg = Debug|Win32
+		{608C5DFE-4901-42E3-8367-3A8EA30E3960}.Debug|x86.Build.0 = Debug|Win32
+		{608C5DFE-4901-42E3-8367-3A8EA30E3960}.Release|x64.ActiveCfg = Release|x64
+		{608C5DFE-4901-42E3-8367-3A8EA30E3960}.Release|x64.Build.0 = Release|x64
+		{608C5DFE-4901-42E3-8367-3A8EA30E3960}.Release|x86.ActiveCfg = Release|Win32
+		{608C5DFE-4901-42E3-8367-3A8EA30E3960}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
